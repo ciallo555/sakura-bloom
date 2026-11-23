@@ -4,7 +4,7 @@ from dataclasses import replace
 
 from generate_resources import MOD
 from timber_architecture import (AIR, awning, basin, bed, boulder, close_eaves, curtain, deck, ground,
-                                 hanging_cloth, indoor_stairs, pave, pine, pond, rail, roof, stone_light, tatami, wall)
+                                 hanging_cloth, pave, pine, pond, rail, roof, stone_light, tatami, wall)
 
 
 def threshold(b, x, width, stairs, paving):
@@ -66,8 +66,7 @@ def dyehouse(b, theme):
         b.place(x, 9, 16, "minecraft:"+color+"_wool")
     b.fill((5, 11, 13), (17, 11, 13), t.timber("stripped_log"), axis="x")
     b.place(10, 10, 13, f"{MOD}:silk_palace_lantern", hanging="true")
-    rail(b, t, 7, 13, "z", 3, 8)
-    indoor_stairs(b, t, 5, 3, 12, 4, "south")
+    b.fill((5, 4, 14), (5, 8, 14), "minecraft:ladder", facing="east")
     # Bolt racks dry at the back, clear of the occupied shopfront.
     pave(b, 7, 19, 19, 24, "packed_mud")
     for z, colors in ((20, ("blue","cyan","light_blue")), (24, ("red","magenta","pink"))):

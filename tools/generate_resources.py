@@ -1059,23 +1059,23 @@ def cherry_chest(jar, variety, names, zh, en):
 def travel_charms(zh, en):
     charms = {
         "shidare_wind_bell": ("belt", "枝垂风铃坠", "Weeping Cherry Wind Bell",
-            "移动速度 +15%%，安全摔落距离 +6 格。", "+15%% movement speed and +6 blocks of safe fall distance."),
+            [("+15%% 移动速度", "+15%% movement speed"), ("免疫摔落伤害", "Immune to fall damage")]),
         "yae_knot_charm": ("charm", "八重花结御守", "Double Blossom Omamori",
-            "生命上限 +2 颗心。受伤时进食可恢复 2 颗心，冷却 20 秒。", "+2 maximum hearts. Eating while hurt heals 2 hearts, once every 20 seconds."),
+            [("+4 最大生命值", "+4 max health"), ("进食后获得 5 秒生命回复", "Gain Regeneration I for 5 seconds after eating")]),
         "celadon_fish_pendant": ("necklace", "青瓷游鱼佩", "Celadon Carp Pendant",
-            "游泳速度 +35%%，水下挖掘效率 +40 个百分点，气泡消耗减半。", "+35%% swim speed, +40 percentage points of submerged mining efficiency, and half air consumption."),
+            [("在水中时", "While in water"), ("+30%% 移动速度", "+30%% movement speed"),
+             ("+30%% 挖掘速度", "+30%% mining speed"), ("+1 水下呼吸", "Water Breathing I")]),
         "yamazakura_ink_bracelet": ("bracelet", "山樱墨绳腕结", "Mountain Cherry Inkcord",
-            "方块破坏速度 +25%%，方块交互距离 +1 格。", "+25%% block breaking speed and +1 block interaction range."),
+            [("+2 急迫", "Haste II")]),
     }
-    for name, (slot, cn_name, en_name, cn_hint, en_hint) in charms.items():
+    for name, (slot, cn_name, en_name, effects) in charms.items():
         flat_item_model(name)
         key = f"item.{MOD}.{name}"
         zh[key], en[key] = cn_name, en_name
-        zh[key + ".hint"], en[key + ".hint"] = cn_hint, en_hint
+        for line, (cn_line, en_line) in enumerate(effects, 1):
+            zh[f"{key}.effect.{line}"], en[f"{key}.effect.{line}"] = cn_line, en_line
         tag("curios", "item", slot, [f"{MOD}:{name}"])
         datum(f"curios/slots/{slot}", {"size": 1})
-    zh[f"tooltip.{MOD}.charm.offhand"], en[f"tooltip.{MOD}.charm.offhand"] = "佩戴在副手", "Equip in the off hand"
-    zh[f"tooltip.{MOD}.charm.curios"], en[f"tooltip.{MOD}.charm.curios"] = "佩戴在副手或 Curios %s栏", "Equip in the off hand or a Curios %s slot"
     datum("curios/entities/travel_charms", {"entities": ["minecraft:player"], "slots": [v[0] for v in charms.values()]})
     tag(MOD, "block", "flowering_cherry_logs", ["#minecraft:cherry_logs", *(f"#{MOD}:{v}_logs" for v in VARIETIES)])
     for name, cn_name, en_name in (

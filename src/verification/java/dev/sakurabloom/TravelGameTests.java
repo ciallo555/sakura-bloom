@@ -7,6 +7,8 @@ import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.ItemStack;
@@ -70,18 +72,13 @@ public final class TravelGameTests {
                 ShrineGameTests.verifyWalk(test, origin, List.of(p(16,2,4), p(16,2,22)));
                 for (int x : new int[]{14,18}) for (int z : new int[]{8,17})
                     test.assertTrue(level.getBlockState(origin.offset(x,3,z)).is(Blocks.STONE_BRICKS), "Missing aisle post footing");
-                ShrineGameTests.verifyWalk(test, origin, List.of(p(8,3,11), p(5,3,11), p(5,7,15),
-                    p(5,7,16), p(8,7,16), p(8,7,14), p(14,7,14)));
+                ShrineGameTests.verifyWalk(test, origin, List.of(p(8,3,14), p(6,3,14)));
+                ShrineGameTests.verifyLadder(test, origin, p(5,4,14), 8, Direction.EAST);
+                ShrineGameTests.verifyWalk(test, origin, List.of(p(5,7,14), p(14,7,14)));
                 test.assertTrue(level.getBlockState(origin.offset(13,9,16)).is(Blocks.BLUE_WOOL), "No cloth on the loft rack");
             } else if (site.name.equals("hillside_joinery")) {
                 ShrineGameTests.verifyWalk(test, origin, List.of(p(9,3,18), p(10,3,18)));
-                for (int y = 4; y <= 7; y++) {
-                    var pos = origin.offset(10,y,19);
-                    var ladder = level.getBlockState(pos);
-                    test.assertTrue(ladder.is(Blocks.LADDER) && ladder.canSurvive(level,pos), "Broken ladder to timber loft");
-                }
-                test.assertTrue(level.getBlockState(origin.offset(10,8,19)).isAir()
-                    && level.getBlockState(origin.offset(10,9,19)).isAir(), "Closed ladder hatch");
+                ShrineGameTests.verifyLadder(test, origin, p(10,4,19), 7, Direction.NORTH);
                 ShrineGameTests.verifyWalk(test, origin, List.of(p(10,7,19), p(10,7,18), p(13,7,18)));
                 test.assertTrue(level.getBlockState(origin.offset(13,8,19)).is(site.wood.chest().get()), "Missing loft chest");
             }
@@ -128,65 +125,126 @@ public final class TravelGameTests {
     }
 
     @GameTest(template = "clearing")
-    public static void travelCharmsWorkWhenEquipped(GameTestHelper test) {
+    public static void bellPreventsFallDamageOnlyWhenEquipped(GameTestHelper test) {
         var player = test.makeMockPlayer(GameType.SURVIVAL);
         double speed = player.getAttributeValue(Attributes.MOVEMENT_SPEED);
         player.setItemInHand(InteractionHand.OFF_HAND, BloomContent.WIND_BELL.toStack());
         TravelCharmItem.refreshBonuses(player);
-        player.causeFallDamage(8, 1, player.damageSources().fall());
+        player.causeFallDamage(200, 1, player.damageSources().fall());
+        player.hurt(player.damageSources().fall(), 80);
         test.assertTrue(player.getHealth() == 20 && Math.abs(player.getAttributeValue(Attributes.MOVEMENT_SPEED)-1.15*speed)<1e-6,
-            "The bell should absorb an eight-block fall and improve movement");
-        player.setHealth(12);
-        player.setItemInHand(InteractionHand.OFF_HAND, BloomContent.KNOT_CHARM.toStack());
-        TravelCharmItem.refreshBonuses(player);
-        test.assertTrue(player.getMaxHealth() == 24 && player.getAttributeValue(Attributes.MOVEMENT_SPEED) == speed, "Swapping charms left stale bonuses");
-        NeoForge.EVENT_BUS.post(new LivingEntityUseItemEvent.Finish(player, new ItemStack(Items.POTION), 0, new ItemStack(Items.GLASS_BOTTLE)));
-        test.assertTrue(player.getHealth() == 12, "A potion triggered the omamori");
-        for (int i = 0; i < 2; i++)
-            NeoForge.EVENT_BUS.post(new LivingEntityUseItemEvent.Finish(player, new ItemStack(Items.BREAD), 0, ItemStack.EMPTY));
-        test.assertTrue(player.getHealth() == 16 && player.getCooldowns().isOnCooldown(BloomContent.KNOT_CHARM.get()),
-            "The omamori should heal once for consecutive meals");
-
-        player.setHealth(24);
+            "Even a lethal fall should be harmless while wearing the bell");
+        test.assertTrue(player.hurt(player.damageSources().generic(), 2) && player.getHealth() < 20, "The bell blocked ordinary damage");
+        player.invulnerableTime = 0;
         player.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
-        var mining = player.getAttribute(Attributes.BLOCK_BREAK_SPEED);
-        var other = new AttributeModifier(SakuraBloom.id("test_other_tool"), 0.4, AttributeModifier.Operation.ADD_MULTIPLIED_BASE);
-        mining.addTransientModifier(other);
-        player.getInventory().add(BloomContent.INK_BRACELET.toStack());
+        player.getInventory().add(BloomContent.WIND_BELL.toStack());
         TravelCharmItem.refreshBonuses(player);
-        double reach = player.getAttributeValue(Attributes.BLOCK_INTERACTION_RANGE);
-        test.assertTrue(player.getHealth() == 20 && Math.abs(mining.getValue()-1.4)<1e-6, "Backpack or expired health bonus leaked");
-        player.setItemInHand(InteractionHand.OFF_HAND, BloomContent.INK_BRACELET.toStack());
-        TravelCharmItem.refreshBonuses(player);
-        test.assertTrue(Math.abs(mining.getValue()-1.65)<1e-6 && player.getAttributeValue(Attributes.BLOCK_INTERACTION_RANGE)==reach+1,
-            "Bracelet must combine with other mods' modifiers");
-        player.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
-        TravelCharmItem.refreshBonuses(player);
-        test.assertTrue(mining.hasModifier(other.id()) && Math.abs(mining.getValue()-1.4)<1e-6, "Unequipping disturbed another modifier");
+        test.assertTrue(player.getAttributeValue(Attributes.MOVEMENT_SPEED) == speed && player.hurt(player.damageSources().fall(), 5),
+            "A bell in the backpack should have no effect");
         if (ModList.get().isLoaded("curios")) CuriosCharmTest.check(test);
         test.succeed();
     }
 
     @GameTest(template = "clearing")
-    public static void carpPendantOnlySlowsUnderwaterAirLoss(GameTestHelper test) {
+    public static void omamoriGrantsFiveSecondsAfterEveryMeal(GameTestHelper test) {
         var player = test.makeMockPlayer(GameType.SURVIVAL);
-        var pos = new BlockPos(3, 2, 3);
-        test.setBlock(pos, Blocks.WATER);
-        test.setBlock(pos.above(), Blocks.WATER);
-        player.setPos(Vec3.atBottomCenterOf(test.absolutePos(pos)));
+        player.setItemInHand(InteractionHand.OFF_HAND, BloomContent.KNOT_CHARM.toStack());
+        TravelCharmItem.refreshBonuses(player);
+        test.assertTrue(player.getMaxHealth() == 24, "Expected four extra health points");
+        player.setHealth(24);
+        NeoForge.EVENT_BUS.post(new LivingEntityUseItemEvent.Finish(player, new ItemStack(Items.POTION), 0, new ItemStack(Items.GLASS_BOTTLE)));
+        test.assertFalse(player.hasEffect(MobEffects.REGENERATION), "Drinking a potion counted as eating food");
+        NeoForge.EVENT_BUS.post(new LivingEntityUseItemEvent.Finish(player, new ItemStack(Items.BREAD), 0, ItemStack.EMPTY));
+        var regen = player.getEffect(MobEffects.REGENERATION);
+        test.assertTrue(regen != null && regen.getAmplifier() == 0 && regen.getDuration() == 100, "No five-second Regeneration I at full health");
+        player.setHealth(12);
+        for (int tick = 0; tick < 60; tick++) player.baseTick();
+        float healed = player.getHealth();
+        test.assertTrue(healed > 12 && healed < 16, "Regeneration should heal gradually");
+        NeoForge.EVENT_BUS.post(new LivingEntityUseItemEvent.Finish(player, new ItemStack(Items.CARROT), 0, ItemStack.EMPTY));
+        test.assertTrue(player.getHealth() == healed && player.getEffect(MobEffects.REGENERATION).getDuration() == 100,
+            "A second meal should refresh Regeneration with no cooldown or instant heal");
+        player.setHealth(24);
+        player.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
+        TravelCharmItem.refreshBonuses(player);
+        test.assertTrue(player.getHealth() == 20 && player.getMaxHealth() == 20, "Extra health survived unequipping the omamori");
+        for (int tick = 0; tick < 100; tick++) player.baseTick();
+        test.assertFalse(player.hasEffect(MobEffects.REGENERATION), "Regeneration outlasted five seconds");
+        test.succeed();
+    }
+
+    @GameTest(template = "clearing")
+    public static void carpPendantWorksOnlyInWater(GameTestHelper test) {
+        var player = test.makeMockPlayer(GameType.SURVIVAL);
+        var wet = p(3,2,3);
+        test.setBlock(wet, Blocks.WATER);
+        test.setBlock(wet.above(), Blocks.WATER);
+        player.setPos(Vec3.atBottomCenterOf(test.absolutePos(p(7,2,3))));
         player.setItemInHand(InteractionHand.OFF_HAND, BloomContent.FISH_PENDANT.toStack());
         TravelCharmItem.refreshBonuses(player);
-        test.assertTrue(Math.abs(player.getAttributeValue(NeoForgeMod.SWIM_SPEED)-1.35)<1e-6
-            && Math.abs(player.getAttributeValue(Attributes.SUBMERGED_MINING_SPEED)-0.6)<1e-6, "Missing swimming or underwater mining bonus");
-        player.setAirSupply(100);
-        for (int tick = 1; tick <= 10; tick++) {
-            player.tickCount = tick;
-            player.baseTick();
-        }
-        test.assertTrue(player.getAirSupply() == 95, "Ten submerged ticks should use five air");
-        player.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
+        test.assertTrue(player.getAttributeValue(NeoForgeMod.SWIM_SPEED) == 1 && player.getAttributeValue(Attributes.BLOCK_BREAK_SPEED) == 1
+            && !player.hasEffect(MobEffects.WATER_BREATHING), "The dry pendant gave underwater bonuses");
+        player.setPos(Vec3.atBottomCenterOf(test.absolutePos(wet)));
         player.baseTick();
-        test.assertTrue(player.getAirSupply() == 94, "Removing the pendant did not restore normal breathing");
+        player.baseTick();
+        var stone = Blocks.STONE.defaultBlockState();
+        float baseMining = player.getDestroySpeed(stone);
+        TravelCharmItem.refreshBonuses(player);
+        var breath = player.getEffect(MobEffects.WATER_BREATHING);
+        test.assertTrue(breath != null && breath.getAmplifier() == 0 && Math.abs(player.getAttributeValue(NeoForgeMod.SWIM_SPEED)-1.3)<1e-6
+            && Math.abs(player.getDestroySpeed(stone)-1.3*baseMining)<1e-6, "The pendant must give Water Breathing I and 30% aquatic movement and mining");
+        player.setAirSupply(100);
+        for (int tick = 0; tick < 10; tick++) player.baseTick();
+        test.assertTrue(player.getAirSupply() >= 100, "A breathing wearer lost air underwater");
+        player.setPos(Vec3.atBottomCenterOf(test.absolutePos(p(7,2,3))));
+        player.baseTick();
+        TravelCharmItem.refreshBonuses(player);
+        test.assertTrue(!player.hasEffect(MobEffects.WATER_BREATHING) && player.getAttributeValue(NeoForgeMod.SWIM_SPEED)==1
+            && player.getAttributeValue(Attributes.BLOCK_BREAK_SPEED)==1, "Pendant bonuses followed the wearer onto dry land");
+
+        player.setPos(Vec3.atBottomCenterOf(test.absolutePos(wet)));
+        player.baseTick();
+        TravelCharmItem.refreshBonuses(player);
+        player.addEffect(new MobEffectInstance(MobEffects.WATER_BREATHING, 600));
+        player.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
+        TravelCharmItem.refreshBonuses(player);
+        test.assertTrue(player.getEffect(MobEffects.WATER_BREATHING).getDuration() == 600, "Unequipping consumed the breathing potion");
+        test.succeed();
+    }
+
+    @GameTest(template = "clearing")
+    public static void inkcordGrantsHasteAndPreservesOtherSources(GameTestHelper test) {
+        var player = test.makeMockPlayer(GameType.SURVIVAL);
+        var stone = Blocks.STONE.defaultBlockState();
+        var mining = player.getAttribute(Attributes.BLOCK_BREAK_SPEED);
+        var other = new AttributeModifier(SakuraBloom.id("test_other_tool"), 0.4, AttributeModifier.Operation.ADD_MULTIPLIED_BASE);
+        mining.addTransientModifier(other);
+        float baseline = player.getDestroySpeed(stone);
+        double reach = player.getAttributeValue(Attributes.BLOCK_INTERACTION_RANGE);
+        player.setItemInHand(InteractionHand.OFF_HAND, BloomContent.INK_BRACELET.toStack());
+        TravelCharmItem.refreshBonuses(player);
+        test.assertTrue(player.getEffect(MobEffects.DIG_SPEED).getAmplifier() == 1 && Math.abs(player.getDestroySpeed(stone)-baseline*1.4)<1e-5
+            && player.getAttributeValue(Attributes.BLOCK_INTERACTION_RANGE)==reach, "Bracelet should give vanilla Haste II only");
+        player.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
+        TravelCharmItem.refreshBonuses(player);
+        test.assertTrue(!player.hasEffect(MobEffects.DIG_SPEED) && mining.hasModifier(other.id()), "Unequipping the bracelet disturbed another modifier");
+        player.addEffect(new MobEffectInstance(MobEffects.DIG_SPEED, 300, 0));
+        player.setItemInHand(InteractionHand.OFF_HAND, BloomContent.INK_BRACELET.toStack());
+        TravelCharmItem.refreshBonuses(player);
+        test.assertTrue(player.getEffect(MobEffects.DIG_SPEED).getAmplifier()==1, "A weaker potion hid Haste II");
+        player.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
+        for (int tick = 0; tick < 2; tick++) player.baseTick();
+        var original = player.getEffect(MobEffects.DIG_SPEED);
+        test.assertTrue(original != null && original.getAmplifier()==0 && original.getDuration()==298, "Lost the underlying Haste I potion");
+        player.removeEffect(MobEffects.DIG_SPEED);
+        player.setItemInHand(InteractionHand.OFF_HAND, BloomContent.INK_BRACELET.toStack());
+        TravelCharmItem.refreshBonuses(player);
+        player.addEffect(new MobEffectInstance(MobEffects.DIG_SPEED, 240, 2));
+        TravelCharmItem.refreshBonuses(player);
+        player.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
+        TravelCharmItem.refreshBonuses(player);
+        test.assertTrue(player.getEffect(MobEffects.DIG_SPEED).getAmplifier()==2 && player.getEffect(MobEffects.DIG_SPEED).getDuration()==240,
+            "The bracelet replaced another source of Haste III");
         test.succeed();
     }
 }

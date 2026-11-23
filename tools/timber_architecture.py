@@ -78,18 +78,6 @@ def close_eaves(b, t, x0, z0, x1, z1, tie):
             raise ValueError(f"Wall at {(x,tie,z)} has no roof")
 
 
-def indoor_stairs(b, t, x, floor, z, steps, facing):
-    """Two-wide stair flight, including its solid carriage and the opening through the floor above."""
-    dx, dz = {"west": (-1,0), "south": (0,1)}[facing]
-    for i in range(steps):
-        tread = floor+i+1
-        for side in (0, 1):
-            px, pz = x+i*dx+side*abs(dz), z+i*dz+side*abs(dx)
-            b.fill((px, floor+1, pz), (px, tread-1, pz), t.timber("planks"))
-            b.place(px, tread, pz, t.timber("stairs"), facing=facing)
-            b.fill((px, tread+1, pz), (px, tread+2, pz), AIR)
-
-
 def curtain(b, t, x0, x1, y, z, colors=()):
     for i, x in enumerate(range(x0, x1 + 1)):
         name = colors[i % len(colors)] + "_noren" if colors else t.curtain

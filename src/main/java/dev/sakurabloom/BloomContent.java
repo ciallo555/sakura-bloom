@@ -76,14 +76,13 @@ public final class BloomContent {
     public static final DeferredItem<BlockItem> MORTAR_ITEM = workstation(MORTAR);
     public static final DeferredItem<BlockItem> LANTERN_ITEM = workstation(LANTERN);
 
-    static final DeferredItem<TravelCharmItem> WIND_BELL = ITEMS.register("shidare_wind_bell", () -> new TravelCharmItem("belt",
-        TravelCharmItem.percent("wind_stride", Attributes.MOVEMENT_SPEED, 0.15), TravelCharmItem.add("wind_landing", Attributes.SAFE_FALL_DISTANCE, 6)));
-    static final DeferredItem<TravelCharmItem> KNOT_CHARM = ITEMS.register("yae_knot_charm", () -> new TravelCharmItem("charm",
+    static final DeferredItem<TravelCharmItem> WIND_BELL = ITEMS.register("shidare_wind_bell", () -> new TravelCharmItem(2,
+        TravelCharmItem.percent("wind_stride", Attributes.MOVEMENT_SPEED, 0.15)));
+    static final DeferredItem<TravelCharmItem> KNOT_CHARM = ITEMS.register("yae_knot_charm", () -> new TravelCharmItem(2,
         TravelCharmItem.add("blossom_vitality", Attributes.MAX_HEALTH, 4)));
-    static final DeferredItem<TravelCharmItem> FISH_PENDANT = ITEMS.register("celadon_fish_pendant", () -> new TravelCharmItem("necklace",
-        TravelCharmItem.percent("carp_swim", NeoForgeMod.SWIM_SPEED, 0.35), TravelCharmItem.add("carp_dive", Attributes.SUBMERGED_MINING_SPEED, 0.4)));
-    static final DeferredItem<TravelCharmItem> INK_BRACELET = ITEMS.register("yamazakura_ink_bracelet", () -> new TravelCharmItem("bracelet",
-        TravelCharmItem.percent("ink_work", Attributes.BLOCK_BREAK_SPEED, 0.25), TravelCharmItem.add("ink_reach", Attributes.BLOCK_INTERACTION_RANGE, 1)));
+    static final DeferredItem<TravelCharmItem> FISH_PENDANT = ITEMS.register("celadon_fish_pendant", () -> new TravelCharmItem(4,
+        TravelCharmItem.percent("carp_swim", NeoForgeMod.SWIM_SPEED, 0.30), TravelCharmItem.percent("carp_dive", Attributes.BLOCK_BREAK_SPEED, 0.30)));
+    static final DeferredItem<TravelCharmItem> INK_BRACELET = ITEMS.register("yamazakura_ink_bracelet", () -> new TravelCharmItem(1));
     static final List<DeferredItem<TravelCharmItem>> TRAVEL_CHARMS = List.of(WIND_BELL, KNOT_CHARM, FISH_PENDANT, INK_BRACELET);
 
     static {

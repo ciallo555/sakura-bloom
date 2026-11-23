@@ -14,6 +14,7 @@ import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FenceBlock;
+import net.minecraft.world.level.block.LadderBlock;
 import net.minecraft.world.level.block.SignBlock;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.Rotation;
@@ -138,8 +139,7 @@ public final class ShrineGameTests {
             new Theme("yae", SakuraBloom.ID, "sakura_bloom:yae_grove", "red",
                 "polished_andesite_stairs", "brick_stairs", "bricks",
                 p(6,6,9), "sakura_bloom:silk_palace_lantern", p(16,16,24), p(16,8,21),
-                List.of(p(16,2,4), p(16,2,15), p(16,4,17), p(16,4,22), p(23,4,22),
-                    p(23,4,24), p(17,10,24), p(16,10,24), p(11,10,24), p(11,10,25))),
+                List.of(p(16,2,4), p(16,2,15), p(16,4,17), p(16,4,24), p(22,4,24))),
             new Theme("yamazakura", SakuraBloom.ID, "sakura_bloom:yamazakura_woodland", "green",
                 "tuff_brick_stairs", "mossy_stone_brick_stairs", "mossy_stone_bricks",
                 p(11,8,15), "minecraft:tuff_brick_stairs", p(11,15,23), p(11,12,21),
@@ -196,6 +196,8 @@ public final class ShrineGameTests {
                     }
             }
             if (theme.wood.equals("yae")) {
+                verifyLadder(test, absolute, p(23,5,24), 11, Direction.WEST);
+                verifyWalk(test, absolute, List.of(p(23,10,24), p(11,10,24), p(11,10,25)));
                 for (int x : new int[]{10,13}) {
                     test.assertBlockPresent(Blocks.NOTE_BLOCK, origin.offset(x,12,21));
                     test.assertBlockPresent(Blocks.AIR, origin.offset(x,13,21));
@@ -259,6 +261,10 @@ public final class ShrineGameTests {
 
     static void verifyWoodwork(GameTestHelper test, BlockPos origin, StructureTemplate template, StructurePlaceSettings settings) {
         var level = test.getLevel();
+        for (var rung : template.filterBlocks(origin, settings, Blocks.LADDER)) {
+            var state = level.getBlockState(rung.pos());
+            test.assertTrue(state.is(Blocks.LADDER) && state.canSurvive(level, rung.pos()), "Detached ladder at " + rung.pos());
+        }
         for (var block : BuiltInRegistries.BLOCK) {
             if (block instanceof SignBlock)
                 test.assertTrue(template.filterBlocks(origin, settings, block).isEmpty(), "Unexpected sign in natural structure");
@@ -270,6 +276,17 @@ public final class ShrineGameTests {
                     "Disconnected railing at " + pos.subtract(origin) + " " + state);
             }
         }
+    }
+
+    static void verifyLadder(GameTestHelper test, BlockPos origin, BlockPos foot, int top, Direction facing) {
+        var level = test.getLevel();
+        var pos = origin.offset(foot);
+        for (int y = foot.getY(); y <= top; y++, pos = pos.above()) {
+            var state = level.getBlockState(pos);
+            test.assertTrue(state.is(Blocks.LADDER) && state.getValue(LadderBlock.FACING) == facing
+                && state.canSurvive(level,pos), "Missing supported rung at " + pos.subtract(origin));
+        }
+        test.assertTrue(level.getBlockState(pos).isAir() && level.getBlockState(pos.above()).isAir(), "Blocked ladder hatch");
     }
 
     /** Sweep a player's standing volume along each leg, including every tread and turn. */

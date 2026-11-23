@@ -6,7 +6,10 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.tags.FluidTags;
+import net.minecraft.tags.DamageTypeTags;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -15,11 +18,14 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.TooltipFlag;
+import net.neoforged.bus.api.EventPriority;
 import net.neoforged.fml.ModList;
+import net.neoforged.neoforge.common.EffectCure;
 import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.event.entity.living.LivingBreatheEvent;
 import net.neoforged.neoforge.event.entity.living.LivingEntityUseItemEvent;
 import net.neoforged.neoforge.event.entity.living.LivingFallEvent;
+import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
+import net.neoforged.neoforge.event.entity.living.MobEffectEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 
 import java.util.List;
@@ -27,12 +33,13 @@ import java.util.Set;
 
 final class TravelCharmItem extends Item {
     private static final boolean CURIOS = ModList.get().isLoaded("curios");
-    final String slot;
+    private static final EffectCure UNEQUIP = EffectCure.get("sakura_bloom:unequip");
+    private final int tooltipLines;
     private final List<Bonus> bonuses;
 
-    TravelCharmItem(String slot, Bonus... bonuses) {
+    TravelCharmItem(int tooltipLines, Bonus... bonuses) {
         super(new Properties().stacksTo(1).rarity(Rarity.UNCOMMON));
-        this.slot = slot;
+        this.tooltipLines = tooltipLines;
         this.bonuses = List.of(bonuses);
     }
 
@@ -48,18 +55,17 @@ final class TravelCharmItem extends Item {
 
     static void registerEvents() {
         NeoForge.EVENT_BUS.addListener(TravelCharmItem::onFall);
+        NeoForge.EVENT_BUS.addListener(TravelCharmItem::onIncomingDamage);
         NeoForge.EVENT_BUS.addListener(TravelCharmItem::onFinishEating);
-        NeoForge.EVENT_BUS.addListener(TravelCharmItem::onBreathe);
+        NeoForge.EVENT_BUS.addListener(EventPriority.LOWEST, TravelCharmItem::yieldToOtherEffect);
         NeoForge.EVENT_BUS.addListener(TravelCharmItem::onPlayerTick);
     }
 
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
         super.appendHoverText(stack, context, tooltip, flag);
-        tooltip.add(Component.translatable(getDescriptionId() + ".hint").withStyle(ChatFormatting.GRAY));
-        tooltip.add((CURIOS ? Component.translatable("tooltip.sakura_bloom.charm.curios", Component.translatable("curios.identifier." + slot))
-            : Component.translatable("tooltip.sakura_bloom.charm.offhand"))
-            .withStyle(ChatFormatting.DARK_GREEN));
+        for (int line = 1; line <= tooltipLines; line++)
+            tooltip.add(Component.translatable(getDescriptionId() + ".effect." + line).withStyle(ChatFormatting.GRAY));
     }
 
     private static void onPlayerTick(PlayerTickEvent.Post event) {
@@ -71,6 +77,12 @@ final class TravelCharmItem extends Item {
         for (var entry : BloomContent.TRAVEL_CHARMS) {
             var charm = entry.get();
             boolean active = player.getOffhandItem().is(charm) || curios.contains(charm);
+            if (charm == BloomContent.FISH_PENDANT.get()) {
+                active &= player.isInWater();
+                updateWornEffect(player, MobEffects.WATER_BREATHING, 0, active);
+            } else if (charm == BloomContent.INK_BRACELET.get()) {
+                updateWornEffect(player, MobEffects.DIG_SPEED, 1, active);
+            }
             for (var bonus : charm.bonuses) {
                 var attribute = player.getAttribute(bonus.attribute());
                 if (attribute == null || active == attribute.hasModifier(bonus.modifier().id())) continue;
@@ -89,6 +101,38 @@ final class TravelCharmItem extends Item {
         return player.getOffhandItem().is(item) || (CURIOS && CuriosTravelCharms.isEquipped(player, item));
     }
 
+    private static void updateWornEffect(Player player, Holder<MobEffect> effect, int amplifier, boolean active) {
+        var current = player.getEffect(effect);
+        if (!active) {
+            if (current != null && current.getCures().contains(UNEQUIP)) player.removeEffect(effect);
+        } else if (current == null) {
+            var granted = new MobEffectInstance(effect, MobEffectInstance.INFINITE_DURATION, amplifier, true, false, true);
+            granted.getCures().add(UNEQUIP);
+            player.addEffect(granted);
+        } else if (current.getAmplifier() < amplifier) {
+            // Vanilla keeps the weaker potion underneath and ticks its remaining duration.
+            player.addEffect(new MobEffectInstance(effect, 2, amplifier, true, false, true));
+        }
+    }
+
+    private static void yieldToOtherEffect(MobEffectEvent.Applicable event) {
+        var incoming = event.getEffectInstance();
+        var effect = incoming.getEffect();
+        if ((!effect.equals(MobEffects.WATER_BREATHING) && !effect.equals(MobEffects.DIG_SPEED))
+            || !(event.getEntity() instanceof Player player) || player.level().isClientSide()
+            || incoming.getCures().contains(UNEQUIP)) return;
+        var current = player.getEffect(effect);
+        // Release only our unlimited grant before vanilla merges a potion, beacon or other mod's effect.
+        if (current != null && current.getCures().contains(UNEQUIP) && event.getApplicationResult())
+            player.removeEffect(effect);
+    }
+
+    private static void onIncomingDamage(LivingIncomingDamageEvent event) {
+        if (event.getSource().is(DamageTypeTags.IS_FALL) && event.getEntity() instanceof Player player
+            && worn(player, BloomContent.WIND_BELL.get()))
+            event.setCanceled(true);
+    }
+
     private static void onFall(LivingFallEvent event) {
         if (!(event.getEntity() instanceof Player player) || !(player.level() instanceof ServerLevel level)
             || event.getDistance() <= 3
@@ -101,19 +145,9 @@ final class TravelCharmItem extends Item {
 
     private static void onFinishEating(LivingEntityUseItemEvent.Finish event) {
         if (!(event.getEntity() instanceof Player player) || !(player.level() instanceof ServerLevel level)
-            || player.getHealth() >= player.getMaxHealth() || event.getItem().getFoodProperties(player) == null) return;
-        Item knot = BloomContent.KNOT_CHARM.get();
-        if (player.getCooldowns().isOnCooldown(knot) || !worn(player, knot)) return;
-
-        player.heal(4);
-        player.getCooldowns().addCooldown(knot, 20 * 20);
+            || event.getItem().getFoodProperties(player) == null || !worn(player, BloomContent.KNOT_CHARM.get())) return;
+        player.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 5 * 20));
         level.sendParticles(BloomContent.YAE.fallingPetals().get(), player.getX(), player.getY() + 1, player.getZ(),
             4, 0.25, 0.2, 0.25, 0.02);
-    }
-
-    private static void onBreathe(LivingBreatheEvent event) {
-        if (event.canBreathe() || event.getConsumeAirAmount() == 0 || !(event.getEntity() instanceof Player player)
-            || (player.tickCount & 1) != 0 || !player.isEyeInFluid(FluidTags.WATER)) return;
-        if (worn(player, BloomContent.FISH_PENDANT.get())) event.setConsumeAirAmount(0);
     }
 }

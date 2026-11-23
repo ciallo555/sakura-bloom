@@ -2,7 +2,7 @@
 
 from generate_resources import MOD
 from timber_architecture import (altar, basin, bed, boulder, close_eaves, curtain, deck, gallery, ground, hanging_cloth,
-                                 indoor_stairs, offering_box, pave, pine, pond, rail, roof, stone_light, tatami, wall, AIR)
+                                 offering_box, pave, pine, pond, rail, roof, stone_light, tatami, wall, AIR)
 
 
 def torii(b, t):
@@ -208,9 +208,8 @@ def lantern_hall(b, t):
         b.place(x, 13, 23, f"{MOD}:silk_palace_lantern", hanging="true")
     b.fill((20, 11, 21), (22, 11, 21), t.timber("slab"), type="top")
     b.place(21, 12, 21, f"{MOD}:rouge_plum_vase", facing="south")
-    indoor_stairs(b, t, 22, 4, 24, 6, "west")
-    for z in (23, 26):
-        rail(b, t, 17, z, "x", 3, 11)
+    # The east post backs a single hatch. The last rung rises above the music-room floor.
+    b.fill((23, 5, 24), (23, 11, 24), "minecraft:ladder", facing="west")
 
 
 def mountain_banks(b):
