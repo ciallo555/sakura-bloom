@@ -3,7 +3,7 @@
 from dataclasses import replace
 
 from generate_resources import MOD
-from timber_architecture import (AIR, awning, bed, boulder, curtain, deck, ground, hanging_cloth, pave,
+from timber_architecture import (AIR, awning, basin, bed, boulder, curtain, deck, ground, hanging_cloth, pave,
                                  pine, pond, rail, roof, stone_light, tatami, wall)
 
 
@@ -28,8 +28,11 @@ def dyehouse(b, theme):
     wall(b, t, 4, 17, "x", 3, 7, "|ww|ss|ll.|...|")
     for x in (4,18):
         wall(b, t, x, 8, "z", 3, 7, "|ww|ss|ll|")
-    b.fill((14, 3, 8), (17, 3, 8), AIR)
-    b.fill((14, 3, 17), (17, 3, 17), AIR)
+    # The earthen aisle is one block below the shop floor. Seat both jambs and
+    # the long outside wall on stone, leaving the three-block passage open.
+    for z in (8, 17):
+        b.place(14, 3, z, "minecraft:stone_bricks")
+    b.fill((18, 3, 8), (18, 3, 17), "minecraft:stone_bricks")
     curtain(b, t, 8, 10, 6, 8, ("indigo","white","indigo"))
     b.fill((4, 7, 8), (18, 7, 17), t.timber("planks"))
     # Up to the cloth loft via the ladder; the opening must stay clear at its head.
@@ -62,16 +65,17 @@ def dyehouse(b, theme):
     pave(b, 7, 19, 19, 24, "packed_mud")
     for z, colors in ((20, ("blue","cyan","light_blue")), (24, ("red","magenta","pink"))):
         for x in (4,11):
-            b.fill((x, 3, z), (x, 7, z), t.timber("stripped_log"), axis="y")
-        b.fill((4, 7, z), (11, 7, z), t.timber("stripped_log"), axis="x")
+            b.place(x, 3, z, "minecraft:andesite_wall")
+            b.fill((x, 4, z), (x, 6, z), t.timber("fence"))
+        b.fill((4, 7, z), (11, 7, z), t.timber("slab"), type="double")
         for x,color,pattern in zip((6,8,10), colors, ("flower","rhombus","stripe_downleft")):
             hanging_cloth(b, x, 7, z-1, color, (("stripe_bottom","white"),(pattern,"white")))
-    for z in (20,23):
-        b.place(17, 3, z, "minecraft:water_cauldron", level="3")
-        b.place(19, 3, z, "minecraft:barrel", facing="up")
+    basin(b, 13, 20, length=3)
+    b.place(13, 3, 18, t.timber("planks"))
+    b.place(13, 4, 18, f"{MOD}:flower_mortar")
     bed(b, t, 21, 8, 23, 13)
     threshold(b, 9, 4, "brick_stairs", "gravel")
-    return (6,4,15)
+    return (8,4,16)
 
 
 def rain_pavilion(b, t):
@@ -96,8 +100,8 @@ def rain_pavilion(b, t):
     b.fill((19, 3, 6), (22, 3, 6), "minecraft:bamboo_stairs", facing="south")
     rail(b, t, 18, 7, "x", 6, 3)
     awning(b, t, 17, 3, 24, 8, 7, rise="north", color="brown")
-    b.place(21, 3, 10, "minecraft:water_cauldron", level="3")
-    stone_light(b, 22, 3, 10)
+    basin(b, 21, 10, rim="polished_diorite")
+    stone_light(b, 23, 3, 10)
     pine(b, 7, 3, 20)
     # An L-shaped engawa and a little jetty have an unrailed view of the rain garden.
     deck(b, t, 12, 14, 24, 21, 3)
@@ -179,4 +183,4 @@ def hillside_joinery(b, t):
     boulder(b, 4, 3, 6)
     bed(b, t, 21, 4, 24, 6)
     threshold(b, 10, 4, "tuff_brick_stairs", "packed_mud")
-    return (7,4,16)
+    return (9,4,19)

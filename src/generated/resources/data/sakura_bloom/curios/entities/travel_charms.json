@@ -3,6 +3,9 @@
     "minecraft:player"
   ],
   "slots": [
-    "charm"
+    "belt",
+    "charm",
+    "necklace",
+    "bracelet"
   ]
 }

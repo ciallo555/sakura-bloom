@@ -9,6 +9,7 @@ import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.ChunkPos;
+import net.minecraft.world.level.LevelHeightAccessor;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.StairBlock;
@@ -16,8 +17,11 @@ import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.entity.SignBlockEntity;
 import net.minecraft.world.level.block.state.properties.Half;
 import net.minecraft.world.level.levelgen.FlatLevelSource;
+import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.world.level.levelgen.RandomState;
 import net.minecraft.world.level.levelgen.flat.FlatLayerInfo;
 import net.minecraft.world.level.levelgen.flat.FlatLevelGeneratorSettings;
+import net.minecraft.world.level.levelgen.structure.PoolElementStructurePiece;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
 import net.minecraft.world.phys.AABB;
@@ -26,6 +30,7 @@ import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.EnumSet;
 
 @GameTestHolder(SakuraBloom.ID)
 @PrefixGameTestTemplate(false)
@@ -53,6 +58,11 @@ public final class ShrineGameTests {
             var start = shrine.generate(access, generator, generator.getBiomeSource(), random, level.getStructureManager(),
                 159033431L, new ChunkPos(0, 0), 0, level, shrine.biomes()::contains);
             test.assertTrue(start.isValid() == !flooded, "A dry courtyard must fit, one block of surface water must disqualify it");
+            if (!flooded) {
+                var piece = (PoolElementStructurePiece)start.getPieces().getFirst();
+                test.assertTrue(piece.getPosition().getY()+2 == level.getMinBuildHeight()+79,
+                    "Courtyard paving must be flush with the natural grass block");
+            }
         }
         // This seed put the red shrine's actual staircase inside a ruined portal's lava in the first field trial.
         var sets = access.registryOrThrow(Registries.STRUCTURE_SET);
@@ -60,6 +70,44 @@ public final class ShrineGameTests {
         for (String name : List.of("shrines", "woodland_landmarks"))
             test.assertFalse(sets.get(SakuraBloom.id(name)).placement().applyInteractionsWithOtherStructures(state, -423, 542),
                 name + " allowed the portal apron to cut into the courtyard");
+        test.succeed();
+    }
+
+    @GameTest(template = "clearing", skyAccess = true)
+    public static void rotatedGardensMeetTheApproachOnSlopingTerrain(GameTestHelper test) {
+        var level = test.getLevel();
+        var registries = level.registryAccess();
+        var grove = registries.registryOrThrow(Registries.BIOME).getHolderOrThrow(Biomes.CHERRY_GROVE);
+        var structure = registries.registryOrThrow(Registries.STRUCTURE).get(SakuraBloom.id("cherry_shrine"));
+        var random = level.getChunkSource().randomState();
+        var layers = new FlatLevelGeneratorSettings(Optional.empty(), grove, List.of());
+        layers.getLayersInfo().add(new FlatLayerInfo(80, Blocks.STONE));
+        layers.updateLayers();
+        var hillside = new FlatLevelSource(layers) {
+            @Override
+            public int getBaseHeight(int x, int z, Heightmap.Types type, LevelHeightAccessor world, RandomState state) {
+                return super.getBaseHeight(x, z, type, world, state) + Math.floorDiv(x, 20);
+            }
+        };
+        var seen = EnumSet.noneOf(Rotation.class);
+        boolean centerDiffers = false;
+        for (int i = 0; i < 64 && (seen.size() < 4 || !centerDiffers); i++) {
+            var start = structure.generate(registries, hillside, hillside.getBiomeSource(), random, level.getStructureManager(),
+                89021L + i, new ChunkPos(i % 3, i % 5), 0, level, structure.biomes()::contains);
+            test.assertTrue(start.isValid(), "A gentle hillside should admit a shrine");
+            var piece = (PoolElementStructurePiece)start.getPieces().getFirst();
+            seen.add(piece.getRotation());
+            int[] road = new int[3];
+            for (int j = 0; j < road.length; j++) {
+                var pos = p(12 + j * 3, 0, -1).rotate(piece.getRotation()).offset(piece.getPosition());
+                road[j] = hillside.getBaseHeight(pos.getX(), pos.getZ(), Heightmap.Types.OCEAN_FLOOR_WG, level, random)-1;
+            }
+            java.util.Arrays.sort(road);
+            test.assertTrue(road[1] == piece.getPosition().getY() + 2, "Gate faces a ledge after rotation " + piece.getRotation());
+            var center = piece.getBoundingBox().getCenter();
+            centerDiffers |= road[1]+1 != hillside.getBaseHeight(center.getX(), center.getZ(), Heightmap.Types.OCEAN_FLOOR_WG, level, random);
+        }
+        test.assertTrue(seen.size() == 4 && centerDiffers, "Expected four rotations and a distinct uphill center");
         test.succeed();
     }
 
@@ -85,7 +133,7 @@ public final class ShrineGameTests {
                 "polished_diorite_stairs", "diorite_stairs", "calcite", "垂樱水榭",
                 p(5,2,12), "minecraft:water", p(14,9,23), p(21,6,21),
                 List.of(p(15,2,4), p(15,2,6), p(15,3,7), p(15,3,14), p(21,3,14),
-                    p(21,3,23), p(23,3,23), p(23,3,25))),
+                    p(21,3,23), p(23,3,23), p(23,3,24))),
             new Theme("yae", SakuraBloom.ID, "sakura_bloom:yae_grove", "red",
                 "polished_andesite_stairs", "brick_stairs", "bricks", "八重灯殿",
                 p(6,6,9), "sakura_bloom:silk_palace_lantern", p(16,16,24), p(16,8,21),
@@ -120,6 +168,8 @@ public final class ShrineGameTests {
             test.assertTrue(placed, "Unable to place template for " + theme.wood);
             var chest = theme.wood.equals("cherry") ? Blocks.CHEST : BuiltInRegistries.BLOCK.get(SakuraBloom.id(theme.wood + "_chest"));
             TravelGameTests.checkChest(test, template, absolute, chest, "shrine_offerings");
+            if (theme.wood.equals("cherry")) for (int x : new int[]{12,18})
+                assertBlock(test, origin.offset(x,3,17), "minecraft:chiseled_stone_bricks");
             for (int x = 10; x <= 20; x++) {
                 String stairs = x >= 13 && x <= 17 ? theme.pathStairs : theme.stoneStairs;
                 assertEntranceStep(test, origin.offset(x, 1, 0), stairs);

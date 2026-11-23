@@ -90,16 +90,19 @@ class Blueprint:
         path.write_bytes(gzip.compress(buffer.getvalue(), mtime=0))
 
 
-def reward_chest(build, pos, wood, table, facing):
+def reward_chest(build, pos, wood, table):
     vanilla = wood == "cherry"
     block = "minecraft:chest" if vanilla else f"{MOD}:{wood}_chest"
     entity = "minecraft:chest" if vanilla else f"{MOD}:cherry_chest"
-    build.place(*pos, block, facing=facing, type="single", data=Compound({
+    x, y, z = pos
+    backing = build.blocks[x, y, z+1][0]
+    assert backing.endswith(("_planks", "_log", "_terracotta")), (table, pos, backing)
+    build.place(*pos, block, facing="north", type="single", data=Compound({
         "id": String(entity), "LootTable": String(f"{MOD}:chests/{table}"),
     }))
 
 
-def surface_structure(name, template, biomes, *, terrain="beard_box", relief=8):
+def surface_structure(name, template, biomes, *, paving, center=15, width=11, relief=8):
     pool = f"{MOD}:{template}"
     datum(f"worldgen/template_pool/{template}", {
         "fallback": "minecraft:empty",
@@ -111,7 +114,9 @@ def surface_structure(name, template, biomes, *, terrain="beard_box", relief=8):
     datum(f"worldgen/structure/{name}", {
         # Planting and surface springs run before the compound, so its veranda, yard and pond stay clear.
         "type": f"{MOD}:garden_site", "max_surface_relief": relief, "biomes": biomes, "step": "top_layer_modification",
-        "spawn_overrides": {}, "terrain_adaptation": terrain, "start_pool": pool,
+        "entrance_center_x": center, "entrance_width": width, "entrance_paving": "minecraft:" + paving,
+        "clearance_template": pool,
+        "spawn_overrides": {}, "terrain_adaptation": "none", "start_pool": pool,
         "size": 1, "start_height": {"absolute": -2}, "project_start_to_heightmap": "WORLD_SURFACE_WG",
         "max_distance_from_center": 32, "use_expansion_hack": False,
     })
@@ -124,13 +129,13 @@ def generate():
         layout, chest = SHRINES[theme.wood]
         layout(build, theme)
         torii(build, theme)
-        reward_chest(build, chest, theme.wood, "shrine_offerings", "east")
+        reward_chest(build, chest, theme.wood, "shrine_offerings")
         template = f"shrine/{theme.wood}"
         build.save(template)
 
         name = f"{theme.wood}_shrine"
         shrines.append(f"{MOD}:{name}")
-        surface_structure(name, template, [theme.biome], relief=12 if theme.wood == "yamazakura" else 8)
+        surface_structure(name, template, [theme.biome], paving=theme.paving, relief=10 if theme.wood == "yamazakura" else 7)
 
     tag(MOD, "worldgen/structure", "shrines", shrines)
     datum("worldgen/structure_set/shrines", {

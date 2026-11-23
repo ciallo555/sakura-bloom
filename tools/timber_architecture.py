@@ -78,8 +78,20 @@ def altar(b, t, cx, y, z):
 
 def offering_box(b, x, y, z):
     for dx in (0, 1):
-        b.place(x+dx, y, z, "minecraft:barrel", facing="south")
+        b.place(x+dx, y, z, "minecraft:stripped_spruce_log", axis="x")
         b.place(x+dx, y+1, z, "minecraft:spruce_trapdoor", half="bottom", facing="east")
+
+
+def basin(b, x, z, *, length=1, rim="polished_andesite"):
+    """Recess a stone-lined trough into the paving, with a low coping above the water."""
+    for dx in range(-1, 2):
+        for dz in range(-1, length+1):
+            if dx == 0 and 0 <= dz < length:
+                b.place(x, 1, z+dz, "minecraft:"+rim)
+                b.place(x, 2, z+dz, "minecraft:water", level="0")
+            else:
+                b.place(x+dx, 2, z+dz, "minecraft:"+rim)
+                b.place(x+dx, 3, z+dz, "minecraft:"+rim+"_slab", type="bottom")
 
 
 def tiled_course(b, x, y, z, tone, axis, half, *, backed, ridge=False):
@@ -142,7 +154,7 @@ def roof(b, t, x0, z0, x1, z1, eave, *, axis="x", style="irimoya", color=None,
                 for gy in range(sill, y):
                     timber = gy == sill or v == mid
                     b.place(x, gy, z, t.timber("stripped_log") if timber else "minecraft:white_terracotta",
-                            **({"axis": "y" if v == mid else drains_along} if timber else {}))
+                            **({"axis": "y" if v == mid and gy > sill else drains_along} if timber else {}))
             if v in (0, v1) and u%3 == 1:
                 b.place(x, eave-1, z, t.timber("slab"), type="top")
 

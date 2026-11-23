@@ -1058,25 +1058,25 @@ def cherry_chest(jar, variety, names, zh, en):
 
 def travel_charms(zh, en):
     charms = {
-        "shidare_wind_bell": ("枝垂风铃坠", "Weeping Cherry Wind Bell",
-            "落地时叮铃作响，计算摔落伤害时少算 3 格。", "Chimes on landing. Counts falls as 3 blocks shorter."),
-        "yae_knot_charm": ("八重花结御守", "Double Blossom Omamori",
-            "受伤时吃完食物，额外恢复一颗心。每 45 秒可触发一次。", "Finish eating while hurt to heal one heart. Recharges in 45 seconds."),
-        "celadon_fish_pendant": ("青瓷游鱼佩", "Celadon Carp Pendant",
-            "水下气泡消耗减半。", "Air depletes half as fast underwater."),
-        "yamazakura_ink_bracelet": ("山樱墨绳腕结", "Mountain Cherry Inkcord",
-            "持斧采掘适合用斧的方块时速度提高 20%%，对樱树原木和木头提高 35%%。", "Mine axe-effective blocks 20%% faster with an axe, or 35%% faster for cherry logs and wood."),
+        "shidare_wind_bell": ("belt", "枝垂风铃坠", "Weeping Cherry Wind Bell",
+            "移动速度 +15%%，安全摔落距离 +6 格。", "+15%% movement speed and +6 blocks of safe fall distance."),
+        "yae_knot_charm": ("charm", "八重花结御守", "Double Blossom Omamori",
+            "生命上限 +2 颗心。受伤时进食可恢复 2 颗心，冷却 20 秒。", "+2 maximum hearts. Eating while hurt heals 2 hearts, once every 20 seconds."),
+        "celadon_fish_pendant": ("necklace", "青瓷游鱼佩", "Celadon Carp Pendant",
+            "游泳速度 +35%%，水下挖掘效率 +40 个百分点，气泡消耗减半。", "+35%% swim speed, +40 percentage points of submerged mining efficiency, and half air consumption."),
+        "yamazakura_ink_bracelet": ("bracelet", "山樱墨绳腕结", "Mountain Cherry Inkcord",
+            "方块破坏速度 +25%%，方块交互距离 +1 格。", "+25%% block breaking speed and +1 block interaction range."),
     }
-    for name, (cn_name, en_name, cn_hint, en_hint) in charms.items():
+    for name, (slot, cn_name, en_name, cn_hint, en_hint) in charms.items():
         flat_item_model(name)
         key = f"item.{MOD}.{name}"
         zh[key], en[key] = cn_name, en_name
         zh[key + ".hint"], en[key + ".hint"] = cn_hint, en_hint
+        tag("curios", "item", slot, [f"{MOD}:{name}"])
+        datum(f"curios/slots/{slot}", {"size": 1})
     zh[f"tooltip.{MOD}.charm.offhand"], en[f"tooltip.{MOD}.charm.offhand"] = "佩戴在副手", "Equip in the off hand"
-    zh[f"tooltip.{MOD}.charm.curios"], en[f"tooltip.{MOD}.charm.curios"] = "佩戴在副手或 Curios 护符栏", "Equip in the off hand or a Curios charm slot"
-    tag("curios", "item", "charm", [f"{MOD}:{name}" for name in charms])
-    datum("curios/slots/charm", {"size": 1})
-    datum("curios/entities/travel_charms", {"entities": ["minecraft:player"], "slots": ["charm"]})
+    zh[f"tooltip.{MOD}.charm.curios"], en[f"tooltip.{MOD}.charm.curios"] = "佩戴在副手或 Curios %s栏", "Equip in the off hand or a Curios %s slot"
+    datum("curios/entities/travel_charms", {"entities": ["minecraft:player"], "slots": [v[0] for v in charms.values()]})
     tag(MOD, "block", "flowering_cherry_logs", ["#minecraft:cherry_logs", *(f"#{MOD}:{v}_logs" for v in VARIETIES)])
     for name, cn_name, en_name in (
             ("flower_dyehouse", "花染作坊", "Blossom Dyehouse"),

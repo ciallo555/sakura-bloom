@@ -1,11 +1,14 @@
 package dev.sakurabloom;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ChunkPos;
@@ -22,6 +25,7 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.fml.ModList;
 import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.common.NeoForgeMod;
 import net.neoforged.neoforge.event.entity.living.LivingEntityUseItemEvent;
 import net.neoforged.neoforge.gametest.GameTestHolder;
 import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
@@ -45,12 +49,12 @@ public final class TravelGameTests {
         record Site(String name, BloomContent.CherryWood wood, BlockPos furnishing, Block block, List<BlockPos> walk) {}
         for (var site : List.of(
             new Site("flower_dyehouse", BloomContent.YAE, p(6,4,16), Blocks.LOOM,
-                List.of(p(10,2,3), p(10,2,5), p(10,3,6), p(10,3,14), p(7,3,14), p(7,3,15))),
-            new Site("rain_pavilion", BloomContent.SHIDARE, p(21,3,10), Blocks.WATER_CAULDRON,
+                List.of(p(10,2,3), p(10,2,5), p(10,3,6), p(10,3,14), p(8,3,14), p(8,3,15))),
+            new Site("rain_pavilion", BloomContent.SHIDARE, p(21,2,10), Blocks.WATER,
                 List.of(p(11,2,2), p(11,2,4), p(16,2,4), p(16,2,9), p(19,2,9), p(19,2,12),
                     p(19,3,13), p(19,3,18), p(16,3,18), p(16,3,19))),
             new Site("hillside_joinery", BloomContent.YAMAZAKURA, p(7,5,13), Blocks.STONECUTTER,
-                List.of(p(12,2,3), p(12,2,8), p(12,3,9), p(12,3,15), p(8,3,15), p(8,3,16))))) {
+                List.of(p(12,2,3), p(12,2,8), p(12,3,9), p(12,3,16), p(9,3,16), p(9,3,18))))) {
             var holder = structs.getHolderOrThrow(ResourceKey.create(Registries.STRUCTURE, SakuraBloom.id(site.name)));
             test.assertTrue(set.structures().stream().anyMatch(entry -> entry.structure().equals(holder)), "Missing placement for " + site.name);
             var start = holder.value().generate(registries, generator, generator.getBiomeSource(), source.randomState(),
@@ -61,8 +65,11 @@ public final class TravelGameTests {
             checkChest(test, template, origin, site.wood.chest().get(), site.name);
             test.assertTrue(level.getBlockState(origin.offset(site.furnishing)).is(site.block), "Missing furnishing in " + site.name);
             ShrineGameTests.verifyWalk(test, origin, site.walk);
-            if (site.name.equals("flower_dyehouse"))
+            if (site.name.equals("flower_dyehouse")) {
                 ShrineGameTests.verifyWalk(test, origin, List.of(p(16,2,4), p(16,2,22)));
+                for (int x : new int[]{14,18}) for (int z : new int[]{8,17})
+                    test.assertTrue(level.getBlockState(origin.offset(x,3,z)).is(Blocks.STONE_BRICKS), "Missing aisle post footing");
+            }
         }
         test.succeed();
     }
@@ -76,6 +83,12 @@ public final class TravelGameTests {
         var key = ResourceKey.create(Registries.LOOT_TABLE, SakuraBloom.id("chests/" + table));
         test.assertTrue(chest != null && key.equals(chest.getLootTable()), "Missing deferred loot for " + table);
         test.assertFalse(ChestBlock.isChestBlockedAt(level, pos), "Blocked chest lid in " + table);
+        var facing = level.getBlockState(pos).getValue(ChestBlock.FACING);
+        var wall = pos.relative(facing.getOpposite());
+        test.assertTrue(level.getBlockState(wall).isFaceSturdy(level, wall, facing), "Chest has no wall behind it in " + table);
+        var front = pos.relative(facing);
+        var shape = level.getBlockState(front).getCollisionShape(level, front);
+        test.assertTrue(shape.isEmpty() || shape.max(Direction.Axis.Y) <= 0.125, "Chest aisle is obstructed in " + table);
         chest.unpackLootTable(null);
         test.assertTrue(chest.getLootTable() == null && !chest.isEmpty(), "Chest failed to roll its supplies: " + table);
     }
@@ -101,30 +114,39 @@ public final class TravelGameTests {
     @GameTest(template = "clearing")
     public static void travelCharmsWorkWhenEquipped(GameTestHelper test) {
         var player = test.makeMockPlayer(GameType.SURVIVAL);
+        double speed = player.getAttributeValue(Attributes.MOVEMENT_SPEED);
         player.setItemInHand(InteractionHand.OFF_HAND, BloomContent.WIND_BELL.toStack());
+        TravelCharmItem.refreshBonuses(player);
         player.causeFallDamage(8, 1, player.damageSources().fall());
-        test.assertTrue(player.getHealth() == 18, "Wind bell should take three blocks off a fall");
+        test.assertTrue(player.getHealth() == 20 && Math.abs(player.getAttributeValue(Attributes.MOVEMENT_SPEED)-1.15*speed)<1e-6,
+            "The bell should absorb an eight-block fall and improve movement");
         player.setHealth(12);
         player.setItemInHand(InteractionHand.OFF_HAND, BloomContent.KNOT_CHARM.toStack());
+        TravelCharmItem.refreshBonuses(player);
+        test.assertTrue(player.getMaxHealth() == 24 && player.getAttributeValue(Attributes.MOVEMENT_SPEED) == speed, "Swapping charms left stale bonuses");
         NeoForge.EVENT_BUS.post(new LivingEntityUseItemEvent.Finish(player, new ItemStack(Items.POTION), 0, new ItemStack(Items.GLASS_BOTTLE)));
         test.assertTrue(player.getHealth() == 12, "A potion triggered the omamori");
         for (int i = 0; i < 2; i++)
             NeoForge.EVENT_BUS.post(new LivingEntityUseItemEvent.Finish(player, new ItemStack(Items.BREAD), 0, ItemStack.EMPTY));
-        test.assertTrue(player.getHealth() == 14 && player.getCooldowns().isOnCooldown(BloomContent.KNOT_CHARM.get()),
+        test.assertTrue(player.getHealth() == 16 && player.getCooldowns().isOnCooldown(BloomContent.KNOT_CHARM.get()),
             "The omamori should heal once for consecutive meals");
 
-        player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.IRON_AXE));
+        player.setHealth(24);
         player.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
-        var cherry = Blocks.CHERRY_LOG.defaultBlockState();
-        var oak = Blocks.OAK_PLANKS.defaultBlockState();
-        var stone = Blocks.STONE.defaultBlockState();
-        var pos = test.absolutePos(new BlockPos(3, 1, 3));
-        float cherryBase = player.getDigSpeed(cherry, pos), oakBase = player.getDigSpeed(oak, pos), stoneBase = player.getDigSpeed(stone, pos);
+        var mining = player.getAttribute(Attributes.BLOCK_BREAK_SPEED);
+        var other = new AttributeModifier(SakuraBloom.id("test_other_tool"), 0.4, AttributeModifier.Operation.ADD_MULTIPLIED_BASE);
+        mining.addTransientModifier(other);
         player.getInventory().add(BloomContent.INK_BRACELET.toStack());
-        test.assertTrue(player.getDigSpeed(cherry, pos) == cherryBase, "A bracelet in the backpack should be inactive");
+        TravelCharmItem.refreshBonuses(player);
+        double reach = player.getAttributeValue(Attributes.BLOCK_INTERACTION_RANGE);
+        test.assertTrue(player.getHealth() == 20 && Math.abs(mining.getValue()-1.4)<1e-6, "Backpack or expired health bonus leaked");
         player.setItemInHand(InteractionHand.OFF_HAND, BloomContent.INK_BRACELET.toStack());
-        test.assertTrue(player.getDigSpeed(cherry, pos) == cherryBase * 1.35F && player.getDigSpeed(oak, pos) == oakBase * 1.2F
-            && player.getDigSpeed(stone, pos) == stoneBase, "Inkcord applied the wrong harvesting bonus");
+        TravelCharmItem.refreshBonuses(player);
+        test.assertTrue(Math.abs(mining.getValue()-1.65)<1e-6 && player.getAttributeValue(Attributes.BLOCK_INTERACTION_RANGE)==reach+1,
+            "Bracelet must combine with other mods' modifiers");
+        player.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
+        TravelCharmItem.refreshBonuses(player);
+        test.assertTrue(mining.hasModifier(other.id()) && Math.abs(mining.getValue()-1.4)<1e-6, "Unequipping disturbed another modifier");
         if (ModList.get().isLoaded("curios")) CuriosCharmTest.check(test);
         test.succeed();
     }
@@ -137,6 +159,9 @@ public final class TravelGameTests {
         test.setBlock(pos.above(), Blocks.WATER);
         player.setPos(Vec3.atBottomCenterOf(test.absolutePos(pos)));
         player.setItemInHand(InteractionHand.OFF_HAND, BloomContent.FISH_PENDANT.toStack());
+        TravelCharmItem.refreshBonuses(player);
+        test.assertTrue(Math.abs(player.getAttributeValue(NeoForgeMod.SWIM_SPEED)-1.35)<1e-6
+            && Math.abs(player.getAttributeValue(Attributes.SUBMERGED_MINING_SPEED)-0.6)<1e-6, "Missing swimming or underwater mining bonus");
         player.setAirSupply(100);
         for (int tick = 1; tick <= 10; tick++) {
             player.tickCount = tick;

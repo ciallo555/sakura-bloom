@@ -1,12 +1,16 @@
 {
   "type": "sakura_bloom:garden_site",
-  "max_surface_relief": 8,
+  "max_surface_relief": 7,
   "biomes": [
     "sakura_bloom:shidare_meadow"
   ],
   "step": "top_layer_modification",
+  "entrance_center_x": 15,
+  "entrance_width": 11,
+  "entrance_paving": "minecraft:calcite",
+  "clearance_template": "sakura_bloom:shrine/shidare",
   "spawn_overrides": {},
-  "terrain_adaptation": "beard_box",
+  "terrain_adaptation": "none",
   "start_pool": "sakura_bloom:shrine/shidare",
   "size": 1,
   "start_height": {

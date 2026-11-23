@@ -7,6 +7,7 @@ import net.minecraft.core.dispenser.BoatDispenseItemBehavior;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.BoatItem;
@@ -29,6 +30,7 @@ import net.neoforged.fml.common.asm.enumextension.EnumProxy;
 import net.neoforged.neoforge.event.BlockEntityTypeAddBlocksEvent;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
+import net.neoforged.neoforge.common.NeoForgeMod;
 import net.neoforged.neoforge.items.wrapper.InvWrapper;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -56,9 +58,9 @@ public final class BloomContent {
     public static final DeferredHolder<RecipeSerializer<?>, MortarRecipe.Serializer> GRINDING_SERIALIZER =
         SERIALIZERS.register("grinding", MortarRecipe.Serializer::new);
 
-    public static final CherryWood SHIDARE = cherryWood("shidare", MapColor.SAND, MapColor.COLOR_BROWN, BloomBoatTypes.SHIDARE);
-    public static final CherryWood YAE = cherryWood("yae", MapColor.TERRACOTTA_PINK, MapColor.TERRACOTTA_RED, BloomBoatTypes.YAE);
-    public static final CherryWood YAMAZAKURA = cherryWood("yamazakura", MapColor.TERRACOTTA_PURPLE, MapColor.TERRACOTTA_GRAY, BloomBoatTypes.YAMAZAKURA);
+    public static final CherryWood SHIDARE = cherryWood("shidare", MapColor.SAND, MapColor.COLOR_BROWN, MapColor.WOOL, BloomBoatTypes.SHIDARE);
+    public static final CherryWood YAE = cherryWood("yae", MapColor.TERRACOTTA_PINK, MapColor.TERRACOTTA_RED, MapColor.COLOR_PINK, BloomBoatTypes.YAE);
+    public static final CherryWood YAMAZAKURA = cherryWood("yamazakura", MapColor.TERRACOTTA_PURPLE, MapColor.TERRACOTTA_GRAY, MapColor.GLOW_LICHEN, BloomBoatTypes.YAMAZAKURA);
     public static final List<CherryWood> WOODS = List.of(SHIDARE, YAE, YAMAZAKURA);
     static final DeferredHolder<BlockEntityType<?>, BlockEntityType<CherryChestBlock.Entity>> CHERRY_CHEST =
         BLOCK_ENTITIES.register("cherry_chest", () -> BlockEntityType.Builder.of(CherryChestBlock.Entity::new, chestBlocks()).build(null));
@@ -74,10 +76,14 @@ public final class BloomContent {
     public static final DeferredItem<BlockItem> MORTAR_ITEM = workstation(MORTAR);
     public static final DeferredItem<BlockItem> LANTERN_ITEM = workstation(LANTERN);
 
-    static final DeferredItem<TravelCharmItem> WIND_BELL = ITEMS.register("shidare_wind_bell", TravelCharmItem::new);
-    static final DeferredItem<TravelCharmItem> KNOT_CHARM = ITEMS.register("yae_knot_charm", TravelCharmItem::new);
-    static final DeferredItem<TravelCharmItem> FISH_PENDANT = ITEMS.register("celadon_fish_pendant", TravelCharmItem::new);
-    static final DeferredItem<TravelCharmItem> INK_BRACELET = ITEMS.register("yamazakura_ink_bracelet", TravelCharmItem::new);
+    static final DeferredItem<TravelCharmItem> WIND_BELL = ITEMS.register("shidare_wind_bell", () -> new TravelCharmItem("belt",
+        TravelCharmItem.percent("wind_stride", Attributes.MOVEMENT_SPEED, 0.15), TravelCharmItem.add("wind_landing", Attributes.SAFE_FALL_DISTANCE, 6)));
+    static final DeferredItem<TravelCharmItem> KNOT_CHARM = ITEMS.register("yae_knot_charm", () -> new TravelCharmItem("charm",
+        TravelCharmItem.add("blossom_vitality", Attributes.MAX_HEALTH, 4)));
+    static final DeferredItem<TravelCharmItem> FISH_PENDANT = ITEMS.register("celadon_fish_pendant", () -> new TravelCharmItem("necklace",
+        TravelCharmItem.percent("carp_swim", NeoForgeMod.SWIM_SPEED, 0.35), TravelCharmItem.add("carp_dive", Attributes.SUBMERGED_MINING_SPEED, 0.4)));
+    static final DeferredItem<TravelCharmItem> INK_BRACELET = ITEMS.register("yamazakura_ink_bracelet", () -> new TravelCharmItem("bracelet",
+        TravelCharmItem.percent("ink_work", Attributes.BLOCK_BREAK_SPEED, 0.25), TravelCharmItem.add("ink_reach", Attributes.BLOCK_INTERACTION_RANGE, 1)));
     static final List<DeferredItem<TravelCharmItem>> TRAVEL_CHARMS = List.of(WIND_BELL, KNOT_CHARM, FISH_PENDANT, INK_BRACELET);
 
     static {
@@ -148,7 +154,7 @@ public final class BloomContent {
         CourtyardContent.setupFire(fire);
     }
 
-    private static CherryWood cherryWood(String name, MapColor timber, MapColor bark, EnumProxy<Boat.Type> boatType) {
+    private static CherryWood cherryWood(String name, MapColor timber, MapColor bark, MapColor foliage, EnumProxy<Boat.Type> boatType) {
         var pollen = PARTICLES.register(name + "_falling_petals", () -> new SimpleParticleType(false));
         TreeGrower grower = new TreeGrower(ID + ":" + name, Optional.empty(),
             Optional.of(ResourceKey.create(Registries.CONFIGURED_FEATURE, id(name + "_tree"))),
@@ -179,7 +185,7 @@ public final class BloomContent {
             List.of(log, wood, strippedLog, strippedWood, planks, stairs, slab, fence, gate, door, trapdoor, plate, button);
 
         var leaves = BLOCKS.register(name + "_leaves",
-            () -> new BlossomLeavesBlock(copy(Blocks.CHERRY_LEAVES, timber), pollen));
+            () -> new BlossomLeavesBlock(copy(Blocks.CHERRY_LEAVES, foliage), pollen));
         var sapling = BLOCKS.register(name + "_sapling",
             () -> new SaplingBlock(grower, copy(Blocks.CHERRY_SAPLING, timber)));
         var potted = BLOCKS.register("potted_" + name + "_sapling",

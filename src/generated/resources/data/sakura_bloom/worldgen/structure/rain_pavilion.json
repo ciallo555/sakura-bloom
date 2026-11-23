@@ -7,8 +7,12 @@
     "sakura_bloom:shidare_meadow"
   ],
   "step": "top_layer_modification",
+  "entrance_center_x": 11,
+  "entrance_width": 3,
+  "entrance_paving": "minecraft:andesite",
+  "clearance_template": "sakura_bloom:landmark/rain_pavilion",
   "spawn_overrides": {},
-  "terrain_adaptation": "beard_thin",
+  "terrain_adaptation": "none",
   "start_pool": "sakura_bloom:landmark/rain_pavilion",
   "size": 1,
   "start_height": {

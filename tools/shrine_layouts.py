@@ -5,7 +5,7 @@ import json
 from nbtlib import Compound, List, String
 
 from generate_resources import MOD
-from timber_architecture import (AIR, altar, bed, boulder, curtain, deck, gallery, ground, hanging_cloth,
+from timber_architecture import (AIR, altar, basin, bed, boulder, curtain, deck, gallery, ground, hanging_cloth,
                                  offering_box, pave, pine, pond, rail, roof, stone_light, tatami, wall)
 
 
@@ -62,7 +62,7 @@ def cherry_court(b, t):
     b.fill((7, 6, 7), (7, 6, 14), t.timber("stripped_log"), axis="z")
     roof(b, t, 2, 6, 8, 15, 7, axis="z", style="hip", color="brown")
     pave(b, 3, 7, 7, 14, "polished_andesite")
-    b.place(4, 3, 8, "minecraft:water_cauldron", level="3")
+    basin(b, 5, 9)
     b.fill((4, 3, 12), (6, 3, 12), t.timber("stripped_log"), axis="x")
     b.place(4, 4, 12, "minecraft:potted_cherry_sapling")
     b.place(5, 4, 12, f"{MOD}:flower_mortar")
@@ -88,6 +88,7 @@ def cherry_court(b, t):
         b.place(x, 7, 21, f"{MOD}:silk_palace_lantern", hanging="true")
     roof(b, t, 4, 18, 26, 29, 9, color="pink", crest="brown")
     for x in (12, 18):
+        b.place(x, 3, 17, "minecraft:chiseled_stone_bricks")
         b.fill((x, 4, 17), (x, 6, 17), t.timber("log"), axis="y")
     b.fill((12, 7, 17), (18, 7, 17), t.timber("stripped_log"), axis="x")
     b.place(13, 6, 17, "minecraft:bell", attachment="ceiling", facing="north")
@@ -262,8 +263,8 @@ def mountain_sanctuary(b, t):
 
 # Each chest occupies the side of the room, away from the altar and its entrance.
 SHRINES = {
-    "cherry": (cherry_court, (8,4,25)),
-    "shidare": (water_pavilion, (24,4,25)),
-    "yae": (lantern_hall, (9,5,26)),
-    "yamazakura": (mountain_sanctuary, (7,10,24)),
+    "cherry": (cherry_court, (9,4,26)),
+    "shidare": (water_pavilion, (23,4,25)),
+    "yae": (lantern_hall, (10,5,27)),
+    "yamazakura": (mountain_sanctuary, (8,10,25)),
 }

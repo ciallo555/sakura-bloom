@@ -47,10 +47,12 @@ def generate():
     for name, layout, theme, size, biomes, materials, trinkets in sites:
         build = Blueprint()
         chest = layout(build, theme)
-        reward_chest(build, chest, theme.wood, name, "east")
+        reward_chest(build, chest, theme.wood, name)
         template = f"landmark/{name}"
         build.save(template, size)
-        surface_structure(name, template, biomes, terrain="beard_thin")
+        center, width, paving = {"flower_dyehouse": (11, 4, "gravel"), "rain_pavilion": (11, 3, "andesite"),
+                                 "hillside_joinery": (12, 4, "packed_mud")}[name]
+        surface_structure(name, template, biomes, paving=paving, center=center, width=width)
         chest_table(name, materials, 0.35, trinkets)
         structures.append(f"{MOD}:{name}")
     chest_table("shrine_offerings", [(f"{MOD}:{v}_petals", 1, 2, 4) for v in ("shidare", "yae", "yamazakura")],
