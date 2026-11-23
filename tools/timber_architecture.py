@@ -4,6 +4,8 @@ Coordinates denote blocks, with +Z leading in from the road. Roof pitches are
 specified in half-blocks so a wide eave can turn up without a full-block step.
 """
 
+from random import Random
+
 from nbtlib import Compound, List, String
 
 from generate_resources import MOD
@@ -29,7 +31,7 @@ def pave(b, x0, z0, x1, z1, material, y=2):
 
 
 def deck(b, t, x0, z0, x1, z1, y):
-    for x in range(x0, x1 + 1, 4):
+    for x in sorted({*range(x0, x1 + 1, 4), x1}):
         for z in {z0, z1}:
             b.fill((x, 1, z), (x, y - 1, z), t.timber("log"), axis="y")
     b.fill((x0, y, z0), (x1, y, z1), t.timber("planks"))
@@ -55,6 +57,37 @@ def wall(b, t, x, z, axis, floor, tie, bays, *, facing=None):
             b.fill((px, floor + 1, pz), (px, tie - 1, pz), block)
         else:
             raise ValueError(f"Unknown wall bay {bay!r}")
+
+
+def close_eaves(b, t, x0, z0, x1, z1, tie):
+    """Seat the roof on a continuous wall plate, including the short gable ends."""
+    rim = [(x, z, "x") for z in (z0, z1) for x in range(x0, x1+1)]
+    rim += [(x, z, "z") for x in (x0, x1) for z in range(z0+1, z1)]
+    for x, z, axis in rim:
+        b.place(x, tie, z, t.timber("stripped_log"), axis=axis)
+        for y in range(tie+1, tie+13):
+            block, props, _ = b.blocks.get((x, y, z), (AIR, (), None))
+            if block.endswith("_roof_tile_slab"):
+                if dict(props)["type"] == "top":
+                    b.place(x, y, z, block, **(dict(props) | {"type": "double"}))
+                break
+            if block not in (AIR, "minecraft:spruce_slab"):
+                break  # A full floor or an existing gable panel already meets the wall.
+            b.place(x, y, z, t.timber("planks") if y == tie+1 else "minecraft:white_terracotta")
+        else:
+            raise ValueError(f"Wall at {(x,tie,z)} has no roof")
+
+
+def indoor_stairs(b, t, x, floor, z, steps, facing):
+    """Two-wide stair flight, including its solid carriage and the opening through the floor above."""
+    dx, dz = {"west": (-1,0), "south": (0,1)}[facing]
+    for i in range(steps):
+        tread = floor+i+1
+        for side in (0, 1):
+            px, pz = x+i*dx+side*abs(dz), z+i*dz+side*abs(dx)
+            b.fill((px, floor+1, pz), (px, tread-1, pz), t.timber("planks"))
+            b.place(px, tread, pz, t.timber("stairs"), facing=facing)
+            b.fill((px, tread+1, pz), (px, tread+2, pz), AIR)
 
 
 def curtain(b, t, x0, x1, y, z, colors=()):
@@ -99,15 +132,46 @@ def tiled_course(b, x, y, z, tone, axis, half, *, backed, ridge=False):
     # meet at an edge and let daylight through the steeper upper roof.
     slab = f"{MOD}:{tone}_roof_tile_slab"
     b.place(x, y, z, slab, type="double" if ridge or (backed and half) else "top" if half else "bottom", axis=axis)
-    if backed and (not half or ridge):
+    if backed and (not half or ridge) and b.blocks.get((x,y-1,z), (AIR,))[0] == AIR:
         b.place(x, y-1, z, "minecraft:spruce_slab", type="top")
 
 
+def seat_roof_beams(b):
+    """Fit timber packing between an existing beam and the underside of a tile course."""
+    tiles = [(pos, name, dict(props)) for pos, (name, props, _) in b.blocks.items() if name.endswith("_roof_tile_slab")]
+    for (x,y,z), tile, properties in tiles:
+        under = b.blocks.get((x,y-1,z), (AIR, (), None))
+        if under[0] in (AIR, "minecraft:spruce_slab"):
+            beam = b.blocks.get((x,y-2,z), (AIR, (), None))
+            if beam[0].endswith(("_log", "_bamboo_block")):
+                b.place(x, y-1, z, beam[0], **dict(beam[1]))
+                under = beam
+        if under[0].endswith(("_log", "_bamboo_block")) and properties["type"] == "top":
+            b.place(x, y, z, tile, **(properties | {"type": "double"}))
+
+
 def rail(b, t, x, z, axis, length, y):
-    forward, back = ("east", "west") if axis == "x" else ("south", "north")
     for i in range(length):
         px, pz = x + (i if axis == "x" else 0), z + (i if axis == "z" else 0)
-        b.place(px, y, pz, t.timber("fence"), **{forward: str(i < length-1).lower(), back: str(i > 0).lower()})
+        b.place(px, y, pz, t.timber("fence"))
+
+
+def join_fences(b):
+    """Jigsaw uses the stored sides. Resolve them after corner pieces, newels and benches are in place."""
+    sides = (("north",0,-1,"south"), ("south",0,1,"north"), ("west",-1,0,"east"), ("east",1,0,"west"))
+    for (x,y,z), (name, props, data) in b.blocks.items():
+        if not name.endswith("_fence"):
+            continue
+        state = dict(props)
+        for side, dx, dz, opposite in sides:
+            neighbor, properties, _ = b.blocks.get((x+dx,y,z+dz), (AIR, (), None))
+            connected = neighbor.endswith(("_fence", "_log", "_planks", "_terracotta", "_wool", "_wood", "_bamboo_block"))
+            if neighbor.endswith("_stairs"):
+                connected = dict(properties).get("facing") == opposite
+            elif neighbor.endswith("_slab"):
+                connected = dict(properties).get("type") == "double"
+            state[side] = str(connected).lower()
+        b.place(x, y, z, name, data=data, **state)
 
 
 def roof(b, t, x0, z0, x1, z1, eave, *, axis="x", style="irimoya", color=None,
@@ -155,7 +219,7 @@ def roof(b, t, x0, z0, x1, z1, eave, *, axis="x", style="irimoya", color=None,
                     timber = gy == sill or v == mid
                     b.place(x, gy, z, t.timber("stripped_log") if timber else "minecraft:white_terracotta",
                             **({"axis": "y" if v == mid and gy > sill else drains_along} if timber else {}))
-            if v in (0, v1) and u%3 == 1:
+            if v in (0, v1) and u%3 == 1 and b.blocks.get((x,eave-1,z), (AIR,))[0] == AIR:
                 b.place(x, eave-1, z, t.timber("slab"), type="top")
 
 
@@ -192,18 +256,38 @@ def stone_light(b, x, y, z):
     b.place(x, y+1, z, f"{MOD}:yukimi_lantern", facing="north")
 
 
-def pond(b, z0, shores, *, y=2):
+def pond(b, z0, shores, *, seed, y=2):
+    # Interpolate a coarse sediment field so deposits continue across rows and wrap around the shore.
+    wet = {(x, z0+i) for i, (left, right) in enumerate(shores) for x in range(left, right+1)}
+    rng = Random(seed)
+    grid = {(u,v): rng.random() for u in range(min(x for x,z in wet)//4, max(x for x,z in wet)//4+2)
+            for v in range(z0//4, (z0+len(shores)-1)//4+2)}
+    def sediment(x, z):
+        u, dx = divmod(x, 4)
+        v, dz = divmod(z, 4)
+        near = grid[u,v]*(4-dx) + grid[u+1,v]*dx
+        far = grid[u,v+1]*(4-dx) + grid[u+1,v+1]*dx
+        return (near*(4-dz) + far*dz)/16
     for i, (left, right) in enumerate(shores):
         z = z0+i
         for x in range(left, right + 1):
-            b.place(x, y-1, z, "minecraft:" + ("clay" if (x+z)%5 else "gravel"))
-            b.place(x, y, z, "minecraft:water", level="0")
-        for bank in (left-1, right+1):
-            b.place(bank, y, z, "minecraft:" + ("moss_block" if i%3 else "andesite"))
+            deposit = sediment(x, z)
+            inner = all((x+dx,z+dz) in wet for dx,dz in ((-2,0),(2,0),(0,-2),(0,2)))
+            bottom = y-2 if inner and deposit > 0.40 else y-1
+            material = "andesite" if deposit < 0.24 else "gravel" if deposit < 0.53 else "clay"
+            b.place(x, bottom, z, "minecraft:" + material)
+            b.fill((x, bottom+1, z), (x, y, z), "minecraft:water", level="0")
+        for bank, shore in ((left-1, left), (right+1, right)):
+            b.place(bank, y, z, "minecraft:" + ("andesite" if sediment(shore,z) < 0.34 else "moss_block"))
 
 
 def boulder(b, x, y, z, *, east=True):
     step = 1 if east else -1
+    for px, pz in ((x,z), (x+step,z), (x,z+1)):
+        bottom = y-1
+        while b.blocks.get((px,bottom,pz), (AIR,))[0] == "minecraft:water":
+            b.place(px, bottom, pz, "minecraft:andesite")
+            bottom -= 1
     b.place(x, y, z, "minecraft:mossy_cobblestone")
     b.place(x, y+1, z, "minecraft:moss_carpet")
     b.place(x+step, y, z, "minecraft:mossy_cobblestone_slab", type="bottom")
@@ -225,6 +309,8 @@ def pine(b, x, y, z):
     b.fill((x, y, z), (x, y+5, z), "minecraft:spruce_log", axis="y")
     for dx, dz, dy in ((-2, 0, 2), (1, 1, 4), (0, 0, 6)):
         b.fill((x+min(dx,0), y+dy, z), (x+max(dx,0), y+dy, z), "minecraft:spruce_log", axis="x")
+        if dz:
+            b.fill((x+dx, y+dy, z+1), (x+dx, y+dy, z+dz), "minecraft:spruce_log", axis="z")
         for ox, oz in ((-1,0), (0,-1), (0,0), (1,0), (0,1), (1,-1)):
             b.place(x+dx+ox, y+dy+1, z+dz+oz, "minecraft:spruce_leaves", persistent="true")
         b.place(x+dx, y+dy+2, z+dz, "minecraft:spruce_leaves", persistent="true")

@@ -11,10 +11,12 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.LevelHeightAccessor;
 import net.minecraft.world.level.biome.Biomes;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.FenceBlock;
+import net.minecraft.world.level.block.SignBlock;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.Rotation;
-import net.minecraft.world.level.block.entity.SignBlockEntity;
 import net.minecraft.world.level.block.state.properties.Half;
 import net.minecraft.world.level.levelgen.FlatLevelSource;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -36,7 +38,7 @@ import java.util.EnumSet;
 @PrefixGameTestTemplate(false)
 public final class ShrineGameTests {
     private record Theme(String wood, String blockNamespace, String biome, String roof,
-                         String stoneStairs, String pathStairs, String paving, String plaque,
+                         String stoneStairs, String pathStairs, String paving,
                          BlockPos landmark, String landmarkBlock, BlockPos roofTile, BlockPos doorway,
                          List<BlockPos> path) {}
 
@@ -126,20 +128,20 @@ public final class ShrineGameTests {
         var set = registries.registryOrThrow(Registries.STRUCTURE_SET).getHolderOrThrow(key).value();
         var themes = List.of(
             new Theme("cherry", "minecraft", "minecraft:cherry_grove", "pink",
-                "stone_brick_stairs", "stone_stairs", "smooth_stone", "花染之庭",
+                "stone_brick_stairs", "stone_stairs", "smooth_stone",
                 p(5,4,12), "sakura_bloom:flower_mortar", p(9,11,24), p(15,7,21),
                 List.of(p(15,2,4), p(15,2,16), p(15,3,17), p(15,3,24), p(9,3,24), p(9,3,25))),
             new Theme("shidare", SakuraBloom.ID, "sakura_bloom:shidare_meadow", "light_blue",
-                "polished_diorite_stairs", "diorite_stairs", "calcite", "垂樱水榭",
-                p(5,2,12), "minecraft:water", p(14,9,23), p(21,6,21),
-                List.of(p(15,2,4), p(15,2,6), p(15,3,7), p(15,3,14), p(21,3,14),
-                    p(21,3,23), p(23,3,23), p(23,3,24))),
+                "polished_diorite_stairs", "diorite_stairs", "calcite",
+                p(5,2,12), "minecraft:water", p(15,9,19), p(15,7,22),
+                List.of(p(15,2,4), p(15,2,6), p(15,3,7), p(15,3,25), p(19,3,25), p(19,3,26))),
             new Theme("yae", SakuraBloom.ID, "sakura_bloom:yae_grove", "red",
-                "polished_andesite_stairs", "brick_stairs", "bricks", "八重灯殿",
+                "polished_andesite_stairs", "brick_stairs", "bricks",
                 p(6,6,9), "sakura_bloom:silk_palace_lantern", p(16,16,24), p(16,8,21),
-                List.of(p(16,2,4), p(16,2,15), p(16,4,17), p(16,4,25), p(10,4,25), p(10,4,26))),
+                List.of(p(16,2,4), p(16,2,15), p(16,4,17), p(16,4,22), p(23,4,22),
+                    p(23,4,24), p(17,10,24), p(16,10,24), p(11,10,24), p(11,10,25))),
             new Theme("yamazakura", SakuraBloom.ID, "sakura_bloom:yamazakura_woodland", "green",
-                "tuff_brick_stairs", "mossy_stone_brick_stairs", "mossy_stone_bricks", "山樱遥拜",
+                "tuff_brick_stairs", "mossy_stone_brick_stairs", "mossy_stone_bricks",
                 p(11,8,15), "minecraft:tuff_brick_stairs", p(11,15,23), p(11,12,21),
                 List.of(p(15,2,4), p(15,2,8), p(15,6,12), p(15,6,15), p(13,6,15),
                     p(10,9,15), p(8,9,15), p(8,9,19), p(11,9,19), p(11,9,23), p(8,9,23), p(8,9,24)))
@@ -180,23 +182,94 @@ public final class ShrineGameTests {
             verifyWalk(test, absolute, theme.path);
             assertBlock(test, origin.offset(theme.roofTile), "sakura_bloom:" + theme.roof + "_roof_tile_slab");
             assertBlock(test, origin.offset(theme.landmark), theme.landmarkBlock);
-            assertBlock(test, origin.offset(15, 8, 4), theme.blockNamespace + ":" + theme.wood + "_hanging_sign");
-            SignBlockEntity plaque = test.getBlockEntity(origin.offset(15, 8, 4));
-            test.assertTrue(plaque.getFrontText().getMessage(1, false).getString().equals(theme.plaque)
-                && plaque.getBackText().getMessage(1, false).getString().equals(theme.plaque),
-                "Wrong shrine name on the torii for " + theme.wood);
-            // Jigsaw may turn the template. Check the supported hanging decor after a quarter-turn.
-            var turn = new StructurePlaceSettings().setRotation(Rotation.CLOCKWISE_90)
-                .setRotationPivot(new BlockPos(15,0,15)).setKnownShape(true);
-            template.placeInWorld(level, absolute, absolute, turn, level.random, 18);
-            var lintel = StructureTemplate.calculateRelativePosition(turn, theme.doorway);
-            var curtain = test.getBlockState(origin.offset(lintel));
-            test.assertTrue(curtain.hasProperty(net.minecraft.world.level.block.HorizontalDirectionalBlock.FACING)
-                && curtain.getValue(net.minecraft.world.level.block.HorizontalDirectionalBlock.FACING) == Direction.EAST
-                && curtain.canSurvive(level, absolute.offset(lintel)), "Door curtain did not rotate with the hall");
-
+            verifyWoodwork(test, absolute, template, new StructurePlaceSettings());
+            assertBlock(test, origin.offset(15, 8, 4), theme.blockNamespace + ":stripped_" + theme.wood + "_log");
+            if (theme.wood.equals("shidare")) {
+                for (int x = 14; x <= 16; x++)
+                    verifyWalk(test, absolute, List.of(p(x,2,6), p(x,3,7), p(x,3,21)));
+                verifyWalk(test, absolute, List.of(p(15,3,21), p(24,3,21), p(24,3,12)));
+                verifyPond(test, absolute);
+                for (int x : new int[]{22,27}) for (int z : new int[]{11,15})
+                    for (int y = 1; y <= 7; y++) {
+                        var foot = absolute.offset(x,y,z);
+                        test.assertTrue(level.getBlockState(foot).isCollisionShapeFullBlock(level,foot), "Broken waterside pavilion post");
+                    }
+            }
+            if (theme.wood.equals("yae")) {
+                for (int x : new int[]{10,13}) {
+                    test.assertBlockPresent(Blocks.NOTE_BLOCK, origin.offset(x,12,21));
+                    test.assertBlockPresent(Blocks.AIR, origin.offset(x,13,21));
+                }
+                test.assertBlockPresent(chest, origin.offset(11,11,26));
+                for (int x = 9; x <= 23; x++) for (int z = 21; z <= 26; z++) {
+                    var trim = level.getBlockState(absolute.offset(x,11,z));
+                    test.assertFalse(BuiltInRegistries.BLOCK.getKey(trim.getBlock()).getPath().endsWith("roof_tile_slab"),
+                        "Roof skirt sticking through the music room floor");
+                }
+                for (int x = 8; x <= 24; x++) for (int z = 20; z <= 27; z++) {
+                    if (x != 8 && x != 24 && z != 20 && z != 27) continue;
+                    for (int y = 14; y < 21; y++) {
+                        var pos = absolute.offset(x,y,z);
+                        var state = level.getBlockState(pos);
+                        test.assertTrue(state.isFaceSturdy(level,pos,Direction.DOWN), "Open seam above lantern gallery at " + pos);
+                        if (BuiltInRegistries.BLOCK.getKey(state.getBlock()).getPath().endsWith("roof_tile_slab")) break;
+                        test.assertTrue(state.isCollisionShapeFullBlock(level,pos), "Broken wall plate at " + pos);
+                    }
+                }
+            }
+            verifyTurns(test, absolute, template, theme.doorway);
         }
         test.succeed();
+    }
+
+    private static void verifyPond(GameTestHelper test, BlockPos origin) {
+        var level = test.getLevel();
+        int shallow = 0, deep = 0, clayPatches = 0, gravelPatches = 0;
+        for (int x = 2; x <= 27; x++) for (int z = 6; z <= 23; z++) {
+            var water = origin.offset(x,2,z);
+            if (!level.getBlockState(water).is(Blocks.WATER)) continue;
+            var bed = water.below();
+            if (level.getBlockState(bed).is(Blocks.WATER)) { deep++; bed = bed.below(); }
+            else shallow++;
+            var sediment = level.getBlockState(bed).getBlock();
+            if (level.getBlockState(bed.east()).is(sediment) && level.getBlockState(bed.south()).is(sediment)
+                    && level.getBlockState(bed.south().east()).is(sediment)) {
+                if (sediment == Blocks.CLAY) clayPatches++;
+                if (sediment == Blocks.GRAVEL) gravelPatches++;
+            }
+        }
+        test.assertTrue(shallow > 25 && deep > 25 && clayPatches > 8 && gravelPatches > 8,
+            "Pond needs shallow margins and contiguous sediment beds");
+    }
+
+    static void verifyTurns(GameTestHelper test, BlockPos origin, StructureTemplate template, BlockPos doorway) {
+        var level = test.getLevel();
+        for (var rotation : List.of(Rotation.CLOCKWISE_90, Rotation.CLOCKWISE_180, Rotation.COUNTERCLOCKWISE_90)) {
+            var turn = new StructurePlaceSettings().setRotation(rotation).setRotationPivot(p(15,0,15)).setKnownShape(true);
+            template.placeInWorld(level, origin, origin, turn, level.random, 18);
+            verifyWoodwork(test, origin, template, turn);
+            if (doorway != null) {
+                var pos = origin.offset(StructureTemplate.calculateRelativePosition(turn, doorway));
+                var curtain = level.getBlockState(pos);
+                test.assertTrue(curtain.getValue(net.minecraft.world.level.block.HorizontalDirectionalBlock.FACING)
+                    == rotation.rotate(Direction.NORTH) && curtain.canSurvive(level,pos), "Door curtain detached after " + rotation);
+            }
+        }
+    }
+
+    static void verifyWoodwork(GameTestHelper test, BlockPos origin, StructureTemplate template, StructurePlaceSettings settings) {
+        var level = test.getLevel();
+        for (var block : BuiltInRegistries.BLOCK) {
+            if (block instanceof SignBlock)
+                test.assertTrue(template.filterBlocks(origin, settings, block).isEmpty(), "Unexpected sign in natural structure");
+            if (!(block instanceof FenceBlock)) continue;
+            for (var fence : template.filterBlocks(origin, settings, block)) {
+                var pos = fence.pos();
+                var state = level.getBlockState(pos);
+                test.assertTrue(state.is(block) && state == Block.updateFromNeighbourShapes(state, level, pos),
+                    "Disconnected railing at " + pos.subtract(origin) + " " + state);
+            }
+        }
     }
 
     /** Sweep a player's standing volume along each leg, including every tread and turn. */

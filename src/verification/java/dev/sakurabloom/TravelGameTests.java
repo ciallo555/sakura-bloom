@@ -65,11 +65,27 @@ public final class TravelGameTests {
             checkChest(test, template, origin, site.wood.chest().get(), site.name);
             test.assertTrue(level.getBlockState(origin.offset(site.furnishing)).is(site.block), "Missing furnishing in " + site.name);
             ShrineGameTests.verifyWalk(test, origin, site.walk);
+            ShrineGameTests.verifyWoodwork(test, origin, template, new StructurePlaceSettings());
             if (site.name.equals("flower_dyehouse")) {
                 ShrineGameTests.verifyWalk(test, origin, List.of(p(16,2,4), p(16,2,22)));
                 for (int x : new int[]{14,18}) for (int z : new int[]{8,17})
                     test.assertTrue(level.getBlockState(origin.offset(x,3,z)).is(Blocks.STONE_BRICKS), "Missing aisle post footing");
+                ShrineGameTests.verifyWalk(test, origin, List.of(p(8,3,11), p(5,3,11), p(5,7,15),
+                    p(5,7,16), p(8,7,16), p(8,7,14), p(14,7,14)));
+                test.assertTrue(level.getBlockState(origin.offset(13,9,16)).is(Blocks.BLUE_WOOL), "No cloth on the loft rack");
+            } else if (site.name.equals("hillside_joinery")) {
+                ShrineGameTests.verifyWalk(test, origin, List.of(p(9,3,18), p(10,3,18)));
+                for (int y = 4; y <= 7; y++) {
+                    var pos = origin.offset(10,y,19);
+                    var ladder = level.getBlockState(pos);
+                    test.assertTrue(ladder.is(Blocks.LADDER) && ladder.canSurvive(level,pos), "Broken ladder to timber loft");
+                }
+                test.assertTrue(level.getBlockState(origin.offset(10,8,19)).isAir()
+                    && level.getBlockState(origin.offset(10,9,19)).isAir(), "Closed ladder hatch");
+                ShrineGameTests.verifyWalk(test, origin, List.of(p(10,7,19), p(10,7,18), p(13,7,18)));
+                test.assertTrue(level.getBlockState(origin.offset(13,8,19)).is(site.wood.chest().get()), "Missing loft chest");
             }
+            ShrineGameTests.verifyTurns(test, origin, template, null);
         }
         test.succeed();
     }

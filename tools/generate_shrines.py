@@ -8,6 +8,7 @@ from nbtlib import Compound, File, Int, List, String
 
 from generate_resources import MOD, CORE_OUTPUT, VARIETIES, datum, tag
 from shrine_layouts import SHRINES, torii
+from timber_architecture import join_fences, seat_roof_beams
 
 
 SIZE = (31, 21, 33)
@@ -24,7 +25,6 @@ class Theme:
     curtain: str
     window: str
     vase: str
-    plaque: str
 
     def timber(self, form):
         namespace = "minecraft" if self.wood == "cherry" else MOD
@@ -34,13 +34,13 @@ class Theme:
 
 THEMES = (
     Theme("cherry", "minecraft:cherry_grove", "pink",
-          "stone_bricks", "smooth_stone", "stone_stairs", "pink_noren", "begonia_lattice", "blue_blossom_vase", "花染之庭"),
+          "stone_bricks", "smooth_stone", "stone_stairs", "pink_noren", "begonia_lattice", "blue_blossom_vase"),
     Theme("shidare", f"{MOD}:{VARIETIES['shidare']['biome']}", "light_blue",
-          "polished_diorite", "calcite", "diorite_stairs", "white_noren", "ice_crackle_lattice", "celadon_bamboo_vase", "垂樱水榭"),
+          "polished_diorite", "calcite", "diorite_stairs", "white_noren", "ice_crackle_lattice", "celadon_bamboo_vase"),
     Theme("yae", f"{MOD}:{VARIETIES['yae']['biome']}", "red",
-          "polished_andesite", "bricks", "brick_stairs", "red_noren", "brocade_lattice", "rouge_plum_vase", "八重灯殿"),
+          "polished_andesite", "bricks", "brick_stairs", "red_noren", "brocade_lattice", "rouge_plum_vase"),
     Theme("yamazakura", f"{MOD}:{VARIETIES['yamazakura']['biome']}", "green",
-          "tuff_bricks", "mossy_stone_bricks", "mossy_stone_brick_stairs", "green_noren", "diamond_lattice", "ink_magnolia_vase", "山樱遥拜"),
+          "tuff_bricks", "mossy_stone_bricks", "mossy_stone_brick_stairs", "green_noren", "diamond_lattice", "ink_magnolia_vase"),
 )
 
 
@@ -60,6 +60,8 @@ class Blueprint:
                     self.place(x, y, z, block, **properties)
 
     def save(self, name, size=SIZE):
+        seat_roof_beams(self)
+        join_fences(self)
         palette = {}
         blocks = []
         for pos, (name_id, properties, data) in sorted(self.blocks.items(), key=lambda entry: entry[0][1]):
