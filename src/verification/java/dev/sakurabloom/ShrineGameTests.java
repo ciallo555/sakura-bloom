@@ -76,6 +76,8 @@ public final class ShrineGameTests {
             boolean placed = template.placeInWorld(level, absolute, absolute, new StructurePlaceSettings().setKnownShape(true),
                 level.random, 18);
             test.assertTrue(placed, "Unable to place template for " + theme.wood);
+            var chest = theme.wood.equals("cherry") ? Blocks.CHEST : BuiltInRegistries.BLOCK.get(SakuraBloom.id(theme.wood + "_chest"));
+            TravelGameTests.checkChest(test, template, absolute, chest, "shrine_offerings");
             for (int x = 6; x <= 16; x++) {
                 String stairs = x >= 10 && x <= 12 ? theme.pathStairs : theme.stoneStairs;
                 assertEntranceStep(test, origin.offset(x, 1, 0), stairs);

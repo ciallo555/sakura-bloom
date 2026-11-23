@@ -25,6 +25,7 @@ repositories {
 
 dependencies {
     implementation "com.github.glitchfiend:TerraBlender-neoforge:${terrablender_version}"
+    compileOnly('maven.modrinth:vvuO3ImH:yohfFbgD') { transitive = false } // Curios 9.5.1 for NeoForge 1.21.1
     compileOnly 'mezz.jei:jei-1.21.1-common-api:19.71.0.471'
     compileOnly 'mezz.jei:jei-1.21.1-neoforge-api:19.71.0.471'
 }

@@ -189,5 +189,18 @@
   "block.sakura_bloom.flower_mortar.hint": "手持花瓣或部分原版鲜花右键，一份材料可研磨为两份染料。",
   "block.sakura_bloom.hanami_lantern.hint": "空手右键开关，也可用红石点亮。",
   "jei.sakura_bloom.grinding": "花染臼研磨",
-  "itemGroup.sakura_bloom": "落樱缤纷"
+  "itemGroup.sakura_bloom": "落樱缤纷",
+  "item.sakura_bloom.shidare_wind_bell": "枝垂风铃坠",
+  "item.sakura_bloom.shidare_wind_bell.hint": "落地时叮铃作响，计算摔落伤害时少算 3 格。",
+  "item.sakura_bloom.yae_knot_charm": "八重花结御守",
+  "item.sakura_bloom.yae_knot_charm.hint": "受伤时吃完食物，额外恢复一颗心。每 45 秒可触发一次。",
+  "item.sakura_bloom.celadon_fish_pendant": "青瓷游鱼佩",
+  "item.sakura_bloom.celadon_fish_pendant.hint": "水下气泡消耗减半。",
+  "item.sakura_bloom.yamazakura_ink_bracelet": "山樱墨绳腕结",
+  "item.sakura_bloom.yamazakura_ink_bracelet.hint": "持斧采掘适合用斧的方块时速度提高 20%%，对樱树原木和木头提高 35%%。",
+  "tooltip.sakura_bloom.charm.offhand": "佩戴在副手",
+  "tooltip.sakura_bloom.charm.curios": "佩戴在副手或 Curios 护符栏",
+  "structure.sakura_bloom.flower_dyehouse": "花染作坊",
+  "structure.sakura_bloom.rain_pavilion": "听雨歇亭",
+  "structure.sakura_bloom.hillside_joinery": "山樱木作寮"
 }

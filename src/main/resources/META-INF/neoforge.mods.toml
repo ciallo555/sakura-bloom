@@ -8,7 +8,7 @@ modId="sakura_bloom"
 version="${modVersion}"
 displayName="落樱缤纷"
 enumExtensions="META-INF/enumextensions.json"
-description='''樱花林、樱木、神社，花染与中日庭院建材。'''
+description='''探索樱花林与林间作坊，寻找旅饰，用樱木、花染和筒瓦装点庭院。'''
 
 [[dependencies.sakura_bloom]]
 modId="neoforge"
@@ -37,3 +37,10 @@ type="optional"
 versionRange="[19.0,20)"
 ordering="AFTER"
 side="CLIENT"
+
+[[dependencies.sakura_bloom]]
+modId="curios"
+type="optional"
+versionRange="[9.5.1,10)"
+ordering="AFTER"
+side="BOTH"

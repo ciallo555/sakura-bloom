@@ -1,0 +1,27 @@
+{
+  "structures": [
+    {
+      "structure": "sakura_bloom:flower_dyehouse",
+      "weight": 1
+    },
+    {
+      "structure": "sakura_bloom:rain_pavilion",
+      "weight": 1
+    },
+    {
+      "structure": "sakura_bloom:hillside_joinery",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "salt": 71403123,
+    "spacing": 22,
+    "separation": 10,
+    "frequency": 0.8,
+    "exclusion_zone": {
+      "other_set": "sakura_bloom:shrines",
+      "chunk_count": 2
+    }
+  }
+}

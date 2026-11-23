@@ -189,5 +189,18 @@
   "block.sakura_bloom.flower_mortar.hint": "Use petals or supported flowers on the mortar to make two dyes.",
   "block.sakura_bloom.hanami_lantern.hint": "Toggle with empty hands, or light it with redstone.",
   "jei.sakura_bloom.grinding": "Botanical Grinding",
-  "itemGroup.sakura_bloom": "Sakura Bloom"
+  "itemGroup.sakura_bloom": "Sakura Bloom",
+  "item.sakura_bloom.shidare_wind_bell": "Weeping Cherry Wind Bell",
+  "item.sakura_bloom.shidare_wind_bell.hint": "Chimes on landing. Counts falls as 3 blocks shorter.",
+  "item.sakura_bloom.yae_knot_charm": "Double Blossom Omamori",
+  "item.sakura_bloom.yae_knot_charm.hint": "Finish eating while hurt to heal one heart. Recharges in 45 seconds.",
+  "item.sakura_bloom.celadon_fish_pendant": "Celadon Carp Pendant",
+  "item.sakura_bloom.celadon_fish_pendant.hint": "Air depletes half as fast underwater.",
+  "item.sakura_bloom.yamazakura_ink_bracelet": "Mountain Cherry Inkcord",
+  "item.sakura_bloom.yamazakura_ink_bracelet.hint": "Mine axe-effective blocks 20%% faster with an axe, or 35%% faster for cherry logs and wood.",
+  "tooltip.sakura_bloom.charm.offhand": "Equip in the off hand",
+  "tooltip.sakura_bloom.charm.curios": "Equip in the off hand or a Curios charm slot",
+  "structure.sakura_bloom.flower_dyehouse": "Blossom Dyehouse",
+  "structure.sakura_bloom.rain_pavilion": "Rain Garden Pavilion",
+  "structure.sakura_bloom.hillside_joinery": "Hillside Joinery"
 }

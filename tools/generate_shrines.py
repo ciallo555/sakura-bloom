@@ -60,11 +60,11 @@ class Blueprint:
                 for x in range(x0, x1 + 1):
                     self.place(x, y, z, block, **properties)
 
-    def save(self, name):
+    def save(self, name, size=SIZE):
         palette = {}
         blocks = []
         for pos, (name_id, properties, data) in sorted(self.blocks.items(), key=lambda entry: entry[0][1]):
-            assert all(0 <= coord < limit for coord, limit in zip(pos, SIZE)), pos
+            assert all(0 <= coord < limit for coord, limit in zip(pos, size)), pos
             state = palette.setdefault((name_id, properties), len(palette))
             entry = Compound({"pos": List[Int](pos), "state": Int(state)})
             if data is not None:
@@ -79,12 +79,12 @@ class Blueprint:
             states.append(state)
         template = File({
             "DataVersion": Int(3955),
-            "size": List[Int](SIZE),
+            "size": List[Int](size),
             "palette": List[Compound](states),
             "blocks": List[Compound](blocks),
             "entities": List[Compound](),
         })
-        path = CORE_OUTPUT / f"data/{MOD}/structure/shrine/{name}.nbt"
+        path = CORE_OUTPUT / f"data/{MOD}/structure/{name}.nbt"
         path.parent.mkdir(parents=True, exist_ok=True)
         buffer = BytesIO()
         template.write(buffer)
@@ -307,6 +307,34 @@ def mountain_sanctuary(build,t):
 LAYOUTS = {"cherry": cherry_court, "shidare": water_pavilion, "yae": lantern_hall,
            "yamazakura": mountain_sanctuary}
 
+SHRINE_CHESTS = {"cherry": (6, 4, 19), "shidare": (8, 4, 18), "yae": (7, 4, 18), "yamazakura": (8, 7, 20)}
+
+
+def reward_chest(build, pos, wood, table, facing):
+    vanilla = wood == "cherry"
+    block = "minecraft:chest" if vanilla else f"{MOD}:{wood}_chest"
+    entity = "minecraft:chest" if vanilla else f"{MOD}:cherry_chest"
+    build.place(*pos, block, facing=facing, type="single", data=Compound({
+        "id": String(entity), "LootTable": String(f"{MOD}:chests/{table}"),
+    }))
+
+
+def surface_structure(name, template, biomes, *, terrain="beard_box"):
+    pool = f"{MOD}:{template}"
+    datum(f"worldgen/template_pool/{template}", {
+        "fallback": "minecraft:empty",
+        "elements": [{"weight": 1, "element": {
+            "element_type": "minecraft:single_pool_element", "location": pool,
+            "processors": "minecraft:empty", "projection": "rigid",
+        }}],
+    })
+    datum(f"worldgen/structure/{name}", {
+        "type": "minecraft:jigsaw", "biomes": biomes, "step": "surface_structures",
+        "spawn_overrides": {}, "terrain_adaptation": terrain, "start_pool": pool,
+        "size": 1, "start_height": {"absolute": -2}, "project_start_to_heightmap": "WORLD_SURFACE_WG",
+        "max_distance_from_center": 32, "use_expansion_hack": False,
+    })
+
 
 def generate():
     shrines = []
@@ -314,33 +342,13 @@ def generate():
         build = Blueprint()
         LAYOUTS[theme.wood](build, theme)
         gate(build, theme)
-        build.save(theme.wood)
+        reward_chest(build, SHRINE_CHESTS[theme.wood], theme.wood, "shrine_offerings", "east")
+        template = f"shrine/{theme.wood}"
+        build.save(template)
 
         name = f"{theme.wood}_shrine"
         shrines.append(f"{MOD}:{name}")
-        pool = f"{MOD}:shrine/{theme.wood}"
-        datum(f"worldgen/template_pool/shrine/{theme.wood}", {
-            "fallback": "minecraft:empty",
-            "elements": [{"weight": 1, "element": {
-                "element_type": "minecraft:single_pool_element",
-                "location": pool,
-                "processors": "minecraft:empty",
-                "projection": "rigid",
-            }}],
-        })
-        datum(f"worldgen/structure/{name}", {
-            "type": "minecraft:jigsaw",
-            "biomes": [theme.biome],
-            "step": "surface_structures",
-            "spawn_overrides": {},
-            "terrain_adaptation": "beard_box",
-            "start_pool": pool,
-            "size": 1,
-            "start_height": {"absolute": -2},
-            "project_start_to_heightmap": "WORLD_SURFACE_WG",
-            "max_distance_from_center": 32,
-            "use_expansion_hack": False,
-        })
+        surface_structure(name, template, [theme.biome])
 
     tag(MOD, "worldgen/structure", "shrines", shrines)
     datum("worldgen/structure_set/shrines", {

@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "#minecraft:cherry_logs",
+    "#sakura_bloom:shidare_logs",
+    "#sakura_bloom:yae_logs",
+    "#sakura_bloom:yamazakura_logs"
+  ]
+}

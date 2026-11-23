@@ -74,6 +74,12 @@ public final class BloomContent {
     public static final DeferredItem<BlockItem> MORTAR_ITEM = workstation(MORTAR);
     public static final DeferredItem<BlockItem> LANTERN_ITEM = workstation(LANTERN);
 
+    static final DeferredItem<TravelCharmItem> WIND_BELL = ITEMS.register("shidare_wind_bell", TravelCharmItem::new);
+    static final DeferredItem<TravelCharmItem> KNOT_CHARM = ITEMS.register("yae_knot_charm", TravelCharmItem::new);
+    static final DeferredItem<TravelCharmItem> FISH_PENDANT = ITEMS.register("celadon_fish_pendant", TravelCharmItem::new);
+    static final DeferredItem<TravelCharmItem> INK_BRACELET = ITEMS.register("yamazakura_ink_bracelet", TravelCharmItem::new);
+    static final List<DeferredItem<TravelCharmItem>> TRAVEL_CHARMS = List.of(WIND_BELL, KNOT_CHARM, FISH_PENDANT, INK_BRACELET);
+
     static {
         TABS.register("sakura_bloom", () -> CreativeModeTab.builder()
             .title(Component.translatable("itemGroup.sakura_bloom"))
@@ -83,6 +89,7 @@ public final class BloomContent {
                 output.accept(MORTAR_ITEM.get());
                 output.accept(LANTERN_ITEM.get());
                 CourtyardContent.addCreativeItems(output);
+                TRAVEL_CHARMS.forEach(charm -> output.accept(charm.get()));
             })
             .build());
     }
@@ -98,6 +105,7 @@ public final class BloomContent {
         SERIALIZERS.register(bus);
         TABS.register(bus);
         CourtyardContent.register(bus);
+        TravelCharmItem.registerEvents();
         bus.addListener(BloomContent::registerSignBlocks);
         bus.addListener(BloomContent::registerChestInventory);
     }

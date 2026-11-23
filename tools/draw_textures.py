@@ -5,6 +5,7 @@ from random import Random
 
 from PIL import Image, ImageColor, ImageDraw
 from chest_textures import draw_chests
+from charm_sprites import draw_charms
 
 PROJECT = Path(__file__).resolve().parents[1]
 RESOURCES = PROJECT / "src/main/resources"
@@ -726,6 +727,7 @@ if __name__ == "__main__":
     tree_art()
     wood_utility_art()
     draw_chests(TIMBER_TONES, texture)
+    draw_charms(texture)
     station_art()
     icon()
     preview()
