@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "sakura_bloom:tomato_seeds",
+    {
+      "id": "farmersdelight:tomato_seeds",
+      "required": false
+    }
+  ]
+}

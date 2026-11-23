@@ -1,0 +1,27 @@
+{
+  "structures": [
+    {
+      "structure": "sakura_bloom:cherry_shrine",
+      "weight": 1
+    },
+    {
+      "structure": "sakura_bloom:shidare_shrine",
+      "weight": 1
+    },
+    {
+      "structure": "sakura_bloom:yae_shrine",
+      "weight": 1
+    },
+    {
+      "structure": "sakura_bloom:yamazakura_shrine",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "salt": 167092968,
+    "spacing": 18,
+    "separation": 8,
+    "frequency": 0.7
+  }
+}

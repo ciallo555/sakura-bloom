@@ -1,0 +1,20 @@
+{
+  "type": "sakura_bloom:cooking",
+  "station": "bamboo_steamer",
+  "cooking_time": 120,
+  "ingredients": [
+    {
+      "tag": "c:crops/cabbage"
+    },
+    {
+      "tag": "c:foods/raw_meat"
+    },
+    {
+      "tag": "c:crops/rice"
+    }
+  ],
+  "result": {
+    "id": "sakura_bloom:steamed_pork_roll",
+    "count": 1
+  }
+}

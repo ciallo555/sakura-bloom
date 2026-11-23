@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "SSS",
+    "WDW"
+  ],
+  "key": {
+    "S": {
+      "item": "sakura_bloom:bamboo_splints"
+    },
+    "W": {
+      "item": "minecraft:wheat"
+    },
+    "D": {
+      "item": "minecraft:green_dye"
+    }
+  },
+  "result": {
+    "id": "sakura_bloom:bound_tatami",
+    "count": 4
+  }
+}

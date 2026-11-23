@@ -1,0 +1,17 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "kaleidoscope_cookery"
+    }
+  ],
+  "type": "kaleidoscope_cookery:steamer",
+  "ingredient": {
+    "tag": "c:crops/rice"
+  },
+  "result": {
+    "id": "sakura_bloom:unplated_steamed_rice",
+    "count": 1
+  },
+  "cook_tick": 80
+}

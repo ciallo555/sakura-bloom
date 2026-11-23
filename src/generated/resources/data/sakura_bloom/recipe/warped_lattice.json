@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "WBW",
+    "B B",
+    "WBW"
+  ],
+  "key": {
+    "W": {
+      "item": "minecraft:warped_planks"
+    },
+    "B": {
+      "item": "sakura_bloom:bamboo_splints"
+    }
+  },
+  "result": {
+    "id": "sakura_bloom:warped_lattice",
+    "count": 4
+  }
+}

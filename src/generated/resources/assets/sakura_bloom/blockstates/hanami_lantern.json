@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "lit=false,powered=false": {
+      "model": "sakura_bloom:block/hanami_lantern_off"
+    },
+    "lit=false,powered=true": {
+      "model": "sakura_bloom:block/hanami_lantern_on"
+    },
+    "lit=true,powered=false": {
+      "model": "sakura_bloom:block/hanami_lantern_on"
+    },
+    "lit=true,powered=true": {
+      "model": "sakura_bloom:block/hanami_lantern_on"
+    }
+  }
+}

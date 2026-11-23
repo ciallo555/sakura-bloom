@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "sakura_bloom:block/shidare_slab"
+    },
+    "type=double": {
+      "model": "sakura_bloom:block/shidare_planks"
+    },
+    "type=top": {
+      "model": "sakura_bloom:block/shidare_slab_top"
+    }
+  }
+}

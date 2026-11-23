@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "WWW",
+    "BSW",
+    "WBB"
+  ],
+  "key": {
+    "W": {
+      "item": "minecraft:dark_oak_planks"
+    },
+    "B": {
+      "item": "sakura_bloom:bamboo_splints"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "id": "sakura_bloom:key_fret_lattice",
+    "count": 4
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "replace": false,
+  "values": [
+    "sakura_bloom:white_roof_tile_slab",
+    "sakura_bloom:orange_roof_tile_slab",
+    "sakura_bloom:magenta_roof_tile_slab",
+    "sakura_bloom:light_blue_roof_tile_slab",
+    "sakura_bloom:yellow_roof_tile_slab",
+    "sakura_bloom:lime_roof_tile_slab",
+    "sakura_bloom:pink_roof_tile_slab",
+    "sakura_bloom:gray_roof_tile_slab",
+    "sakura_bloom:light_gray_roof_tile_slab",
+    "sakura_bloom:cyan_roof_tile_slab",
+    "sakura_bloom:purple_roof_tile_slab",
+    "sakura_bloom:blue_roof_tile_slab",
+    "sakura_bloom:brown_roof_tile_slab",
+    "sakura_bloom:green_roof_tile_slab",
+    "sakura_bloom:red_roof_tile_slab",
+    "sakura_bloom:black_roof_tile_slab"
+  ]
+}

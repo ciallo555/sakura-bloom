@@ -1,0 +1,17 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "kaleidoscope_cookery"
+    }
+  ],
+  "type": "kaleidoscope_cookery:steamer",
+  "ingredient": {
+    "item": "sakura_bloom:raw_pork_roll"
+  },
+  "result": {
+    "id": "sakura_bloom:steamed_pork_roll",
+    "count": 1
+  },
+  "cook_tick": 120
+}

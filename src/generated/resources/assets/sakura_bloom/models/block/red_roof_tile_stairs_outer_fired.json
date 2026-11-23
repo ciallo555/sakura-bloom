@@ -1,0 +1,10 @@
+{
+  "parent": "sakura_bloom:block/gray_roof_tile_stairs_outer",
+  "textures": {
+    "particle": "sakura_bloom:block/red_roof_clay_fired",
+    "side": "sakura_bloom:block/red_roof_clay_fired",
+    "bottom": "sakura_bloom:block/red_roof_clay_fired",
+    "top": "sakura_bloom:block/red_roof_channels_cross_fired",
+    "end": "sakura_bloom:block/red_roof_eave_fired"
+  }
+}

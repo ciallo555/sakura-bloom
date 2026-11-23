@@ -1,0 +1,8 @@
+{
+  "parent": "sakura_bloom:block/indigo_noren",
+  "textures": {
+    "noren_waves": "sakura_bloom:block/noren_white_cloth",
+    "particle": "sakura_bloom:block/noren_white_cloth"
+  },
+  "render_type": "minecraft:cutout"
+}

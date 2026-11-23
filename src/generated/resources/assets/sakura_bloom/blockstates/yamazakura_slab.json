@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "sakura_bloom:block/yamazakura_slab"
+    },
+    "type=double": {
+      "model": "sakura_bloom:block/yamazakura_planks"
+    },
+    "type=top": {
+      "model": "sakura_bloom:block/yamazakura_slab_top"
+    }
+  }
+}

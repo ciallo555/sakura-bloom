@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "sakura_bloom:block/stripped_shidare_log_top",
+    "side": "sakura_bloom:block/stripped_shidare_log"
+  }
+}

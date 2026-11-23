@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "cooking=false": {
+      "model": "sakura_bloom:block/iron_wok"
+    },
+    "cooking=true": {
+      "model": "sakura_bloom:block/iron_wok_cooking"
+    }
+  }
+}

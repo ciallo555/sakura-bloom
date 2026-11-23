@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "sakura_bloom:block/bound_tatami"
+    },
+    "facing=east": {
+      "model": "sakura_bloom:block/bound_tatami",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "sakura_bloom:block/bound_tatami",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "sakura_bloom:block/bound_tatami",
+      "y": 270
+    }
+  }
+}

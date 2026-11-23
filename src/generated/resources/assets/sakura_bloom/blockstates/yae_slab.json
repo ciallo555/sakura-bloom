@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "sakura_bloom:block/yae_slab"
+    },
+    "type=double": {
+      "model": "sakura_bloom:block/yae_planks"
+    },
+    "type=top": {
+      "model": "sakura_bloom:block/yae_slab_top"
+    }
+  }
+}

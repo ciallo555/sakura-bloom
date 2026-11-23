@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/button",
+  "textures": {
+    "texture": "sakura_bloom:block/yamazakura_planks"
+  }
+}

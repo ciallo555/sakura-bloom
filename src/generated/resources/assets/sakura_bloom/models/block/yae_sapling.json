@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "sakura_bloom:block/yae_sapling"
+  },
+  "render_type": "minecraft:cutout"
+}

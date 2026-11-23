@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=lower": {
+      "model": "sakura_bloom:block/wild_rice_lower"
+    },
+    "half=upper": {
+      "model": "sakura_bloom:block/wild_rice_upper"
+    }
+  }
+}

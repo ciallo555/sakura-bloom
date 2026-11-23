@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "cooking=false": {
+      "model": "sakura_bloom:block/bamboo_steamer"
+    },
+    "cooking=true": {
+      "model": "sakura_bloom:block/bamboo_steamer_cooking"
+    }
+  }
+}

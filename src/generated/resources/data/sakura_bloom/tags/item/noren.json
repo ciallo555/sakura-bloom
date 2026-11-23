@@ -1,0 +1,21 @@
+{
+  "replace": false,
+  "values": [
+    "sakura_bloom:white_noren",
+    "sakura_bloom:orange_noren",
+    "sakura_bloom:magenta_noren",
+    "sakura_bloom:light_blue_noren",
+    "sakura_bloom:yellow_noren",
+    "sakura_bloom:lime_noren",
+    "sakura_bloom:pink_noren",
+    "sakura_bloom:gray_noren",
+    "sakura_bloom:light_gray_noren",
+    "sakura_bloom:cyan_noren",
+    "sakura_bloom:purple_noren",
+    "sakura_bloom:indigo_noren",
+    "sakura_bloom:brown_noren",
+    "sakura_bloom:green_noren",
+    "sakura_bloom:red_noren",
+    "sakura_bloom:black_noren"
+  ]
+}

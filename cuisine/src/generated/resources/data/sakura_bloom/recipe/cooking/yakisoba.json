@@ -1,0 +1,23 @@
+{
+  "type": "sakura_bloom:cooking",
+  "station": "iron_wok",
+  "cooking_time": 100,
+  "ingredients": [
+    {
+      "tag": "c:foods/pasta"
+    },
+    {
+      "tag": "c:crops/cabbage"
+    },
+    {
+      "tag": "c:foods/raw_meat"
+    }
+  ],
+  "result": {
+    "id": "sakura_bloom:yakisoba",
+    "count": 1
+  },
+  "serving": {
+    "item": "minecraft:bowl"
+  }
+}

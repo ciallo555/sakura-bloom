@@ -1,0 +1,350 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "honey_joinery": "sakura_bloom:block/honey_joinery",
+    "shoji_paper": "sakura_bloom:block/shoji_paper",
+    "particle": "sakura_bloom:block/honey_joinery"
+  },
+  "elements": [
+    {
+      "from": [
+        1,
+        1,
+        6.5
+      ],
+      "to": [
+        15,
+        15,
+        9.5
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            1,
+            1,
+            15,
+            15
+          ],
+          "texture": "#shoji_paper"
+        },
+        "south": {
+          "uv": [
+            1,
+            1,
+            15,
+            15
+          ],
+          "texture": "#shoji_paper"
+        },
+        "east": {
+          "uv": [
+            6.5,
+            1,
+            9.5,
+            15
+          ],
+          "texture": "#honey_joinery"
+        },
+        "west": {
+          "uv": [
+            6.5,
+            1,
+            9.5,
+            15
+          ],
+          "texture": "#honey_joinery"
+        },
+        "up": {
+          "uv": [
+            1,
+            6.5,
+            15,
+            9.5
+          ],
+          "texture": "#honey_joinery"
+        },
+        "down": {
+          "uv": [
+            1,
+            6.5,
+            15,
+            9.5
+          ],
+          "texture": "#honey_joinery"
+        }
+      }
+    },
+    {
+      "from": [
+        0,
+        0,
+        6
+      ],
+      "to": [
+        1,
+        16,
+        10
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            15,
+            0,
+            16,
+            16
+          ],
+          "texture": "#honey_joinery"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            1,
+            16
+          ],
+          "texture": "#honey_joinery"
+        },
+        "east": {
+          "uv": [
+            6,
+            0,
+            10,
+            16
+          ],
+          "texture": "#honey_joinery"
+        },
+        "west": {
+          "uv": [
+            6,
+            0,
+            10,
+            16
+          ],
+          "texture": "#honey_joinery"
+        },
+        "up": {
+          "uv": [
+            0,
+            6,
+            1,
+            10
+          ],
+          "texture": "#honey_joinery"
+        },
+        "down": {
+          "uv": [
+            0,
+            6,
+            1,
+            10
+          ],
+          "texture": "#honey_joinery"
+        }
+      }
+    },
+    {
+      "from": [
+        15,
+        0,
+        6
+      ],
+      "to": [
+        16,
+        16,
+        10
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            1,
+            16
+          ],
+          "texture": "#honey_joinery"
+        },
+        "south": {
+          "uv": [
+            15,
+            0,
+            16,
+            16
+          ],
+          "texture": "#honey_joinery"
+        },
+        "east": {
+          "uv": [
+            6,
+            0,
+            10,
+            16
+          ],
+          "texture": "#honey_joinery"
+        },
+        "west": {
+          "uv": [
+            6,
+            0,
+            10,
+            16
+          ],
+          "texture": "#honey_joinery"
+        },
+        "up": {
+          "uv": [
+            15,
+            6,
+            16,
+            10
+          ],
+          "texture": "#honey_joinery"
+        },
+        "down": {
+          "uv": [
+            15,
+            6,
+            16,
+            10
+          ],
+          "texture": "#honey_joinery"
+        }
+      }
+    },
+    {
+      "from": [
+        1,
+        0,
+        6
+      ],
+      "to": [
+        15,
+        1,
+        10
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            1,
+            15,
+            15,
+            16
+          ],
+          "texture": "#honey_joinery"
+        },
+        "south": {
+          "uv": [
+            1,
+            15,
+            15,
+            16
+          ],
+          "texture": "#honey_joinery"
+        },
+        "east": {
+          "uv": [
+            6,
+            15,
+            10,
+            16
+          ],
+          "texture": "#honey_joinery"
+        },
+        "west": {
+          "uv": [
+            6,
+            15,
+            10,
+            16
+          ],
+          "texture": "#honey_joinery"
+        },
+        "up": {
+          "uv": [
+            1,
+            6,
+            15,
+            10
+          ],
+          "texture": "#honey_joinery"
+        },
+        "down": {
+          "uv": [
+            1,
+            6,
+            15,
+            10
+          ],
+          "texture": "#honey_joinery"
+        }
+      }
+    },
+    {
+      "from": [
+        1,
+        15,
+        6
+      ],
+      "to": [
+        15,
+        16,
+        10
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            1,
+            0,
+            15,
+            1
+          ],
+          "texture": "#honey_joinery"
+        },
+        "south": {
+          "uv": [
+            1,
+            0,
+            15,
+            1
+          ],
+          "texture": "#honey_joinery"
+        },
+        "east": {
+          "uv": [
+            6,
+            0,
+            10,
+            1
+          ],
+          "texture": "#honey_joinery"
+        },
+        "west": {
+          "uv": [
+            6,
+            0,
+            10,
+            1
+          ],
+          "texture": "#honey_joinery"
+        },
+        "up": {
+          "uv": [
+            1,
+            6,
+            15,
+            10
+          ],
+          "texture": "#honey_joinery"
+        },
+        "down": {
+          "uv": [
+            1,
+            6,
+            15,
+            10
+          ],
+          "texture": "#honey_joinery"
+        }
+      }
+    }
+  ]
+}

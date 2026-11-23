@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "sakura_bloom:block/birch_shoji"
+    },
+    "facing=east": {
+      "model": "sakura_bloom:block/birch_shoji",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "sakura_bloom:block/birch_shoji",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "sakura_bloom:block/birch_shoji",
+      "y": 270
+    }
+  }
+}

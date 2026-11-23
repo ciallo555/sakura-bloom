@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "WBW",
+    "B B",
+    "WBW"
+  ],
+  "key": {
+    "W": {
+      "item": "minecraft:mangrove_planks"
+    },
+    "B": {
+      "item": "sakura_bloom:bamboo_splints"
+    }
+  },
+  "result": {
+    "id": "sakura_bloom:mangrove_lattice",
+    "count": 4
+  }
+}

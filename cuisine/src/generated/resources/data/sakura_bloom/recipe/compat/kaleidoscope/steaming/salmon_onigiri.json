@@ -1,0 +1,17 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "kaleidoscope_cookery"
+    }
+  ],
+  "type": "kaleidoscope_cookery:steamer",
+  "ingredient": {
+    "item": "sakura_bloom:raw_salmon_onigiri"
+  },
+  "result": {
+    "id": "sakura_bloom:salmon_onigiri",
+    "count": 1
+  },
+  "cook_tick": 100
+}

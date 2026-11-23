@@ -1,0 +1,10 @@
+{
+  "values": {
+    "sakura_bloom:shidare_log": "sakura_bloom:stripped_shidare_log",
+    "sakura_bloom:shidare_wood": "sakura_bloom:stripped_shidare_wood",
+    "sakura_bloom:yae_log": "sakura_bloom:stripped_yae_log",
+    "sakura_bloom:yae_wood": "sakura_bloom:stripped_yae_wood",
+    "sakura_bloom:yamazakura_log": "sakura_bloom:stripped_yamazakura_log",
+    "sakura_bloom:yamazakura_wood": "sakura_bloom:stripped_yamazakura_wood"
+  }
+}

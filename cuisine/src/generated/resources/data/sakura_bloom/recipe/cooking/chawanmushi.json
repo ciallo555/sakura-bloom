@@ -1,0 +1,20 @@
+{
+  "type": "sakura_bloom:cooking",
+  "station": "bamboo_steamer",
+  "cooking_time": 120,
+  "ingredients": [
+    {
+      "tag": "c:eggs"
+    },
+    {
+      "item": "minecraft:brown_mushroom"
+    }
+  ],
+  "result": {
+    "id": "sakura_bloom:chawanmushi",
+    "count": 1
+  },
+  "serving": {
+    "item": "minecraft:bowl"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "SWS",
+    "WDW",
+    "SWS"
+  ],
+  "key": {
+    "W": {
+      "tag": "sakura_bloom:cherry_planks"
+    },
+    "S": {
+      "item": "sakura_bloom:bamboo_splints"
+    },
+    "D": {
+      "item": "minecraft:red_dye"
+    }
+  },
+  "result": {
+    "id": "sakura_bloom:begonia_lattice",
+    "count": 4
+  }
+}

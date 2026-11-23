@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/fence_post",
+  "textures": {
+    "texture": "sakura_bloom:block/yae_planks"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/pressure_plate_down",
+  "textures": {
+    "texture": "sakura_bloom:block/yamazakura_planks"
+  }
+}

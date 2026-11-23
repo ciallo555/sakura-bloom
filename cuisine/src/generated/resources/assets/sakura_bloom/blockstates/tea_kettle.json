@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "stage=empty": {
+      "model": "sakura_bloom:block/tea_kettle_empty"
+    },
+    "stage=water": {
+      "model": "sakura_bloom:block/tea_kettle_water"
+    },
+    "stage=brewing_shidare": {
+      "model": "sakura_bloom:block/tea_kettle_brewing_shidare"
+    },
+    "stage=ready_shidare": {
+      "model": "sakura_bloom:block/tea_kettle_ready_shidare"
+    },
+    "stage=brewing_yae": {
+      "model": "sakura_bloom:block/tea_kettle_brewing_yae"
+    },
+    "stage=ready_yae": {
+      "model": "sakura_bloom:block/tea_kettle_ready_yae"
+    },
+    "stage=brewing_yamazakura": {
+      "model": "sakura_bloom:block/tea_kettle_brewing_yamazakura"
+    },
+    "stage=ready_yamazakura": {
+      "model": "sakura_bloom:block/tea_kettle_ready_yamazakura"
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "BGB",
+    "RTR",
+    "BGB"
+  ],
+  "key": {
+    "R": {
+      "item": "minecraft:red_wool"
+    },
+    "B": {
+      "item": "sakura_bloom:bamboo_splints"
+    },
+    "G": {
+      "item": "minecraft:gold_nugget"
+    },
+    "T": {
+      "item": "minecraft:torch"
+    }
+  },
+  "result": {
+    "id": "sakura_bloom:silk_palace_lantern",
+    "count": 1
+  }
+}

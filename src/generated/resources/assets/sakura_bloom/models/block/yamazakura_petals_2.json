@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/flowerbed_2",
+  "textures": {
+    "flowerbed": "sakura_bloom:block/yamazakura_petals",
+    "stem": "sakura_bloom:block/yamazakura_petals_stem"
+  },
+  "render_type": "minecraft:cutout"
+}

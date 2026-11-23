@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/button_inventory",
+  "textures": {
+    "texture": "sakura_bloom:block/yamazakura_planks"
+  }
+}

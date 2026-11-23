@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "hanging=false": {
+      "model": "sakura_bloom:block/silk_palace_lantern"
+    },
+    "hanging=true": {
+      "model": "sakura_bloom:block/silk_palace_lantern_hanging"
+    }
+  }
+}

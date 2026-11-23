@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    " B ",
+    "T T",
+    " S "
+  ],
+  "key": {
+    "T": {
+      "item": "minecraft:terracotta"
+    },
+    "B": {
+      "item": "minecraft:stick"
+    },
+    "S": {
+      "item": "minecraft:smooth_stone_slab"
+    }
+  },
+  "result": {
+    "id": "sakura_bloom:flower_mortar",
+    "count": 1
+  }
+}

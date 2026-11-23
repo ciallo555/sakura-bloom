@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "BB"
+  ],
+  "key": {
+    "B": {
+      "item": "minecraft:bamboo"
+    }
+  },
+  "result": {
+    "id": "sakura_bloom:bamboo_splints",
+    "count": 4
+  }
+}

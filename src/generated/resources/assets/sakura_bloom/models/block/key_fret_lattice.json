@@ -1,0 +1,9 @@
+{
+  "parent": "sakura_bloom:block/begonia_lattice",
+  "textures": {
+    "begonia_carving": "sakura_bloom:block/key_fret_carving",
+    "rosewood_joinery": "sakura_bloom:block/shoji_dark_oak_frame",
+    "particle": "sakura_bloom:block/shoji_dark_oak_frame"
+  },
+  "render_type": "minecraft:cutout"
+}

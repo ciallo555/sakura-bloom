@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "WSW",
+    "BWB",
+    "WSW"
+  ],
+  "key": {
+    "W": {
+      "item": "minecraft:mangrove_planks"
+    },
+    "B": {
+      "item": "sakura_bloom:bamboo_splints"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "id": "sakura_bloom:brocade_lattice",
+    "count": 4
+  }
+}

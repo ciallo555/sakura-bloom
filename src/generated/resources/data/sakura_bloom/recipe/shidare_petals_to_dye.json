@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "sakura_bloom:shidare_petals"
+    }
+  ],
+  "result": {
+    "id": "minecraft:white_dye",
+    "count": 1
+  }
+}

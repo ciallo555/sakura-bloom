@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "sakura_bloom:rice_seeds",
+    {
+      "id": "farmersdelight:rice",
+      "required": false
+    }
+  ]
+}

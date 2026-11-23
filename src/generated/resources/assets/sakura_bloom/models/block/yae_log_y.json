@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column_uv_locked_y",
+  "textures": {
+    "end": "sakura_bloom:block/yae_log_top",
+    "side": "sakura_bloom:block/yae_log"
+  }
+}

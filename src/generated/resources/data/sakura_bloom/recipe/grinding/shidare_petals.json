@@ -1,0 +1,10 @@
+{
+  "type": "sakura_bloom:grinding",
+  "ingredient": {
+    "item": "sakura_bloom:shidare_petals"
+  },
+  "result": {
+    "id": "minecraft:white_dye",
+    "count": 2
+  }
+}

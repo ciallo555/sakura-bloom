@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "BPB",
+    "BPB",
+    "WWW"
+  ],
+  "key": {
+    "W": {
+      "item": "minecraft:jungle_planks"
+    },
+    "P": {
+      "item": "minecraft:paper"
+    },
+    "B": {
+      "item": "sakura_bloom:bamboo_splints"
+    }
+  },
+  "result": {
+    "id": "sakura_bloom:jungle_shoji",
+    "count": 4
+  }
+}

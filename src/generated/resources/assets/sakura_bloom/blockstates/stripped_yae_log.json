@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "sakura_bloom:block/stripped_yae_log_x"
+    },
+    "axis=y": {
+      "model": "sakura_bloom:block/stripped_yae_log_y"
+    },
+    "axis=z": {
+      "model": "sakura_bloom:block/stripped_yae_log_z"
+    }
+  }
+}

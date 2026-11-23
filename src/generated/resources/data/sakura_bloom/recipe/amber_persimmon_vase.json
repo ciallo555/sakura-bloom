@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    " L ",
+    "BQB",
+    " B "
+  ],
+  "key": {
+    "L": {
+      "item": "minecraft:orange_dye"
+    },
+    "B": {
+      "item": "minecraft:brick"
+    },
+    "Q": {
+      "item": "minecraft:quartz"
+    }
+  },
+  "result": {
+    "id": "sakura_bloom:amber_persimmon_vase",
+    "count": 1
+  }
+}

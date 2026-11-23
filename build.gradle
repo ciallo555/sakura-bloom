@@ -1,0 +1,110 @@
+plugins {
+    id 'java-library'
+    id 'net.neoforged.moddev' version '2.0.148'
+}
+
+group = 'dev.sakurabloom'
+version = mod_version
+base.archivesName = 'sakura_bloom'
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+
+repositories {
+    maven {
+        url = 'https://maven.minecraftforge.net'
+        content { includeGroup 'com.github.glitchfiend' }
+    }
+    maven {
+        url = 'https://maven.blamejared.com'
+        content { includeGroup 'mezz.jei' }
+    }
+    maven {
+        url = 'https://api.modrinth.com/maven'
+        content { includeGroup 'maven.modrinth' }
+    }
+}
+
+dependencies {
+    implementation "com.github.glitchfiend:TerraBlender-neoforge:${terrablender_version}"
+    compileOnly 'mezz.jei:jei-1.21.1-common-api:19.71.0.471'
+    compileOnly 'mezz.jei:jei-1.21.1-neoforge-api:19.71.0.471'
+}
+
+sourceSets {
+    main.resources.srcDir 'src/generated/resources'
+    cuisine {
+        java.srcDirs = ['cuisine/src/main/java']
+        resources.srcDirs = ['cuisine/src/main/resources', 'cuisine/src/generated/resources']
+        compileClasspath += main.output
+        runtimeClasspath += main.output
+    }
+    verification {
+        compileClasspath += main.output
+        runtimeClasspath += main.output
+    }
+    cuisineVerification {
+        java.srcDirs = ['cuisine/src/verification/java']
+        compileClasspath += main.output + cuisine.output
+        runtimeClasspath += main.output + cuisine.output + verification.output
+    }
+}
+
+configurations {
+    cuisineImplementation.extendsFrom implementation
+    cuisineCompileOnly.extendsFrom compileOnly
+    verificationImplementation.extendsFrom implementation
+    verificationCompileOnly.extendsFrom compileOnly
+    cuisineVerificationImplementation.extendsFrom cuisineImplementation
+    cuisineVerificationCompileOnly.extendsFrom cuisineCompileOnly
+}
+
+dependencies {
+    cuisineCompileOnly('maven.modrinth:R2OftAxM:XTVZDOol') { transitive = false }
+    cuisineCompileOnly('maven.modrinth:v17FatAc:g8w0b2ly') { transitive = false }
+}
+
+def coreOnly = providers.gradleProperty('coreOnly').isPresent()
+neoForge {
+    version = neo_version
+    addModdingDependenciesTo sourceSets.cuisine
+    addModdingDependenciesTo sourceSets.verification
+    addModdingDependenciesTo sourceSets.cuisineVerification
+    runs {
+        client { client() }
+        server {
+            server()
+            gameDirectory = file('run-server')
+            programArgument '--nogui'
+        }
+        gameTestServer {
+            type = 'gameTestServer'
+            gameDirectory = file(coreOnly ? 'build/gametest-core' : 'build/gametest')
+            systemProperty 'neoforge.enabledGameTestNamespaces', 'sakura_bloom'
+            sourceSet = coreOnly ? sourceSets.verification : sourceSets.cuisineVerification
+        }
+    }
+    mods {
+        sakura_bloom {
+            sourceSet sourceSets.main
+            sourceSet sourceSets.verification
+        }
+        if (!coreOnly) {
+            sakura_bloom_cuisine {
+                sourceSet sourceSets.cuisine
+                sourceSet sourceSets.cuisineVerification
+            }
+        }
+    }
+}
+
+tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8' }
+tasks.withType(ProcessResources).configureEach {
+    inputs.property 'modVersion', project.version
+    filesMatching('META-INF/neoforge.mods.toml') {
+        expand(modVersion: project.version)
+    }
+}
+def cuisineJar = tasks.register('cuisineJar', Jar) {
+    archiveBaseName = 'sakura_bloom_cuisine'
+    from sourceSets.cuisine.output
+}
+tasks.named('assemble') { dependsOn cuisineJar }

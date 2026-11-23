@@ -1,0 +1,10 @@
+{
+  "parent": "sakura_bloom:block/gray_roof_tile_stairs_inner",
+  "textures": {
+    "particle": "sakura_bloom:block/lime_roof_clay_ash",
+    "side": "sakura_bloom:block/lime_roof_clay_ash",
+    "bottom": "sakura_bloom:block/lime_roof_clay_ash",
+    "top": "sakura_bloom:block/lime_roof_channels_cross_ash",
+    "end": "sakura_bloom:block/lime_roof_eave_ash"
+  }
+}

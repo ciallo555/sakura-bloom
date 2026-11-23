@@ -1,0 +1,10 @@
+{
+  "type": "sakura_bloom:grinding",
+  "ingredient": {
+    "item": "sakura_bloom:yamazakura_petals"
+  },
+  "result": {
+    "id": "minecraft:magenta_dye",
+    "count": 2
+  }
+}

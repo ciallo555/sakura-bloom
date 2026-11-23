@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "sakura_bloom:cabbage_seeds",
+    {
+      "id": "farmersdelight:cabbage_seeds",
+      "required": false
+    }
+  ]
+}

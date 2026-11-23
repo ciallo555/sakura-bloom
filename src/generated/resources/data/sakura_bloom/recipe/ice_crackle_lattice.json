@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "WBW",
+    "BSB",
+    "WSW"
+  ],
+  "key": {
+    "W": {
+      "item": "minecraft:birch_planks"
+    },
+    "B": {
+      "item": "sakura_bloom:bamboo_splints"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "id": "sakura_bloom:ice_crackle_lattice",
+    "count": 4
+  }
+}

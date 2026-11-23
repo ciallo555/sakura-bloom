@@ -1,0 +1,20 @@
+{
+  "type": "sakura_bloom:cooking",
+  "station": "bamboo_steamer",
+  "cooking_time": 100,
+  "ingredients": [
+    {
+      "tag": "c:crops/rice"
+    },
+    {
+      "item": "minecraft:dried_kelp"
+    },
+    {
+      "item": "minecraft:cooked_salmon"
+    }
+  ],
+  "result": {
+    "id": "sakura_bloom:salmon_onigiri",
+    "count": 1
+  }
+}

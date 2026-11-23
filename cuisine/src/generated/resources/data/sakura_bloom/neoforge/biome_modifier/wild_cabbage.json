@@ -1,0 +1,6 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "#minecraft:is_beach",
+  "features": "sakura_bloom:wild_cabbage",
+  "step": "vegetal_decoration"
+}

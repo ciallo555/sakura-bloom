@@ -1,0 +1,714 @@
+{
+  "variants": {
+    "facing=east,half=bottom,shape=inner_left": [
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_inner",
+        "weight": 5,
+        "y": 270
+      },
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_inner_ash",
+        "weight": 3,
+        "y": 270
+      },
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_inner_fired",
+        "weight": 2,
+        "y": 270
+      }
+    ],
+    "facing=east,half=bottom,shape=inner_right": [
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_inner",
+        "weight": 5
+      },
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_inner_ash",
+        "weight": 3
+      },
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_inner_fired",
+        "weight": 2
+      }
+    ],
+    "facing=east,half=bottom,shape=outer_left": [
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_outer",
+        "weight": 5,
+        "y": 270
+      },
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_outer_ash",
+        "weight": 3,
+        "y": 270
+      },
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_outer_fired",
+        "weight": 2,
+        "y": 270
+      }
+    ],
+    "facing=east,half=bottom,shape=outer_right": [
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_outer",
+        "weight": 5
+      },
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_outer_ash",
+        "weight": 3
+      },
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_outer_fired",
+        "weight": 2
+      }
+    ],
+    "facing=east,half=bottom,shape=straight": [
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs",
+        "weight": 5
+      },
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_ash",
+        "weight": 3
+      },
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_fired",
+        "weight": 2
+      }
+    ],
+    "facing=east,half=top,shape=inner_left": [
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_inner",
+        "weight": 5,
+        "x": 180
+      },
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_inner_ash",
+        "weight": 3,
+        "x": 180
+      },
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_inner_fired",
+        "weight": 2,
+        "x": 180
+      }
+    ],
+    "facing=east,half=top,shape=inner_right": [
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_inner",
+        "weight": 5,
+        "x": 180,
+        "y": 90
+      },
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_inner_ash",
+        "weight": 3,
+        "x": 180,
+        "y": 90
+      },
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_inner_fired",
+        "weight": 2,
+        "x": 180,
+        "y": 90
+      }
+    ],
+    "facing=east,half=top,shape=outer_left": [
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_outer",
+        "weight": 5,
+        "x": 180
+      },
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_outer_ash",
+        "weight": 3,
+        "x": 180
+      },
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_outer_fired",
+        "weight": 2,
+        "x": 180
+      }
+    ],
+    "facing=east,half=top,shape=outer_right": [
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_outer",
+        "weight": 5,
+        "x": 180,
+        "y": 90
+      },
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_outer_ash",
+        "weight": 3,
+        "x": 180,
+        "y": 90
+      },
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_outer_fired",
+        "weight": 2,
+        "x": 180,
+        "y": 90
+      }
+    ],
+    "facing=east,half=top,shape=straight": [
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs",
+        "weight": 5,
+        "x": 180
+      },
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_ash",
+        "weight": 3,
+        "x": 180
+      },
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_fired",
+        "weight": 2,
+        "x": 180
+      }
+    ],
+    "facing=north,half=bottom,shape=inner_left": [
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_inner",
+        "weight": 5,
+        "y": 180
+      },
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_inner_ash",
+        "weight": 3,
+        "y": 180
+      },
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_inner_fired",
+        "weight": 2,
+        "y": 180
+      }
+    ],
+    "facing=north,half=bottom,shape=inner_right": [
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_inner",
+        "weight": 5,
+        "y": 270
+      },
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_inner_ash",
+        "weight": 3,
+        "y": 270
+      },
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_inner_fired",
+        "weight": 2,
+        "y": 270
+      }
+    ],
+    "facing=north,half=bottom,shape=outer_left": [
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_outer",
+        "weight": 5,
+        "y": 180
+      },
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_outer_ash",
+        "weight": 3,
+        "y": 180
+      },
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_outer_fired",
+        "weight": 2,
+        "y": 180
+      }
+    ],
+    "facing=north,half=bottom,shape=outer_right": [
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_outer",
+        "weight": 5,
+        "y": 270
+      },
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_outer_ash",
+        "weight": 3,
+        "y": 270
+      },
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_outer_fired",
+        "weight": 2,
+        "y": 270
+      }
+    ],
+    "facing=north,half=bottom,shape=straight": [
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs",
+        "weight": 5,
+        "y": 270
+      },
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_ash",
+        "weight": 3,
+        "y": 270
+      },
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_fired",
+        "weight": 2,
+        "y": 270
+      }
+    ],
+    "facing=north,half=top,shape=inner_left": [
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_inner",
+        "weight": 5,
+        "x": 180,
+        "y": 270
+      },
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_inner_ash",
+        "weight": 3,
+        "x": 180,
+        "y": 270
+      },
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_inner_fired",
+        "weight": 2,
+        "x": 180,
+        "y": 270
+      }
+    ],
+    "facing=north,half=top,shape=inner_right": [
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_inner",
+        "weight": 5,
+        "x": 180
+      },
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_inner_ash",
+        "weight": 3,
+        "x": 180
+      },
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_inner_fired",
+        "weight": 2,
+        "x": 180
+      }
+    ],
+    "facing=north,half=top,shape=outer_left": [
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_outer",
+        "weight": 5,
+        "x": 180,
+        "y": 270
+      },
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_outer_ash",
+        "weight": 3,
+        "x": 180,
+        "y": 270
+      },
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_outer_fired",
+        "weight": 2,
+        "x": 180,
+        "y": 270
+      }
+    ],
+    "facing=north,half=top,shape=outer_right": [
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_outer",
+        "weight": 5,
+        "x": 180
+      },
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_outer_ash",
+        "weight": 3,
+        "x": 180
+      },
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_outer_fired",
+        "weight": 2,
+        "x": 180
+      }
+    ],
+    "facing=north,half=top,shape=straight": [
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs",
+        "weight": 5,
+        "x": 180,
+        "y": 270
+      },
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_ash",
+        "weight": 3,
+        "x": 180,
+        "y": 270
+      },
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_fired",
+        "weight": 2,
+        "x": 180,
+        "y": 270
+      }
+    ],
+    "facing=south,half=bottom,shape=inner_left": [
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_inner",
+        "weight": 5
+      },
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_inner_ash",
+        "weight": 3
+      },
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_inner_fired",
+        "weight": 2
+      }
+    ],
+    "facing=south,half=bottom,shape=inner_right": [
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_inner",
+        "weight": 5,
+        "y": 90
+      },
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_inner_ash",
+        "weight": 3,
+        "y": 90
+      },
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_inner_fired",
+        "weight": 2,
+        "y": 90
+      }
+    ],
+    "facing=south,half=bottom,shape=outer_left": [
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_outer",
+        "weight": 5
+      },
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_outer_ash",
+        "weight": 3
+      },
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_outer_fired",
+        "weight": 2
+      }
+    ],
+    "facing=south,half=bottom,shape=outer_right": [
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_outer",
+        "weight": 5,
+        "y": 90
+      },
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_outer_ash",
+        "weight": 3,
+        "y": 90
+      },
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_outer_fired",
+        "weight": 2,
+        "y": 90
+      }
+    ],
+    "facing=south,half=bottom,shape=straight": [
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs",
+        "weight": 5,
+        "y": 90
+      },
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_ash",
+        "weight": 3,
+        "y": 90
+      },
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_fired",
+        "weight": 2,
+        "y": 90
+      }
+    ],
+    "facing=south,half=top,shape=inner_left": [
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_inner",
+        "weight": 5,
+        "x": 180,
+        "y": 90
+      },
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_inner_ash",
+        "weight": 3,
+        "x": 180,
+        "y": 90
+      },
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_inner_fired",
+        "weight": 2,
+        "x": 180,
+        "y": 90
+      }
+    ],
+    "facing=south,half=top,shape=inner_right": [
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_inner",
+        "weight": 5,
+        "x": 180,
+        "y": 180
+      },
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_inner_ash",
+        "weight": 3,
+        "x": 180,
+        "y": 180
+      },
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_inner_fired",
+        "weight": 2,
+        "x": 180,
+        "y": 180
+      }
+    ],
+    "facing=south,half=top,shape=outer_left": [
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_outer",
+        "weight": 5,
+        "x": 180,
+        "y": 90
+      },
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_outer_ash",
+        "weight": 3,
+        "x": 180,
+        "y": 90
+      },
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_outer_fired",
+        "weight": 2,
+        "x": 180,
+        "y": 90
+      }
+    ],
+    "facing=south,half=top,shape=outer_right": [
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_outer",
+        "weight": 5,
+        "x": 180,
+        "y": 180
+      },
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_outer_ash",
+        "weight": 3,
+        "x": 180,
+        "y": 180
+      },
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_outer_fired",
+        "weight": 2,
+        "x": 180,
+        "y": 180
+      }
+    ],
+    "facing=south,half=top,shape=straight": [
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs",
+        "weight": 5,
+        "x": 180,
+        "y": 90
+      },
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_ash",
+        "weight": 3,
+        "x": 180,
+        "y": 90
+      },
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_fired",
+        "weight": 2,
+        "x": 180,
+        "y": 90
+      }
+    ],
+    "facing=west,half=bottom,shape=inner_left": [
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_inner",
+        "weight": 5,
+        "y": 90
+      },
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_inner_ash",
+        "weight": 3,
+        "y": 90
+      },
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_inner_fired",
+        "weight": 2,
+        "y": 90
+      }
+    ],
+    "facing=west,half=bottom,shape=inner_right": [
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_inner",
+        "weight": 5,
+        "y": 180
+      },
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_inner_ash",
+        "weight": 3,
+        "y": 180
+      },
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_inner_fired",
+        "weight": 2,
+        "y": 180
+      }
+    ],
+    "facing=west,half=bottom,shape=outer_left": [
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_outer",
+        "weight": 5,
+        "y": 90
+      },
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_outer_ash",
+        "weight": 3,
+        "y": 90
+      },
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_outer_fired",
+        "weight": 2,
+        "y": 90
+      }
+    ],
+    "facing=west,half=bottom,shape=outer_right": [
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_outer",
+        "weight": 5,
+        "y": 180
+      },
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_outer_ash",
+        "weight": 3,
+        "y": 180
+      },
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_outer_fired",
+        "weight": 2,
+        "y": 180
+      }
+    ],
+    "facing=west,half=bottom,shape=straight": [
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs",
+        "weight": 5,
+        "y": 180
+      },
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_ash",
+        "weight": 3,
+        "y": 180
+      },
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_fired",
+        "weight": 2,
+        "y": 180
+      }
+    ],
+    "facing=west,half=top,shape=inner_left": [
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_inner",
+        "weight": 5,
+        "x": 180,
+        "y": 180
+      },
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_inner_ash",
+        "weight": 3,
+        "x": 180,
+        "y": 180
+      },
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_inner_fired",
+        "weight": 2,
+        "x": 180,
+        "y": 180
+      }
+    ],
+    "facing=west,half=top,shape=inner_right": [
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_inner",
+        "weight": 5,
+        "x": 180,
+        "y": 270
+      },
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_inner_ash",
+        "weight": 3,
+        "x": 180,
+        "y": 270
+      },
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_inner_fired",
+        "weight": 2,
+        "x": 180,
+        "y": 270
+      }
+    ],
+    "facing=west,half=top,shape=outer_left": [
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_outer",
+        "weight": 5,
+        "x": 180,
+        "y": 180
+      },
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_outer_ash",
+        "weight": 3,
+        "x": 180,
+        "y": 180
+      },
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_outer_fired",
+        "weight": 2,
+        "x": 180,
+        "y": 180
+      }
+    ],
+    "facing=west,half=top,shape=outer_right": [
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_outer",
+        "weight": 5,
+        "x": 180,
+        "y": 270
+      },
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_outer_ash",
+        "weight": 3,
+        "x": 180,
+        "y": 270
+      },
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_outer_fired",
+        "weight": 2,
+        "x": 180,
+        "y": 270
+      }
+    ],
+    "facing=west,half=top,shape=straight": [
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs",
+        "weight": 5,
+        "x": 180,
+        "y": 180
+      },
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_ash",
+        "weight": 3,
+        "x": 180,
+        "y": 180
+      },
+      {
+        "model": "sakura_bloom:block/light_gray_roof_tile_stairs_fired",
+        "weight": 2,
+        "x": 180,
+        "y": 180
+      }
+    ]
+  }
+}

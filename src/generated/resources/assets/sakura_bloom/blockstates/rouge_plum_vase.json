@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "sakura_bloom:block/rouge_plum_vase"
+    },
+    "facing=east": {
+      "model": "sakura_bloom:block/rouge_plum_vase",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "sakura_bloom:block/rouge_plum_vase",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "sakura_bloom:block/rouge_plum_vase",
+      "y": 270
+    }
+  }
+}

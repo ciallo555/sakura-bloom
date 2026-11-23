@@ -1,0 +1,2440 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "honey_joinery": "sakura_bloom:block/honey_joinery",
+    "particle": "sakura_bloom:block/honey_joinery"
+  },
+  "elements": [
+    {
+      "from": [
+        0,
+        0,
+        6
+      ],
+      "to": [
+        1,
+        16,
+        10
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            15,
+            0,
+            16,
+            16
+          ],
+          "texture": "#honey_joinery"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            1,
+            16
+          ],
+          "texture": "#honey_joinery"
+        },
+        "east": {
+          "uv": [
+            6,
+            0,
+            10,
+            16
+          ],
+          "texture": "#honey_joinery"
+        },
+        "west": {
+          "uv": [
+            6,
+            0,
+            10,
+            16
+          ],
+          "texture": "#honey_joinery"
+        },
+        "up": {
+          "uv": [
+            0,
+            6,
+            1,
+            10
+          ],
+          "texture": "#honey_joinery"
+        },
+        "down": {
+          "uv": [
+            0,
+            6,
+            1,
+            10
+          ],
+          "texture": "#honey_joinery"
+        }
+      }
+    },
+    {
+      "from": [
+        15,
+        0,
+        6
+      ],
+      "to": [
+        16,
+        16,
+        10
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            1,
+            16
+          ],
+          "texture": "#honey_joinery"
+        },
+        "south": {
+          "uv": [
+            15,
+            0,
+            16,
+            16
+          ],
+          "texture": "#honey_joinery"
+        },
+        "east": {
+          "uv": [
+            6,
+            0,
+            10,
+            16
+          ],
+          "texture": "#honey_joinery"
+        },
+        "west": {
+          "uv": [
+            6,
+            0,
+            10,
+            16
+          ],
+          "texture": "#honey_joinery"
+        },
+        "up": {
+          "uv": [
+            15,
+            6,
+            16,
+            10
+          ],
+          "texture": "#honey_joinery"
+        },
+        "down": {
+          "uv": [
+            15,
+            6,
+            16,
+            10
+          ],
+          "texture": "#honey_joinery"
+        }
+      }
+    },
+    {
+      "from": [
+        1,
+        0,
+        6
+      ],
+      "to": [
+        15,
+        1,
+        10
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            1,
+            15,
+            15,
+            16
+          ],
+          "texture": "#honey_joinery"
+        },
+        "south": {
+          "uv": [
+            1,
+            15,
+            15,
+            16
+          ],
+          "texture": "#honey_joinery"
+        },
+        "east": {
+          "uv": [
+            6,
+            15,
+            10,
+            16
+          ],
+          "texture": "#honey_joinery"
+        },
+        "west": {
+          "uv": [
+            6,
+            15,
+            10,
+            16
+          ],
+          "texture": "#honey_joinery"
+        },
+        "up": {
+          "uv": [
+            1,
+            6,
+            15,
+            10
+          ],
+          "texture": "#honey_joinery"
+        },
+        "down": {
+          "uv": [
+            1,
+            6,
+            15,
+            10
+          ],
+          "texture": "#honey_joinery"
+        }
+      }
+    },
+    {
+      "from": [
+        1,
+        15,
+        6
+      ],
+      "to": [
+        15,
+        16,
+        10
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            1,
+            0,
+            15,
+            1
+          ],
+          "texture": "#honey_joinery"
+        },
+        "south": {
+          "uv": [
+            1,
+            0,
+            15,
+            1
+          ],
+          "texture": "#honey_joinery"
+        },
+        "east": {
+          "uv": [
+            6,
+            0,
+            10,
+            1
+          ],
+          "texture": "#honey_joinery"
+        },
+        "west": {
+          "uv": [
+            6,
+            0,
+            10,
+            1
+          ],
+          "texture": "#honey_joinery"
+        },
+        "up": {
+          "uv": [
+            1,
+            6,
+            15,
+            10
+          ],
+          "texture": "#honey_joinery"
+        },
+        "down": {
+          "uv": [
+            1,
+            6,
+            15,
+            10
+          ],
+          "texture": "#honey_joinery"
+        }
+      }
+    },
+    {
+      "from": [
+        7,
+        14,
+        7.5
+      ],
+      "to": [
+        8,
+        15,
+        8.5
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            8,
+            1,
+            9,
+            2
+          ],
+          "texture": "#honey_joinery"
+        },
+        "south": {
+          "uv": [
+            7,
+            1,
+            8,
+            2
+          ],
+          "texture": "#honey_joinery"
+        },
+        "east": {
+          "uv": [
+            7.5,
+            1,
+            8.5,
+            2
+          ],
+          "texture": "#honey_joinery"
+        },
+        "west": {
+          "uv": [
+            7.5,
+            1,
+            8.5,
+            2
+          ],
+          "texture": "#honey_joinery"
+        }
+      }
+    },
+    {
+      "from": [
+        7,
+        6,
+        7.5
+      ],
+      "to": [
+        8,
+        7,
+        8.5
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            8,
+            9,
+            9,
+            10
+          ],
+          "texture": "#honey_joinery"
+        },
+        "south": {
+          "uv": [
+            7,
+            9,
+            8,
+            10
+          ],
+          "texture": "#honey_joinery"
+        },
+        "east": {
+          "uv": [
+            7.5,
+            9,
+            8.5,
+            10
+          ],
+          "texture": "#honey_joinery"
+        },
+        "west": {
+          "uv": [
+            7.5,
+            9,
+            8.5,
+            10
+          ],
+          "texture": "#honey_joinery"
+        }
+      }
+    },
+    {
+      "from": [
+        6,
+        13,
+        7.5
+      ],
+      "to": [
+        10,
+        14,
+        8.5
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            6,
+            2,
+            10,
+            3
+          ],
+          "texture": "#honey_joinery"
+        },
+        "south": {
+          "uv": [
+            6,
+            2,
+            10,
+            3
+          ],
+          "texture": "#honey_joinery"
+        },
+        "east": {
+          "uv": [
+            7.5,
+            2,
+            8.5,
+            3
+          ],
+          "texture": "#honey_joinery"
+        },
+        "west": {
+          "uv": [
+            7.5,
+            2,
+            8.5,
+            3
+          ],
+          "texture": "#honey_joinery"
+        },
+        "up": {
+          "uv": [
+            6,
+            7.5,
+            10,
+            8.5
+          ],
+          "texture": "#honey_joinery"
+        },
+        "down": {
+          "uv": [
+            6,
+            7.5,
+            10,
+            8.5
+          ],
+          "texture": "#honey_joinery"
+        }
+      }
+    },
+    {
+      "from": [
+        6,
+        12,
+        7.5
+      ],
+      "to": [
+        7,
+        13,
+        8.5
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            9,
+            3,
+            10,
+            4
+          ],
+          "texture": "#honey_joinery"
+        },
+        "south": {
+          "uv": [
+            6,
+            3,
+            7,
+            4
+          ],
+          "texture": "#honey_joinery"
+        },
+        "east": {
+          "uv": [
+            7.5,
+            3,
+            8.5,
+            4
+          ],
+          "texture": "#honey_joinery"
+        },
+        "west": {
+          "uv": [
+            7.5,
+            3,
+            8.5,
+            4
+          ],
+          "texture": "#honey_joinery"
+        },
+        "down": {
+          "uv": [
+            6,
+            7.5,
+            7,
+            8.5
+          ],
+          "texture": "#honey_joinery"
+        }
+      }
+    },
+    {
+      "from": [
+        6,
+        3,
+        7.5
+      ],
+      "to": [
+        7,
+        5,
+        8.5
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            9,
+            11,
+            10,
+            13
+          ],
+          "texture": "#honey_joinery"
+        },
+        "south": {
+          "uv": [
+            6,
+            11,
+            7,
+            13
+          ],
+          "texture": "#honey_joinery"
+        },
+        "east": {
+          "uv": [
+            7.5,
+            11,
+            8.5,
+            13
+          ],
+          "texture": "#honey_joinery"
+        },
+        "west": {
+          "uv": [
+            7.5,
+            11,
+            8.5,
+            13
+          ],
+          "texture": "#honey_joinery"
+        },
+        "down": {
+          "uv": [
+            6,
+            7.5,
+            7,
+            8.5
+          ],
+          "texture": "#honey_joinery"
+        }
+      }
+    },
+    {
+      "from": [
+        10,
+        12,
+        7.5
+      ],
+      "to": [
+        11,
+        13,
+        8.5
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            5,
+            3,
+            6,
+            4
+          ],
+          "texture": "#honey_joinery"
+        },
+        "south": {
+          "uv": [
+            10,
+            3,
+            11,
+            4
+          ],
+          "texture": "#honey_joinery"
+        },
+        "east": {
+          "uv": [
+            7.5,
+            3,
+            8.5,
+            4
+          ],
+          "texture": "#honey_joinery"
+        },
+        "west": {
+          "uv": [
+            7.5,
+            3,
+            8.5,
+            4
+          ],
+          "texture": "#honey_joinery"
+        },
+        "up": {
+          "uv": [
+            10,
+            7.5,
+            11,
+            8.5
+          ],
+          "texture": "#honey_joinery"
+        }
+      }
+    },
+    {
+      "from": [
+        2,
+        11,
+        7.5
+      ],
+      "to": [
+        6,
+        12,
+        8.5
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            10,
+            4,
+            14,
+            5
+          ],
+          "texture": "#honey_joinery"
+        },
+        "south": {
+          "uv": [
+            2,
+            4,
+            6,
+            5
+          ],
+          "texture": "#honey_joinery"
+        },
+        "east": {
+          "uv": [
+            7.5,
+            4,
+            8.5,
+            5
+          ],
+          "texture": "#honey_joinery"
+        },
+        "west": {
+          "uv": [
+            7.5,
+            4,
+            8.5,
+            5
+          ],
+          "texture": "#honey_joinery"
+        },
+        "up": {
+          "uv": [
+            2,
+            7.5,
+            6,
+            8.5
+          ],
+          "texture": "#honey_joinery"
+        },
+        "down": {
+          "uv": [
+            2,
+            7.5,
+            6,
+            8.5
+          ],
+          "texture": "#honey_joinery"
+        }
+      }
+    },
+    {
+      "from": [
+        10,
+        11,
+        7.5
+      ],
+      "to": [
+        12,
+        12,
+        8.5
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            4,
+            4,
+            6,
+            5
+          ],
+          "texture": "#honey_joinery"
+        },
+        "south": {
+          "uv": [
+            10,
+            4,
+            12,
+            5
+          ],
+          "texture": "#honey_joinery"
+        },
+        "east": {
+          "uv": [
+            7.5,
+            4,
+            8.5,
+            5
+          ],
+          "texture": "#honey_joinery"
+        },
+        "west": {
+          "uv": [
+            7.5,
+            4,
+            8.5,
+            5
+          ],
+          "texture": "#honey_joinery"
+        },
+        "up": {
+          "uv": [
+            10,
+            7.5,
+            12,
+            8.5
+          ],
+          "texture": "#honey_joinery"
+        },
+        "down": {
+          "uv": [
+            10,
+            7.5,
+            12,
+            8.5
+          ],
+          "texture": "#honey_joinery"
+        }
+      }
+    },
+    {
+      "from": [
+        14,
+        11,
+        7.5
+      ],
+      "to": [
+        15,
+        12,
+        8.5
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            1,
+            4,
+            2,
+            5
+          ],
+          "texture": "#honey_joinery"
+        },
+        "south": {
+          "uv": [
+            14,
+            4,
+            15,
+            5
+          ],
+          "texture": "#honey_joinery"
+        },
+        "west": {
+          "uv": [
+            7.5,
+            4,
+            8.5,
+            5
+          ],
+          "texture": "#honey_joinery"
+        },
+        "up": {
+          "uv": [
+            14,
+            7.5,
+            15,
+            8.5
+          ],
+          "texture": "#honey_joinery"
+        },
+        "down": {
+          "uv": [
+            14,
+            7.5,
+            15,
+            8.5
+          ],
+          "texture": "#honey_joinery"
+        }
+      }
+    },
+    {
+      "from": [
+        2,
+        10,
+        7.5
+      ],
+      "to": [
+        3,
+        11,
+        8.5
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            13,
+            5,
+            14,
+            6
+          ],
+          "texture": "#honey_joinery"
+        },
+        "south": {
+          "uv": [
+            2,
+            5,
+            3,
+            6
+          ],
+          "texture": "#honey_joinery"
+        },
+        "east": {
+          "uv": [
+            7.5,
+            5,
+            8.5,
+            6
+          ],
+          "texture": "#honey_joinery"
+        },
+        "west": {
+          "uv": [
+            7.5,
+            5,
+            8.5,
+            6
+          ],
+          "texture": "#honey_joinery"
+        },
+        "down": {
+          "uv": [
+            2,
+            7.5,
+            3,
+            8.5
+          ],
+          "texture": "#honey_joinery"
+        }
+      }
+    },
+    {
+      "from": [
+        2,
+        8,
+        7.5
+      ],
+      "to": [
+        3,
+        9,
+        8.5
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            13,
+            7,
+            14,
+            8
+          ],
+          "texture": "#honey_joinery"
+        },
+        "south": {
+          "uv": [
+            2,
+            7,
+            3,
+            8
+          ],
+          "texture": "#honey_joinery"
+        },
+        "east": {
+          "uv": [
+            7.5,
+            7,
+            8.5,
+            8
+          ],
+          "texture": "#honey_joinery"
+        },
+        "west": {
+          "uv": [
+            7.5,
+            7,
+            8.5,
+            8
+          ],
+          "texture": "#honey_joinery"
+        },
+        "up": {
+          "uv": [
+            2,
+            7.5,
+            3,
+            8.5
+          ],
+          "texture": "#honey_joinery"
+        },
+        "down": {
+          "uv": [
+            2,
+            7.5,
+            3,
+            8.5
+          ],
+          "texture": "#honey_joinery"
+        }
+      }
+    },
+    {
+      "from": [
+        2,
+        4,
+        7.5
+      ],
+      "to": [
+        3,
+        5,
+        8.5
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            13,
+            11,
+            14,
+            12
+          ],
+          "texture": "#honey_joinery"
+        },
+        "south": {
+          "uv": [
+            2,
+            11,
+            3,
+            12
+          ],
+          "texture": "#honey_joinery"
+        },
+        "east": {
+          "uv": [
+            7.5,
+            11,
+            8.5,
+            12
+          ],
+          "texture": "#honey_joinery"
+        },
+        "west": {
+          "uv": [
+            7.5,
+            11,
+            8.5,
+            12
+          ],
+          "texture": "#honey_joinery"
+        },
+        "up": {
+          "uv": [
+            2,
+            7.5,
+            3,
+            8.5
+          ],
+          "texture": "#honey_joinery"
+        },
+        "down": {
+          "uv": [
+            2,
+            7.5,
+            3,
+            8.5
+          ],
+          "texture": "#honey_joinery"
+        }
+      }
+    },
+    {
+      "from": [
+        2,
+        2,
+        7.5
+      ],
+      "to": [
+        3,
+        3,
+        8.5
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            13,
+            13,
+            14,
+            14
+          ],
+          "texture": "#honey_joinery"
+        },
+        "south": {
+          "uv": [
+            2,
+            13,
+            3,
+            14
+          ],
+          "texture": "#honey_joinery"
+        },
+        "east": {
+          "uv": [
+            7.5,
+            13,
+            8.5,
+            14
+          ],
+          "texture": "#honey_joinery"
+        },
+        "west": {
+          "uv": [
+            7.5,
+            13,
+            8.5,
+            14
+          ],
+          "texture": "#honey_joinery"
+        },
+        "up": {
+          "uv": [
+            2,
+            7.5,
+            3,
+            8.5
+          ],
+          "texture": "#honey_joinery"
+        },
+        "down": {
+          "uv": [
+            2,
+            7.5,
+            3,
+            8.5
+          ],
+          "texture": "#honey_joinery"
+        }
+      }
+    },
+    {
+      "from": [
+        5,
+        10,
+        7.5
+      ],
+      "to": [
+        7,
+        11,
+        8.5
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            9,
+            5,
+            11,
+            6
+          ],
+          "texture": "#honey_joinery"
+        },
+        "south": {
+          "uv": [
+            5,
+            5,
+            7,
+            6
+          ],
+          "texture": "#honey_joinery"
+        },
+        "east": {
+          "uv": [
+            7.5,
+            5,
+            8.5,
+            6
+          ],
+          "texture": "#honey_joinery"
+        },
+        "west": {
+          "uv": [
+            7.5,
+            5,
+            8.5,
+            6
+          ],
+          "texture": "#honey_joinery"
+        },
+        "up": {
+          "uv": [
+            5,
+            7.5,
+            7,
+            8.5
+          ],
+          "texture": "#honey_joinery"
+        },
+        "down": {
+          "uv": [
+            5,
+            7.5,
+            7,
+            8.5
+          ],
+          "texture": "#honey_joinery"
+        }
+      }
+    },
+    {
+      "from": [
+        5,
+        8,
+        7.5
+      ],
+      "to": [
+        7,
+        9,
+        8.5
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            9,
+            7,
+            11,
+            8
+          ],
+          "texture": "#honey_joinery"
+        },
+        "south": {
+          "uv": [
+            5,
+            7,
+            7,
+            8
+          ],
+          "texture": "#honey_joinery"
+        },
+        "east": {
+          "uv": [
+            7.5,
+            7,
+            8.5,
+            8
+          ],
+          "texture": "#honey_joinery"
+        },
+        "west": {
+          "uv": [
+            7.5,
+            7,
+            8.5,
+            8
+          ],
+          "texture": "#honey_joinery"
+        },
+        "up": {
+          "uv": [
+            5,
+            7.5,
+            7,
+            8.5
+          ],
+          "texture": "#honey_joinery"
+        },
+        "down": {
+          "uv": [
+            5,
+            7.5,
+            7,
+            8.5
+          ],
+          "texture": "#honey_joinery"
+        }
+      }
+    },
+    {
+      "from": [
+        9,
+        10,
+        7.5
+      ],
+      "to": [
+        11,
+        11,
+        8.5
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            5,
+            5,
+            7,
+            6
+          ],
+          "texture": "#honey_joinery"
+        },
+        "south": {
+          "uv": [
+            9,
+            5,
+            11,
+            6
+          ],
+          "texture": "#honey_joinery"
+        },
+        "east": {
+          "uv": [
+            7.5,
+            5,
+            8.5,
+            6
+          ],
+          "texture": "#honey_joinery"
+        },
+        "west": {
+          "uv": [
+            7.5,
+            5,
+            8.5,
+            6
+          ],
+          "texture": "#honey_joinery"
+        },
+        "up": {
+          "uv": [
+            9,
+            7.5,
+            11,
+            8.5
+          ],
+          "texture": "#honey_joinery"
+        },
+        "down": {
+          "uv": [
+            9,
+            7.5,
+            11,
+            8.5
+          ],
+          "texture": "#honey_joinery"
+        }
+      }
+    },
+    {
+      "from": [
+        9,
+        6,
+        7.5
+      ],
+      "to": [
+        11,
+        7,
+        8.5
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            5,
+            9,
+            7,
+            10
+          ],
+          "texture": "#honey_joinery"
+        },
+        "south": {
+          "uv": [
+            9,
+            9,
+            11,
+            10
+          ],
+          "texture": "#honey_joinery"
+        },
+        "east": {
+          "uv": [
+            7.5,
+            9,
+            8.5,
+            10
+          ],
+          "texture": "#honey_joinery"
+        },
+        "west": {
+          "uv": [
+            7.5,
+            9,
+            8.5,
+            10
+          ],
+          "texture": "#honey_joinery"
+        },
+        "up": {
+          "uv": [
+            9,
+            7.5,
+            11,
+            8.5
+          ],
+          "texture": "#honey_joinery"
+        },
+        "down": {
+          "uv": [
+            9,
+            7.5,
+            11,
+            8.5
+          ],
+          "texture": "#honey_joinery"
+        }
+      }
+    },
+    {
+      "from": [
+        9,
+        2,
+        7.5
+      ],
+      "to": [
+        11,
+        3,
+        8.5
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            5,
+            13,
+            7,
+            14
+          ],
+          "texture": "#honey_joinery"
+        },
+        "south": {
+          "uv": [
+            9,
+            13,
+            11,
+            14
+          ],
+          "texture": "#honey_joinery"
+        },
+        "east": {
+          "uv": [
+            7.5,
+            13,
+            8.5,
+            14
+          ],
+          "texture": "#honey_joinery"
+        },
+        "west": {
+          "uv": [
+            7.5,
+            13,
+            8.5,
+            14
+          ],
+          "texture": "#honey_joinery"
+        },
+        "up": {
+          "uv": [
+            9,
+            7.5,
+            11,
+            8.5
+          ],
+          "texture": "#honey_joinery"
+        },
+        "down": {
+          "uv": [
+            9,
+            7.5,
+            11,
+            8.5
+          ],
+          "texture": "#honey_joinery"
+        }
+      }
+    },
+    {
+      "from": [
+        12,
+        10,
+        7.5
+      ],
+      "to": [
+        14,
+        11,
+        8.5
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            2,
+            5,
+            4,
+            6
+          ],
+          "texture": "#honey_joinery"
+        },
+        "south": {
+          "uv": [
+            12,
+            5,
+            14,
+            6
+          ],
+          "texture": "#honey_joinery"
+        },
+        "east": {
+          "uv": [
+            7.5,
+            5,
+            8.5,
+            6
+          ],
+          "texture": "#honey_joinery"
+        },
+        "west": {
+          "uv": [
+            7.5,
+            5,
+            8.5,
+            6
+          ],
+          "texture": "#honey_joinery"
+        },
+        "up": {
+          "uv": [
+            12,
+            7.5,
+            14,
+            8.5
+          ],
+          "texture": "#honey_joinery"
+        },
+        "down": {
+          "uv": [
+            12,
+            7.5,
+            14,
+            8.5
+          ],
+          "texture": "#honey_joinery"
+        }
+      }
+    },
+    {
+      "from": [
+        1,
+        9,
+        7.5
+      ],
+      "to": [
+        2,
+        10,
+        8.5
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            14,
+            6,
+            15,
+            7
+          ],
+          "texture": "#honey_joinery"
+        },
+        "south": {
+          "uv": [
+            1,
+            6,
+            2,
+            7
+          ],
+          "texture": "#honey_joinery"
+        },
+        "east": {
+          "uv": [
+            7.5,
+            6,
+            8.5,
+            7
+          ],
+          "texture": "#honey_joinery"
+        },
+        "up": {
+          "uv": [
+            1,
+            7.5,
+            2,
+            8.5
+          ],
+          "texture": "#honey_joinery"
+        },
+        "down": {
+          "uv": [
+            1,
+            7.5,
+            2,
+            8.5
+          ],
+          "texture": "#honey_joinery"
+        }
+      }
+    },
+    {
+      "from": [
+        1,
+        1,
+        7.5
+      ],
+      "to": [
+        2,
+        2,
+        8.5
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            14,
+            14,
+            15,
+            15
+          ],
+          "texture": "#honey_joinery"
+        },
+        "south": {
+          "uv": [
+            1,
+            14,
+            2,
+            15
+          ],
+          "texture": "#honey_joinery"
+        },
+        "east": {
+          "uv": [
+            7.5,
+            14,
+            8.5,
+            15
+          ],
+          "texture": "#honey_joinery"
+        },
+        "up": {
+          "uv": [
+            1,
+            7.5,
+            2,
+            8.5
+          ],
+          "texture": "#honey_joinery"
+        }
+      }
+    },
+    {
+      "from": [
+        7,
+        9,
+        7.5
+      ],
+      "to": [
+        9,
+        10,
+        8.5
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            7,
+            6,
+            9,
+            7
+          ],
+          "texture": "#honey_joinery"
+        },
+        "south": {
+          "uv": [
+            7,
+            6,
+            9,
+            7
+          ],
+          "texture": "#honey_joinery"
+        },
+        "east": {
+          "uv": [
+            7.5,
+            6,
+            8.5,
+            7
+          ],
+          "texture": "#honey_joinery"
+        },
+        "west": {
+          "uv": [
+            7.5,
+            6,
+            8.5,
+            7
+          ],
+          "texture": "#honey_joinery"
+        },
+        "up": {
+          "uv": [
+            7,
+            7.5,
+            9,
+            8.5
+          ],
+          "texture": "#honey_joinery"
+        },
+        "down": {
+          "uv": [
+            7,
+            7.5,
+            9,
+            8.5
+          ],
+          "texture": "#honey_joinery"
+        }
+      }
+    },
+    {
+      "from": [
+        13,
+        8,
+        7.5
+      ],
+      "to": [
+        14,
+        10,
+        8.5
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            2,
+            6,
+            3,
+            8
+          ],
+          "texture": "#honey_joinery"
+        },
+        "south": {
+          "uv": [
+            13,
+            6,
+            14,
+            8
+          ],
+          "texture": "#honey_joinery"
+        },
+        "east": {
+          "uv": [
+            7.5,
+            6,
+            8.5,
+            8
+          ],
+          "texture": "#honey_joinery"
+        },
+        "west": {
+          "uv": [
+            7.5,
+            6,
+            8.5,
+            8
+          ],
+          "texture": "#honey_joinery"
+        },
+        "down": {
+          "uv": [
+            13,
+            7.5,
+            14,
+            8.5
+          ],
+          "texture": "#honey_joinery"
+        }
+      }
+    },
+    {
+      "from": [
+        8,
+        8,
+        7.5
+      ],
+      "to": [
+        9,
+        9,
+        8.5
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            7,
+            7,
+            8,
+            8
+          ],
+          "texture": "#honey_joinery"
+        },
+        "south": {
+          "uv": [
+            8,
+            7,
+            9,
+            8
+          ],
+          "texture": "#honey_joinery"
+        },
+        "east": {
+          "uv": [
+            7.5,
+            7,
+            8.5,
+            8
+          ],
+          "texture": "#honey_joinery"
+        },
+        "west": {
+          "uv": [
+            7.5,
+            7,
+            8.5,
+            8
+          ],
+          "texture": "#honey_joinery"
+        }
+      }
+    },
+    {
+      "from": [
+        8,
+        3,
+        7.5
+      ],
+      "to": [
+        9,
+        5,
+        8.5
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            7,
+            11,
+            8,
+            13
+          ],
+          "texture": "#honey_joinery"
+        },
+        "south": {
+          "uv": [
+            8,
+            11,
+            9,
+            13
+          ],
+          "texture": "#honey_joinery"
+        },
+        "east": {
+          "uv": [
+            7.5,
+            11,
+            8.5,
+            13
+          ],
+          "texture": "#honey_joinery"
+        },
+        "west": {
+          "uv": [
+            7.5,
+            11,
+            8.5,
+            13
+          ],
+          "texture": "#honey_joinery"
+        },
+        "up": {
+          "uv": [
+            8,
+            7.5,
+            9,
+            8.5
+          ],
+          "texture": "#honey_joinery"
+        },
+        "down": {
+          "uv": [
+            8,
+            7.5,
+            9,
+            8.5
+          ],
+          "texture": "#honey_joinery"
+        }
+      }
+    },
+    {
+      "from": [
+        3,
+        7,
+        7.5
+      ],
+      "to": [
+        5,
+        8,
+        8.5
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            11,
+            8,
+            13,
+            9
+          ],
+          "texture": "#honey_joinery"
+        },
+        "south": {
+          "uv": [
+            3,
+            8,
+            5,
+            9
+          ],
+          "texture": "#honey_joinery"
+        },
+        "east": {
+          "uv": [
+            7.5,
+            8,
+            8.5,
+            9
+          ],
+          "texture": "#honey_joinery"
+        },
+        "west": {
+          "uv": [
+            7.5,
+            8,
+            8.5,
+            9
+          ],
+          "texture": "#honey_joinery"
+        },
+        "up": {
+          "uv": [
+            3,
+            7.5,
+            5,
+            8.5
+          ],
+          "texture": "#honey_joinery"
+        },
+        "down": {
+          "uv": [
+            3,
+            7.5,
+            5,
+            8.5
+          ],
+          "texture": "#honey_joinery"
+        }
+      }
+    },
+    {
+      "from": [
+        7,
+        7,
+        7.5
+      ],
+      "to": [
+        10,
+        8,
+        8.5
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            6,
+            8,
+            9,
+            9
+          ],
+          "texture": "#honey_joinery"
+        },
+        "south": {
+          "uv": [
+            7,
+            8,
+            10,
+            9
+          ],
+          "texture": "#honey_joinery"
+        },
+        "east": {
+          "uv": [
+            7.5,
+            8,
+            8.5,
+            9
+          ],
+          "texture": "#honey_joinery"
+        },
+        "west": {
+          "uv": [
+            7.5,
+            8,
+            8.5,
+            9
+          ],
+          "texture": "#honey_joinery"
+        },
+        "up": {
+          "uv": [
+            7,
+            7.5,
+            10,
+            8.5
+          ],
+          "texture": "#honey_joinery"
+        },
+        "down": {
+          "uv": [
+            7,
+            7.5,
+            10,
+            8.5
+          ],
+          "texture": "#honey_joinery"
+        }
+      }
+    },
+    {
+      "from": [
+        11,
+        7,
+        7.5
+      ],
+      "to": [
+        13,
+        8,
+        8.5
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            3,
+            8,
+            5,
+            9
+          ],
+          "texture": "#honey_joinery"
+        },
+        "south": {
+          "uv": [
+            11,
+            8,
+            13,
+            9
+          ],
+          "texture": "#honey_joinery"
+        },
+        "east": {
+          "uv": [
+            7.5,
+            8,
+            8.5,
+            9
+          ],
+          "texture": "#honey_joinery"
+        },
+        "west": {
+          "uv": [
+            7.5,
+            8,
+            8.5,
+            9
+          ],
+          "texture": "#honey_joinery"
+        },
+        "up": {
+          "uv": [
+            11,
+            7.5,
+            13,
+            8.5
+          ],
+          "texture": "#honey_joinery"
+        },
+        "down": {
+          "uv": [
+            11,
+            7.5,
+            13,
+            8.5
+          ],
+          "texture": "#honey_joinery"
+        }
+      }
+    },
+    {
+      "from": [
+        3,
+        5,
+        7.5
+      ],
+      "to": [
+        4,
+        7,
+        8.5
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            12,
+            9,
+            13,
+            11
+          ],
+          "texture": "#honey_joinery"
+        },
+        "south": {
+          "uv": [
+            3,
+            9,
+            4,
+            11
+          ],
+          "texture": "#honey_joinery"
+        },
+        "east": {
+          "uv": [
+            7.5,
+            9,
+            8.5,
+            11
+          ],
+          "texture": "#honey_joinery"
+        },
+        "west": {
+          "uv": [
+            7.5,
+            9,
+            8.5,
+            11
+          ],
+          "texture": "#honey_joinery"
+        },
+        "down": {
+          "uv": [
+            3,
+            7.5,
+            4,
+            8.5
+          ],
+          "texture": "#honey_joinery"
+        }
+      }
+    },
+    {
+      "from": [
+        3,
+        3,
+        7.5
+      ],
+      "to": [
+        4,
+        4,
+        8.5
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            12,
+            12,
+            13,
+            13
+          ],
+          "texture": "#honey_joinery"
+        },
+        "south": {
+          "uv": [
+            3,
+            12,
+            4,
+            13
+          ],
+          "texture": "#honey_joinery"
+        },
+        "east": {
+          "uv": [
+            7.5,
+            12,
+            8.5,
+            13
+          ],
+          "texture": "#honey_joinery"
+        },
+        "west": {
+          "uv": [
+            7.5,
+            12,
+            8.5,
+            13
+          ],
+          "texture": "#honey_joinery"
+        },
+        "up": {
+          "uv": [
+            3,
+            7.5,
+            4,
+            8.5
+          ],
+          "texture": "#honey_joinery"
+        },
+        "down": {
+          "uv": [
+            3,
+            7.5,
+            4,
+            8.5
+          ],
+          "texture": "#honey_joinery"
+        }
+      }
+    },
+    {
+      "from": [
+        6,
+        5,
+        7.5
+      ],
+      "to": [
+        8,
+        6,
+        8.5
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            8,
+            10,
+            10,
+            11
+          ],
+          "texture": "#honey_joinery"
+        },
+        "south": {
+          "uv": [
+            6,
+            10,
+            8,
+            11
+          ],
+          "texture": "#honey_joinery"
+        },
+        "east": {
+          "uv": [
+            7.5,
+            10,
+            8.5,
+            11
+          ],
+          "texture": "#honey_joinery"
+        },
+        "west": {
+          "uv": [
+            7.5,
+            10,
+            8.5,
+            11
+          ],
+          "texture": "#honey_joinery"
+        },
+        "up": {
+          "uv": [
+            6,
+            7.5,
+            8,
+            8.5
+          ],
+          "texture": "#honey_joinery"
+        },
+        "down": {
+          "uv": [
+            6,
+            7.5,
+            8,
+            8.5
+          ],
+          "texture": "#honey_joinery"
+        }
+      }
+    },
+    {
+      "from": [
+        11,
+        3,
+        7.5
+      ],
+      "to": [
+        12,
+        6,
+        8.5
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            4,
+            10,
+            5,
+            13
+          ],
+          "texture": "#honey_joinery"
+        },
+        "south": {
+          "uv": [
+            11,
+            10,
+            12,
+            13
+          ],
+          "texture": "#honey_joinery"
+        },
+        "east": {
+          "uv": [
+            7.5,
+            10,
+            8.5,
+            13
+          ],
+          "texture": "#honey_joinery"
+        },
+        "west": {
+          "uv": [
+            7.5,
+            10,
+            8.5,
+            13
+          ],
+          "texture": "#honey_joinery"
+        },
+        "up": {
+          "uv": [
+            11,
+            7.5,
+            12,
+            8.5
+          ],
+          "texture": "#honey_joinery"
+        },
+        "down": {
+          "uv": [
+            11,
+            7.5,
+            12,
+            8.5
+          ],
+          "texture": "#honey_joinery"
+        }
+      }
+    },
+    {
+      "from": [
+        11,
+        1,
+        7.5
+      ],
+      "to": [
+        12,
+        2,
+        8.5
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            4,
+            14,
+            5,
+            15
+          ],
+          "texture": "#honey_joinery"
+        },
+        "south": {
+          "uv": [
+            11,
+            14,
+            12,
+            15
+          ],
+          "texture": "#honey_joinery"
+        },
+        "east": {
+          "uv": [
+            7.5,
+            14,
+            8.5,
+            15
+          ],
+          "texture": "#honey_joinery"
+        },
+        "west": {
+          "uv": [
+            7.5,
+            14,
+            8.5,
+            15
+          ],
+          "texture": "#honey_joinery"
+        },
+        "up": {
+          "uv": [
+            11,
+            7.5,
+            12,
+            8.5
+          ],
+          "texture": "#honey_joinery"
+        }
+      }
+    },
+    {
+      "from": [
+        4,
+        2,
+        7.5
+      ],
+      "to": [
+        6,
+        3,
+        8.5
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            10,
+            13,
+            12,
+            14
+          ],
+          "texture": "#honey_joinery"
+        },
+        "south": {
+          "uv": [
+            4,
+            13,
+            6,
+            14
+          ],
+          "texture": "#honey_joinery"
+        },
+        "east": {
+          "uv": [
+            7.5,
+            13,
+            8.5,
+            14
+          ],
+          "texture": "#honey_joinery"
+        },
+        "west": {
+          "uv": [
+            7.5,
+            13,
+            8.5,
+            14
+          ],
+          "texture": "#honey_joinery"
+        },
+        "up": {
+          "uv": [
+            4,
+            7.5,
+            6,
+            8.5
+          ],
+          "texture": "#honey_joinery"
+        },
+        "down": {
+          "uv": [
+            4,
+            7.5,
+            6,
+            8.5
+          ],
+          "texture": "#honey_joinery"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    " B ",
+    "WSW",
+    " B "
+  ],
+  "key": {
+    "W": {
+      "item": "minecraft:bamboo_planks"
+    },
+    "B": {
+      "item": "sakura_bloom:bamboo_splints"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "id": "sakura_bloom:diamond_lattice",
+    "count": 4
+  }
+}

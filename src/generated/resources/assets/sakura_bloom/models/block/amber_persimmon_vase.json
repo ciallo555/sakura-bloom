@@ -1,0 +1,624 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "amber_persimmon_body": "sakura_bloom:block/amber_persimmon_body",
+    "amber_persimmon_inside": "sakura_bloom:block/amber_persimmon_inside",
+    "amber_persimmon_rim": "sakura_bloom:block/amber_persimmon_rim",
+    "amber_persimmon_sprig": "sakura_bloom:block/amber_persimmon_sprig",
+    "particle": "sakura_bloom:block/amber_persimmon_body"
+  },
+  "elements": [
+    {
+      "from": [
+        5,
+        0,
+        5
+      ],
+      "to": [
+        11,
+        2,
+        11
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            5,
+            14,
+            11,
+            16
+          ],
+          "texture": "#amber_persimmon_body"
+        },
+        "south": {
+          "uv": [
+            5,
+            14,
+            11,
+            16
+          ],
+          "texture": "#amber_persimmon_body"
+        },
+        "east": {
+          "uv": [
+            5,
+            14,
+            11,
+            16
+          ],
+          "texture": "#amber_persimmon_sprig"
+        },
+        "west": {
+          "uv": [
+            5,
+            14,
+            11,
+            16
+          ],
+          "texture": "#amber_persimmon_sprig"
+        },
+        "up": {
+          "uv": [
+            5,
+            5,
+            11,
+            11
+          ],
+          "texture": "#amber_persimmon_rim"
+        },
+        "down": {
+          "uv": [
+            5,
+            5,
+            11,
+            11
+          ],
+          "texture": "#amber_persimmon_sprig"
+        }
+      }
+    },
+    {
+      "from": [
+        3,
+        2,
+        3
+      ],
+      "to": [
+        13,
+        4,
+        13
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            3,
+            12,
+            13,
+            14
+          ],
+          "texture": "#amber_persimmon_body"
+        },
+        "south": {
+          "uv": [
+            3,
+            12,
+            13,
+            14
+          ],
+          "texture": "#amber_persimmon_body"
+        },
+        "east": {
+          "uv": [
+            3,
+            12,
+            13,
+            14
+          ],
+          "texture": "#amber_persimmon_sprig"
+        },
+        "west": {
+          "uv": [
+            3,
+            12,
+            13,
+            14
+          ],
+          "texture": "#amber_persimmon_sprig"
+        },
+        "up": {
+          "uv": [
+            3,
+            3,
+            13,
+            13
+          ],
+          "texture": "#amber_persimmon_rim"
+        },
+        "down": {
+          "uv": [
+            3,
+            3,
+            13,
+            13
+          ],
+          "texture": "#amber_persimmon_sprig"
+        }
+      }
+    },
+    {
+      "from": [
+        2,
+        4,
+        2
+      ],
+      "to": [
+        14,
+        8,
+        14
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            2,
+            8,
+            14,
+            12
+          ],
+          "texture": "#amber_persimmon_body"
+        },
+        "south": {
+          "uv": [
+            2,
+            8,
+            14,
+            12
+          ],
+          "texture": "#amber_persimmon_body"
+        },
+        "east": {
+          "uv": [
+            2,
+            8,
+            14,
+            12
+          ],
+          "texture": "#amber_persimmon_sprig"
+        },
+        "west": {
+          "uv": [
+            2,
+            8,
+            14,
+            12
+          ],
+          "texture": "#amber_persimmon_sprig"
+        },
+        "up": {
+          "uv": [
+            2,
+            2,
+            14,
+            14
+          ],
+          "texture": "#amber_persimmon_rim"
+        },
+        "down": {
+          "uv": [
+            2,
+            2,
+            14,
+            14
+          ],
+          "texture": "#amber_persimmon_sprig"
+        }
+      }
+    },
+    {
+      "from": [
+        3,
+        8,
+        3
+      ],
+      "to": [
+        13,
+        9,
+        13
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            3,
+            7,
+            13,
+            8
+          ],
+          "texture": "#amber_persimmon_body"
+        },
+        "south": {
+          "uv": [
+            3,
+            7,
+            13,
+            8
+          ],
+          "texture": "#amber_persimmon_body"
+        },
+        "east": {
+          "uv": [
+            3,
+            7,
+            13,
+            8
+          ],
+          "texture": "#amber_persimmon_sprig"
+        },
+        "west": {
+          "uv": [
+            3,
+            7,
+            13,
+            8
+          ],
+          "texture": "#amber_persimmon_sprig"
+        },
+        "up": {
+          "uv": [
+            3,
+            3,
+            13,
+            13
+          ],
+          "texture": "#amber_persimmon_rim"
+        },
+        "down": {
+          "uv": [
+            3,
+            3,
+            13,
+            13
+          ],
+          "texture": "#amber_persimmon_sprig"
+        }
+      }
+    },
+    {
+      "from": [
+        5,
+        9,
+        5
+      ],
+      "to": [
+        11,
+        10,
+        11
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            5,
+            6,
+            11,
+            7
+          ],
+          "texture": "#amber_persimmon_rim"
+        },
+        "south": {
+          "uv": [
+            5,
+            6,
+            11,
+            7
+          ],
+          "texture": "#amber_persimmon_rim"
+        },
+        "east": {
+          "uv": [
+            5,
+            6,
+            11,
+            7
+          ],
+          "texture": "#amber_persimmon_rim"
+        },
+        "west": {
+          "uv": [
+            5,
+            6,
+            11,
+            7
+          ],
+          "texture": "#amber_persimmon_rim"
+        },
+        "up": {
+          "uv": [
+            5,
+            5,
+            11,
+            11
+          ],
+          "texture": "#amber_persimmon_inside"
+        },
+        "down": {
+          "uv": [
+            5,
+            5,
+            11,
+            11
+          ],
+          "texture": "#amber_persimmon_rim"
+        }
+      }
+    },
+    {
+      "from": [
+        5,
+        10,
+        5
+      ],
+      "to": [
+        11,
+        11,
+        6
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            5,
+            5,
+            11,
+            6
+          ],
+          "texture": "#amber_persimmon_rim"
+        },
+        "south": {
+          "uv": [
+            5,
+            5,
+            11,
+            6
+          ],
+          "texture": "#amber_persimmon_rim"
+        },
+        "east": {
+          "uv": [
+            10,
+            5,
+            11,
+            6
+          ],
+          "texture": "#amber_persimmon_rim"
+        },
+        "west": {
+          "uv": [
+            5,
+            5,
+            6,
+            6
+          ],
+          "texture": "#amber_persimmon_rim"
+        },
+        "up": {
+          "uv": [
+            5,
+            5,
+            11,
+            6
+          ],
+          "texture": "#amber_persimmon_rim"
+        },
+        "down": {
+          "uv": [
+            5,
+            10,
+            11,
+            11
+          ],
+          "texture": "#amber_persimmon_rim"
+        }
+      }
+    },
+    {
+      "from": [
+        5,
+        10,
+        10
+      ],
+      "to": [
+        11,
+        11,
+        11
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            5,
+            5,
+            11,
+            6
+          ],
+          "texture": "#amber_persimmon_rim"
+        },
+        "south": {
+          "uv": [
+            5,
+            5,
+            11,
+            6
+          ],
+          "texture": "#amber_persimmon_rim"
+        },
+        "east": {
+          "uv": [
+            5,
+            5,
+            6,
+            6
+          ],
+          "texture": "#amber_persimmon_rim"
+        },
+        "west": {
+          "uv": [
+            10,
+            5,
+            11,
+            6
+          ],
+          "texture": "#amber_persimmon_rim"
+        },
+        "up": {
+          "uv": [
+            5,
+            10,
+            11,
+            11
+          ],
+          "texture": "#amber_persimmon_rim"
+        },
+        "down": {
+          "uv": [
+            5,
+            5,
+            11,
+            6
+          ],
+          "texture": "#amber_persimmon_rim"
+        }
+      }
+    },
+    {
+      "from": [
+        5,
+        10,
+        6
+      ],
+      "to": [
+        6,
+        11,
+        10
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            10,
+            5,
+            11,
+            6
+          ],
+          "texture": "#amber_persimmon_rim"
+        },
+        "south": {
+          "uv": [
+            5,
+            5,
+            6,
+            6
+          ],
+          "texture": "#amber_persimmon_rim"
+        },
+        "east": {
+          "uv": [
+            6,
+            5,
+            10,
+            6
+          ],
+          "texture": "#amber_persimmon_rim"
+        },
+        "west": {
+          "uv": [
+            6,
+            5,
+            10,
+            6
+          ],
+          "texture": "#amber_persimmon_rim"
+        },
+        "up": {
+          "uv": [
+            5,
+            6,
+            6,
+            10
+          ],
+          "texture": "#amber_persimmon_rim"
+        },
+        "down": {
+          "uv": [
+            5,
+            6,
+            6,
+            10
+          ],
+          "texture": "#amber_persimmon_rim"
+        }
+      }
+    },
+    {
+      "from": [
+        10,
+        10,
+        6
+      ],
+      "to": [
+        11,
+        11,
+        10
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            5,
+            5,
+            6,
+            6
+          ],
+          "texture": "#amber_persimmon_rim"
+        },
+        "south": {
+          "uv": [
+            10,
+            5,
+            11,
+            6
+          ],
+          "texture": "#amber_persimmon_rim"
+        },
+        "east": {
+          "uv": [
+            6,
+            5,
+            10,
+            6
+          ],
+          "texture": "#amber_persimmon_rim"
+        },
+        "west": {
+          "uv": [
+            6,
+            5,
+            10,
+            6
+          ],
+          "texture": "#amber_persimmon_rim"
+        },
+        "up": {
+          "uv": [
+            10,
+            6,
+            11,
+            10
+          ],
+          "texture": "#amber_persimmon_rim"
+        },
+        "down": {
+          "uv": [
+            10,
+            6,
+            11,
+            10
+          ],
+          "texture": "#amber_persimmon_rim"
+        }
+      }
+    }
+  ]
+}

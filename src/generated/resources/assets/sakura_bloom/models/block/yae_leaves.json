@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/leaves",
+  "textures": {
+    "all": "sakura_bloom:block/yae_leaves"
+  },
+  "render_type": "minecraft:cutout_mipped"
+}

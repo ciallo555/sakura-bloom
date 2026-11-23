@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "type": "neoforge:difference",
+      "base": {
+        "tag": "sakura_bloom:noren"
+      },
+      "subtracted": {
+        "item": "sakura_bloom:gray_noren"
+      }
+    },
+    {
+      "item": "minecraft:gray_dye"
+    }
+  ],
+  "result": {
+    "id": "sakura_bloom:gray_noren",
+    "count": 1
+  }
+}

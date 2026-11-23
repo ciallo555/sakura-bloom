@@ -1,0 +1,953 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "shoji_oak_frame": "sakura_bloom:block/shoji_oak_frame",
+    "particle": "sakura_bloom:block/shoji_oak_frame"
+  },
+  "elements": [
+    {
+      "from": [
+        0,
+        0,
+        6
+      ],
+      "to": [
+        1,
+        16,
+        10
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            15,
+            0,
+            16,
+            16
+          ],
+          "texture": "#shoji_oak_frame"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            1,
+            16
+          ],
+          "texture": "#shoji_oak_frame"
+        },
+        "east": {
+          "uv": [
+            6,
+            0,
+            10,
+            16
+          ],
+          "texture": "#shoji_oak_frame"
+        },
+        "west": {
+          "uv": [
+            6,
+            0,
+            10,
+            16
+          ],
+          "texture": "#shoji_oak_frame"
+        },
+        "up": {
+          "uv": [
+            0,
+            6,
+            1,
+            10
+          ],
+          "texture": "#shoji_oak_frame"
+        },
+        "down": {
+          "uv": [
+            0,
+            6,
+            1,
+            10
+          ],
+          "texture": "#shoji_oak_frame"
+        }
+      }
+    },
+    {
+      "from": [
+        15,
+        0,
+        6
+      ],
+      "to": [
+        16,
+        16,
+        10
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            1,
+            16
+          ],
+          "texture": "#shoji_oak_frame"
+        },
+        "south": {
+          "uv": [
+            15,
+            0,
+            16,
+            16
+          ],
+          "texture": "#shoji_oak_frame"
+        },
+        "east": {
+          "uv": [
+            6,
+            0,
+            10,
+            16
+          ],
+          "texture": "#shoji_oak_frame"
+        },
+        "west": {
+          "uv": [
+            6,
+            0,
+            10,
+            16
+          ],
+          "texture": "#shoji_oak_frame"
+        },
+        "up": {
+          "uv": [
+            15,
+            6,
+            16,
+            10
+          ],
+          "texture": "#shoji_oak_frame"
+        },
+        "down": {
+          "uv": [
+            15,
+            6,
+            16,
+            10
+          ],
+          "texture": "#shoji_oak_frame"
+        }
+      }
+    },
+    {
+      "from": [
+        1,
+        0,
+        6
+      ],
+      "to": [
+        15,
+        1,
+        10
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            1,
+            15,
+            15,
+            16
+          ],
+          "texture": "#shoji_oak_frame"
+        },
+        "south": {
+          "uv": [
+            1,
+            15,
+            15,
+            16
+          ],
+          "texture": "#shoji_oak_frame"
+        },
+        "east": {
+          "uv": [
+            6,
+            15,
+            10,
+            16
+          ],
+          "texture": "#shoji_oak_frame"
+        },
+        "west": {
+          "uv": [
+            6,
+            15,
+            10,
+            16
+          ],
+          "texture": "#shoji_oak_frame"
+        },
+        "up": {
+          "uv": [
+            1,
+            6,
+            15,
+            10
+          ],
+          "texture": "#shoji_oak_frame"
+        },
+        "down": {
+          "uv": [
+            1,
+            6,
+            15,
+            10
+          ],
+          "texture": "#shoji_oak_frame"
+        }
+      }
+    },
+    {
+      "from": [
+        1,
+        15,
+        6
+      ],
+      "to": [
+        15,
+        16,
+        10
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            1,
+            0,
+            15,
+            1
+          ],
+          "texture": "#shoji_oak_frame"
+        },
+        "south": {
+          "uv": [
+            1,
+            0,
+            15,
+            1
+          ],
+          "texture": "#shoji_oak_frame"
+        },
+        "east": {
+          "uv": [
+            6,
+            0,
+            10,
+            1
+          ],
+          "texture": "#shoji_oak_frame"
+        },
+        "west": {
+          "uv": [
+            6,
+            0,
+            10,
+            1
+          ],
+          "texture": "#shoji_oak_frame"
+        },
+        "up": {
+          "uv": [
+            1,
+            6,
+            15,
+            10
+          ],
+          "texture": "#shoji_oak_frame"
+        },
+        "down": {
+          "uv": [
+            1,
+            6,
+            15,
+            10
+          ],
+          "texture": "#shoji_oak_frame"
+        }
+      }
+    },
+    {
+      "from": [
+        7,
+        13,
+        7.5
+      ],
+      "to": [
+        8,
+        15,
+        8.5
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            8,
+            1,
+            9,
+            3
+          ],
+          "texture": "#shoji_oak_frame"
+        },
+        "south": {
+          "uv": [
+            7,
+            1,
+            8,
+            3
+          ],
+          "texture": "#shoji_oak_frame"
+        },
+        "east": {
+          "uv": [
+            7.5,
+            1,
+            8.5,
+            3
+          ],
+          "texture": "#shoji_oak_frame"
+        },
+        "west": {
+          "uv": [
+            7.5,
+            1,
+            8.5,
+            3
+          ],
+          "texture": "#shoji_oak_frame"
+        }
+      }
+    },
+    {
+      "from": [
+        1,
+        12,
+        7.5
+      ],
+      "to": [
+        15,
+        13,
+        8.5
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            1,
+            3,
+            15,
+            4
+          ],
+          "texture": "#shoji_oak_frame"
+        },
+        "south": {
+          "uv": [
+            1,
+            3,
+            15,
+            4
+          ],
+          "texture": "#shoji_oak_frame"
+        },
+        "up": {
+          "uv": [
+            1,
+            7.5,
+            15,
+            8.5
+          ],
+          "texture": "#shoji_oak_frame"
+        },
+        "down": {
+          "uv": [
+            1,
+            7.5,
+            15,
+            8.5
+          ],
+          "texture": "#shoji_oak_frame"
+        }
+      }
+    },
+    {
+      "from": [
+        1,
+        3,
+        7.5
+      ],
+      "to": [
+        15,
+        4,
+        8.5
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            1,
+            12,
+            15,
+            13
+          ],
+          "texture": "#shoji_oak_frame"
+        },
+        "south": {
+          "uv": [
+            1,
+            12,
+            15,
+            13
+          ],
+          "texture": "#shoji_oak_frame"
+        },
+        "up": {
+          "uv": [
+            1,
+            7.5,
+            15,
+            8.5
+          ],
+          "texture": "#shoji_oak_frame"
+        },
+        "down": {
+          "uv": [
+            1,
+            7.5,
+            15,
+            8.5
+          ],
+          "texture": "#shoji_oak_frame"
+        }
+      }
+    },
+    {
+      "from": [
+        4,
+        10,
+        7.5
+      ],
+      "to": [
+        5,
+        12,
+        8.5
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            11,
+            4,
+            12,
+            6
+          ],
+          "texture": "#shoji_oak_frame"
+        },
+        "south": {
+          "uv": [
+            4,
+            4,
+            5,
+            6
+          ],
+          "texture": "#shoji_oak_frame"
+        },
+        "east": {
+          "uv": [
+            7.5,
+            4,
+            8.5,
+            6
+          ],
+          "texture": "#shoji_oak_frame"
+        },
+        "west": {
+          "uv": [
+            7.5,
+            4,
+            8.5,
+            6
+          ],
+          "texture": "#shoji_oak_frame"
+        },
+        "down": {
+          "uv": [
+            4,
+            7.5,
+            5,
+            8.5
+          ],
+          "texture": "#shoji_oak_frame"
+        }
+      }
+    },
+    {
+      "from": [
+        4,
+        4,
+        7.5
+      ],
+      "to": [
+        5,
+        6,
+        8.5
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            11,
+            10,
+            12,
+            12
+          ],
+          "texture": "#shoji_oak_frame"
+        },
+        "south": {
+          "uv": [
+            4,
+            10,
+            5,
+            12
+          ],
+          "texture": "#shoji_oak_frame"
+        },
+        "east": {
+          "uv": [
+            7.5,
+            10,
+            8.5,
+            12
+          ],
+          "texture": "#shoji_oak_frame"
+        },
+        "west": {
+          "uv": [
+            7.5,
+            10,
+            8.5,
+            12
+          ],
+          "texture": "#shoji_oak_frame"
+        },
+        "up": {
+          "uv": [
+            4,
+            7.5,
+            5,
+            8.5
+          ],
+          "texture": "#shoji_oak_frame"
+        }
+      }
+    },
+    {
+      "from": [
+        6,
+        4,
+        7.5
+      ],
+      "to": [
+        7,
+        12,
+        8.5
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            9,
+            4,
+            10,
+            12
+          ],
+          "texture": "#shoji_oak_frame"
+        },
+        "south": {
+          "uv": [
+            6,
+            4,
+            7,
+            12
+          ],
+          "texture": "#shoji_oak_frame"
+        },
+        "east": {
+          "uv": [
+            7.5,
+            4,
+            8.5,
+            12
+          ],
+          "texture": "#shoji_oak_frame"
+        },
+        "west": {
+          "uv": [
+            7.5,
+            4,
+            8.5,
+            12
+          ],
+          "texture": "#shoji_oak_frame"
+        }
+      }
+    },
+    {
+      "from": [
+        9,
+        4,
+        7.5
+      ],
+      "to": [
+        10,
+        12,
+        8.5
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            6,
+            4,
+            7,
+            12
+          ],
+          "texture": "#shoji_oak_frame"
+        },
+        "south": {
+          "uv": [
+            9,
+            4,
+            10,
+            12
+          ],
+          "texture": "#shoji_oak_frame"
+        },
+        "east": {
+          "uv": [
+            7.5,
+            4,
+            8.5,
+            12
+          ],
+          "texture": "#shoji_oak_frame"
+        },
+        "west": {
+          "uv": [
+            7.5,
+            4,
+            8.5,
+            12
+          ],
+          "texture": "#shoji_oak_frame"
+        }
+      }
+    },
+    {
+      "from": [
+        11,
+        10,
+        7.5
+      ],
+      "to": [
+        12,
+        12,
+        8.5
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            4,
+            4,
+            5,
+            6
+          ],
+          "texture": "#shoji_oak_frame"
+        },
+        "south": {
+          "uv": [
+            11,
+            4,
+            12,
+            6
+          ],
+          "texture": "#shoji_oak_frame"
+        },
+        "east": {
+          "uv": [
+            7.5,
+            4,
+            8.5,
+            6
+          ],
+          "texture": "#shoji_oak_frame"
+        },
+        "west": {
+          "uv": [
+            7.5,
+            4,
+            8.5,
+            6
+          ],
+          "texture": "#shoji_oak_frame"
+        },
+        "down": {
+          "uv": [
+            11,
+            7.5,
+            12,
+            8.5
+          ],
+          "texture": "#shoji_oak_frame"
+        }
+      }
+    },
+    {
+      "from": [
+        11,
+        4,
+        7.5
+      ],
+      "to": [
+        12,
+        6,
+        8.5
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            4,
+            10,
+            5,
+            12
+          ],
+          "texture": "#shoji_oak_frame"
+        },
+        "south": {
+          "uv": [
+            11,
+            10,
+            12,
+            12
+          ],
+          "texture": "#shoji_oak_frame"
+        },
+        "east": {
+          "uv": [
+            7.5,
+            10,
+            8.5,
+            12
+          ],
+          "texture": "#shoji_oak_frame"
+        },
+        "west": {
+          "uv": [
+            7.5,
+            10,
+            8.5,
+            12
+          ],
+          "texture": "#shoji_oak_frame"
+        },
+        "up": {
+          "uv": [
+            11,
+            7.5,
+            12,
+            8.5
+          ],
+          "texture": "#shoji_oak_frame"
+        }
+      }
+    },
+    {
+      "from": [
+        3,
+        6,
+        7.5
+      ],
+      "to": [
+        4,
+        10,
+        8.5
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            12,
+            6,
+            13,
+            10
+          ],
+          "texture": "#shoji_oak_frame"
+        },
+        "south": {
+          "uv": [
+            3,
+            6,
+            4,
+            10
+          ],
+          "texture": "#shoji_oak_frame"
+        },
+        "east": {
+          "uv": [
+            7.5,
+            6,
+            8.5,
+            10
+          ],
+          "texture": "#shoji_oak_frame"
+        },
+        "west": {
+          "uv": [
+            7.5,
+            6,
+            8.5,
+            10
+          ],
+          "texture": "#shoji_oak_frame"
+        },
+        "up": {
+          "uv": [
+            3,
+            7.5,
+            4,
+            8.5
+          ],
+          "texture": "#shoji_oak_frame"
+        },
+        "down": {
+          "uv": [
+            3,
+            7.5,
+            4,
+            8.5
+          ],
+          "texture": "#shoji_oak_frame"
+        }
+      }
+    },
+    {
+      "from": [
+        12,
+        6,
+        7.5
+      ],
+      "to": [
+        13,
+        10,
+        8.5
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            3,
+            6,
+            4,
+            10
+          ],
+          "texture": "#shoji_oak_frame"
+        },
+        "south": {
+          "uv": [
+            12,
+            6,
+            13,
+            10
+          ],
+          "texture": "#shoji_oak_frame"
+        },
+        "east": {
+          "uv": [
+            7.5,
+            6,
+            8.5,
+            10
+          ],
+          "texture": "#shoji_oak_frame"
+        },
+        "west": {
+          "uv": [
+            7.5,
+            6,
+            8.5,
+            10
+          ],
+          "texture": "#shoji_oak_frame"
+        },
+        "up": {
+          "uv": [
+            12,
+            7.5,
+            13,
+            8.5
+          ],
+          "texture": "#shoji_oak_frame"
+        },
+        "down": {
+          "uv": [
+            12,
+            7.5,
+            13,
+            8.5
+          ],
+          "texture": "#shoji_oak_frame"
+        }
+      }
+    },
+    {
+      "from": [
+        8,
+        1,
+        7.5
+      ],
+      "to": [
+        9,
+        3,
+        8.5
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            7,
+            13,
+            8,
+            15
+          ],
+          "texture": "#shoji_oak_frame"
+        },
+        "south": {
+          "uv": [
+            8,
+            13,
+            9,
+            15
+          ],
+          "texture": "#shoji_oak_frame"
+        },
+        "east": {
+          "uv": [
+            7.5,
+            13,
+            8.5,
+            15
+          ],
+          "texture": "#shoji_oak_frame"
+        },
+        "west": {
+          "uv": [
+            7.5,
+            13,
+            8.5,
+            15
+          ],
+          "texture": "#shoji_oak_frame"
+        }
+      }
+    }
+  ]
+}

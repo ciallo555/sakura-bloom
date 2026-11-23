@@ -1,0 +1,106 @@
+{
+  "variants": {
+    "axis=x,type=top": [
+      {
+        "model": "sakura_bloom:block/purple_roof_tile_slab_top",
+        "weight": 5,
+        "y": 90
+      },
+      {
+        "model": "sakura_bloom:block/purple_roof_tile_slab_top_ash",
+        "weight": 3,
+        "y": 90
+      },
+      {
+        "model": "sakura_bloom:block/purple_roof_tile_slab_top_fired",
+        "weight": 2,
+        "y": 90
+      }
+    ],
+    "axis=x,type=bottom": [
+      {
+        "model": "sakura_bloom:block/purple_roof_tile_slab",
+        "weight": 5,
+        "y": 90
+      },
+      {
+        "model": "sakura_bloom:block/purple_roof_tile_slab_ash",
+        "weight": 3,
+        "y": 90
+      },
+      {
+        "model": "sakura_bloom:block/purple_roof_tile_slab_fired",
+        "weight": 2,
+        "y": 90
+      }
+    ],
+    "axis=x,type=double": [
+      {
+        "model": "sakura_bloom:block/purple_roof_tiles",
+        "weight": 5,
+        "y": 90
+      },
+      {
+        "model": "sakura_bloom:block/purple_roof_tiles_ash",
+        "weight": 3,
+        "y": 90
+      },
+      {
+        "model": "sakura_bloom:block/purple_roof_tiles_fired",
+        "weight": 2,
+        "y": 90
+      }
+    ],
+    "axis=z,type=top": [
+      {
+        "model": "sakura_bloom:block/purple_roof_tile_slab_top",
+        "weight": 5,
+        "y": 0
+      },
+      {
+        "model": "sakura_bloom:block/purple_roof_tile_slab_top_ash",
+        "weight": 3,
+        "y": 0
+      },
+      {
+        "model": "sakura_bloom:block/purple_roof_tile_slab_top_fired",
+        "weight": 2,
+        "y": 0
+      }
+    ],
+    "axis=z,type=bottom": [
+      {
+        "model": "sakura_bloom:block/purple_roof_tile_slab",
+        "weight": 5,
+        "y": 0
+      },
+      {
+        "model": "sakura_bloom:block/purple_roof_tile_slab_ash",
+        "weight": 3,
+        "y": 0
+      },
+      {
+        "model": "sakura_bloom:block/purple_roof_tile_slab_fired",
+        "weight": 2,
+        "y": 0
+      }
+    ],
+    "axis=z,type=double": [
+      {
+        "model": "sakura_bloom:block/purple_roof_tiles",
+        "weight": 5,
+        "y": 0
+      },
+      {
+        "model": "sakura_bloom:block/purple_roof_tiles_ash",
+        "weight": 3,
+        "y": 0
+      },
+      {
+        "model": "sakura_bloom:block/purple_roof_tiles_fired",
+        "weight": 2,
+        "y": 0
+      }
+    ]
+  }
+}

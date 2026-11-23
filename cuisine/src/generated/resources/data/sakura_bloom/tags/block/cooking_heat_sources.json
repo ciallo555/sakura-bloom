@@ -1,0 +1,15 @@
+{
+  "replace": false,
+  "values": [
+    "#minecraft:campfires",
+    "minecraft:magma_block",
+    {
+      "id": "#farmersdelight:heat_sources",
+      "required": false
+    },
+    {
+      "id": "#kaleidoscope_cookery:heat_source_blocks_without_lit",
+      "required": false
+    }
+  ]
+}

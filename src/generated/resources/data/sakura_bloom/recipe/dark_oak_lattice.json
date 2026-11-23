@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "WBW",
+    "B B",
+    "WBW"
+  ],
+  "key": {
+    "W": {
+      "item": "minecraft:dark_oak_planks"
+    },
+    "B": {
+      "item": "sakura_bloom:bamboo_splints"
+    }
+  },
+  "result": {
+    "id": "sakura_bloom:dark_oak_lattice",
+    "count": 4
+  }
+}

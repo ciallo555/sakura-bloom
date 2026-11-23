@@ -1,0 +1,23 @@
+{
+  "type": "sakura_bloom:cooking",
+  "station": "iron_wok",
+  "cooking_time": 100,
+  "ingredients": [
+    {
+      "tag": "c:crops/rice"
+    },
+    {
+      "tag": "c:eggs"
+    },
+    {
+      "item": "minecraft:carrot"
+    }
+  ],
+  "result": {
+    "id": "sakura_bloom:egg_fried_rice",
+    "count": 1
+  },
+  "serving": {
+    "item": "minecraft:bowl"
+  }
+}

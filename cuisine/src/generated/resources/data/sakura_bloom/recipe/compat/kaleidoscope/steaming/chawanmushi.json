@@ -1,0 +1,17 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "kaleidoscope_cookery"
+    }
+  ],
+  "type": "kaleidoscope_cookery:steamer",
+  "ingredient": {
+    "item": "sakura_bloom:chawanmushi_mix"
+  },
+  "result": {
+    "id": "sakura_bloom:unplated_chawanmushi",
+    "count": 1
+  },
+  "cook_tick": 120
+}

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "T  ",
+    "TT ",
+    "TTT"
+  ],
+  "key": {
+    "T": {
+      "item": "sakura_bloom:purple_roof_tiles"
+    }
+  },
+  "result": {
+    "id": "sakura_bloom:purple_roof_tile_stairs",
+    "count": 4
+  }
+}

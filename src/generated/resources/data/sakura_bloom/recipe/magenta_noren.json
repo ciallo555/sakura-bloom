@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "BSB",
+    "I I",
+    "I I"
+  ],
+  "key": {
+    "I": {
+      "item": "minecraft:magenta_wool"
+    },
+    "B": {
+      "item": "sakura_bloom:bamboo_splints"
+    },
+    "S": {
+      "item": "minecraft:string"
+    }
+  },
+  "result": {
+    "id": "sakura_bloom:magenta_noren",
+    "count": 2
+  }
+}

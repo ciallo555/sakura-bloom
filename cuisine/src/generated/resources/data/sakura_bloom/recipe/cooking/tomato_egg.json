@@ -1,0 +1,29 @@
+{
+  "type": "sakura_bloom:cooking",
+  "station": "iron_wok",
+  "cooking_time": 80,
+  "ingredients": [
+    {
+      "tag": "c:crops/tomato"
+    },
+    {
+      "tag": "c:eggs"
+    }
+  ],
+  "result": {
+    "id": "sakura_bloom:tomato_egg",
+    "count": 1
+  },
+  "serving": {
+    "item": "minecraft:bowl"
+  },
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:mod_loaded",
+        "modid": "kaleidoscope_cookery"
+      }
+    }
+  ]
+}
