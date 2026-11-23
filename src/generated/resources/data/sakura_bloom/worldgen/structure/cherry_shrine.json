@@ -1,9 +1,10 @@
 {
-  "type": "minecraft:jigsaw",
+  "type": "sakura_bloom:garden_site",
+  "max_surface_relief": 8,
   "biomes": [
     "minecraft:cherry_grove"
   ],
-  "step": "surface_structures",
+  "step": "top_layer_modification",
   "spawn_overrides": {},
   "terrain_adaptation": "beard_box",
   "start_pool": "sakura_bloom:shrine/cherry",

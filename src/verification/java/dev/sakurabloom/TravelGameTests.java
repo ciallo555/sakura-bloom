@@ -28,6 +28,8 @@ import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
 
 import java.util.List;
 
+import static dev.sakurabloom.ShrineGameTests.p;
+
 @GameTestHolder(SakuraBloom.ID)
 @PrefixGameTestTemplate(false)
 public final class TravelGameTests {
@@ -40,9 +42,15 @@ public final class TravelGameTests {
         var structs = registries.registryOrThrow(Registries.STRUCTURE);
         var set = registries.registryOrThrow(Registries.STRUCTURE_SET).get(SakuraBloom.id("woodland_landmarks"));
         var origin = test.absolutePos(new BlockPos(3, 2, 3));
-        record Site(String name, BloomContent.CherryWood wood) {}
-        for (var site : List.of(new Site("flower_dyehouse", BloomContent.YAE), new Site("rain_pavilion", BloomContent.SHIDARE),
-            new Site("hillside_joinery", BloomContent.YAMAZAKURA))) {
+        record Site(String name, BloomContent.CherryWood wood, BlockPos furnishing, Block block, List<BlockPos> walk) {}
+        for (var site : List.of(
+            new Site("flower_dyehouse", BloomContent.YAE, p(6,4,16), Blocks.LOOM,
+                List.of(p(10,2,3), p(10,2,5), p(10,3,6), p(10,3,14), p(7,3,14), p(7,3,15))),
+            new Site("rain_pavilion", BloomContent.SHIDARE, p(21,3,10), Blocks.WATER_CAULDRON,
+                List.of(p(11,2,2), p(11,2,4), p(16,2,4), p(16,2,9), p(19,2,9), p(19,2,12),
+                    p(19,3,13), p(19,3,18), p(16,3,18), p(16,3,19))),
+            new Site("hillside_joinery", BloomContent.YAMAZAKURA, p(7,5,13), Blocks.STONECUTTER,
+                List.of(p(12,2,3), p(12,2,8), p(12,3,9), p(12,3,15), p(8,3,15), p(8,3,16))))) {
             var holder = structs.getHolderOrThrow(ResourceKey.create(Registries.STRUCTURE, SakuraBloom.id(site.name)));
             test.assertTrue(set.structures().stream().anyMatch(entry -> entry.structure().equals(holder)), "Missing placement for " + site.name);
             var start = holder.value().generate(registries, generator, generator.getBiomeSource(), source.randomState(),
@@ -51,6 +59,10 @@ public final class TravelGameTests {
             var template = level.getStructureManager().get(SakuraBloom.id("landmark/" + site.name)).orElseThrow();
             template.placeInWorld(level, origin, origin, new StructurePlaceSettings().setKnownShape(true), level.random, 18);
             checkChest(test, template, origin, site.wood.chest().get(), site.name);
+            test.assertTrue(level.getBlockState(origin.offset(site.furnishing)).is(site.block), "Missing furnishing in " + site.name);
+            ShrineGameTests.verifyWalk(test, origin, site.walk);
+            if (site.name.equals("flower_dyehouse"))
+                ShrineGameTests.verifyWalk(test, origin, List.of(p(16,2,4), p(16,2,22)));
         }
         test.succeed();
     }

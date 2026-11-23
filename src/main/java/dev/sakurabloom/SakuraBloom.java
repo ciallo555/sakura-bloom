@@ -23,6 +23,8 @@ public final class SakuraBloom {
 
     public SakuraBloom(IEventBus bus) {
         BloomContent.register(bus);
+        GardenStructure.register(bus);
+        GardenSpread.register(bus);
         bus.addListener(this::setup);
     }
 

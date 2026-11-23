@@ -9,23 +9,59 @@ import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.ChunkPos;
+import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.entity.SignBlockEntity;
 import net.minecraft.world.level.block.state.properties.Half;
+import net.minecraft.world.level.levelgen.FlatLevelSource;
+import net.minecraft.world.level.levelgen.flat.FlatLayerInfo;
+import net.minecraft.world.level.levelgen.flat.FlatLevelGeneratorSettings;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
+import net.minecraft.world.phys.AABB;
 import net.neoforged.neoforge.gametest.GameTestHolder;
 import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
 
 import java.util.List;
+import java.util.Optional;
 
 @GameTestHolder(SakuraBloom.ID)
 @PrefixGameTestTemplate(false)
 public final class ShrineGameTests {
     private record Theme(String wood, String blockNamespace, String biome, String roof,
                          String stoneStairs, String pathStairs, String paving, String plaque,
-                         BlockPos landmark, String landmarkBlock, int floor, int hallZ, int eaveZ, int eaveY) {}
+                         BlockPos landmark, String landmarkBlock, BlockPos roofTile, BlockPos doorway,
+                         List<BlockPos> path) {}
+
+    static BlockPos p(int x, int y, int z) { return new BlockPos(x, y, z); }
+
+    @GameTest(template = "clearing")
+    public static void gardensNeedDryGroundAndAvoidPortalAprons(GameTestHelper test) {
+        var level = test.getLevel();
+        var access = level.registryAccess();
+        var grove = access.registryOrThrow(Registries.BIOME).getHolderOrThrow(Biomes.CHERRY_GROVE);
+        var shrine = access.registryOrThrow(Registries.STRUCTURE).get(SakuraBloom.id("cherry_shrine"));
+        var random = level.getChunkSource().randomState();
+        for (boolean flooded : List.of(false, true)) {
+            var layers = new FlatLevelGeneratorSettings(Optional.empty(), grove, List.of());
+            layers.getLayersInfo().add(new FlatLayerInfo(80, Blocks.STONE));
+            if (flooded) layers.getLayersInfo().add(new FlatLayerInfo(1, Blocks.WATER));
+            layers.updateLayers();
+            var generator = new FlatLevelSource(layers);
+            var start = shrine.generate(access, generator, generator.getBiomeSource(), random, level.getStructureManager(),
+                159033431L, new ChunkPos(0, 0), 0, level, shrine.biomes()::contains);
+            test.assertTrue(start.isValid() == !flooded, "A dry courtyard must fit, one block of surface water must disqualify it");
+        }
+        // This seed put the red shrine's actual staircase inside a ruined portal's lava in the first field trial.
+        var sets = access.registryOrThrow(Registries.STRUCTURE_SET);
+        var state = level.getChunkSource().getGenerator().createState(sets.asLookup(), random, 159033431L);
+        for (String name : List.of("shrines", "woodland_landmarks"))
+            test.assertFalse(sets.get(SakuraBloom.id(name)).placement().applyInteractionsWithOtherStructures(state, -423, 542),
+                name + " allowed the portal apron to cut into the courtyard");
+        test.succeed();
+    }
 
     @GameTest(template = "clearing", skyAccess = true)
     public static void shrineThemesLoadAndPlace(GameTestHelper test) {
@@ -35,7 +71,7 @@ public final class ShrineGameTests {
         var chunkSource = level.getChunkSource();
         var generator = chunkSource.getGenerator();
         var manager = level.getStructureManager();
-        BlockPos origin = new BlockPos(3, 2, 3);
+        BlockPos origin = new BlockPos(1, 1, 0);
         BlockPos absolute = test.absolutePos(origin);
 
         var key = ResourceKey.create(Registries.STRUCTURE_SET, SakuraBloom.id("shrines"));
@@ -43,16 +79,22 @@ public final class ShrineGameTests {
         var themes = List.of(
             new Theme("cherry", "minecraft", "minecraft:cherry_grove", "pink",
                 "stone_brick_stairs", "stone_stairs", "smooth_stone", "花染之庭",
-                new BlockPos(6,4,11), "sakura_bloom:flower_mortar", 3,16,14,8),
+                p(5,4,12), "sakura_bloom:flower_mortar", p(9,11,24), p(15,7,21),
+                List.of(p(15,2,4), p(15,2,16), p(15,3,17), p(15,3,24), p(9,3,24), p(9,3,25))),
             new Theme("shidare", SakuraBloom.ID, "sakura_bloom:shidare_meadow", "light_blue",
                 "polished_diorite_stairs", "diorite_stairs", "calcite", "垂樱水榭",
-                new BlockPos(7,2,11), "minecraft:water", 3,15,13,8),
+                p(5,2,12), "minecraft:water", p(14,9,23), p(21,6,21),
+                List.of(p(15,2,4), p(15,2,6), p(15,3,7), p(15,3,14), p(21,3,14),
+                    p(21,3,23), p(23,3,23), p(23,3,25))),
             new Theme("yae", SakuraBloom.ID, "sakura_bloom:yae_grove", "red",
                 "polished_andesite_stairs", "brick_stairs", "bricks", "八重灯殿",
-                new BlockPos(5,6,10), "sakura_bloom:silk_palace_lantern", 3,14,12,8),
+                p(6,6,9), "sakura_bloom:silk_palace_lantern", p(16,16,24), p(16,8,21),
+                List.of(p(16,2,4), p(16,2,15), p(16,4,17), p(16,4,25), p(10,4,25), p(10,4,26))),
             new Theme("yamazakura", SakuraBloom.ID, "sakura_bloom:yamazakura_woodland", "green",
                 "tuff_brick_stairs", "mossy_stone_brick_stairs", "mossy_stone_bricks", "山樱遥拜",
-                new BlockPos(11,6,14), "minecraft:tuff_brick_stairs", 6,17,15,11)
+                p(11,8,15), "minecraft:tuff_brick_stairs", p(11,15,23), p(11,12,21),
+                List.of(p(15,2,4), p(15,2,8), p(15,6,12), p(15,6,15), p(13,6,15),
+                    p(10,9,15), p(8,9,15), p(8,9,19), p(11,9,19), p(11,9,23), p(8,9,23), p(8,9,24)))
         );
         test.assertTrue(set.structures().size() == themes.size(), "The shared placement set did not include all four themes");
 
@@ -78,31 +120,26 @@ public final class ShrineGameTests {
             test.assertTrue(placed, "Unable to place template for " + theme.wood);
             var chest = theme.wood.equals("cherry") ? Blocks.CHEST : BuiltInRegistries.BLOCK.get(SakuraBloom.id(theme.wood + "_chest"));
             TravelGameTests.checkChest(test, template, absolute, chest, "shrine_offerings");
-            for (int x = 6; x <= 16; x++) {
-                String stairs = x >= 10 && x <= 12 ? theme.pathStairs : theme.stoneStairs;
+            for (int x = 10; x <= 20; x++) {
+                String stairs = x >= 13 && x <= 17 ? theme.pathStairs : theme.stoneStairs;
                 assertEntranceStep(test, origin.offset(x, 1, 0), stairs);
                 assertEntranceStep(test, origin.offset(x, 2, 1), stairs);
             }
-            assertBlock(test, origin.offset(11, 2, 2), "minecraft:" + theme.paving);
-            assertBlock(test, origin.offset(8, 4, 3), theme.blockNamespace + ":" + theme.wood + "_log");
-            assertBlock(test, origin.offset(11, theme.floor, theme.hallZ), theme.blockNamespace + ":" + theme.wood + "_planks");
-            assertBlock(test, origin.offset(11, theme.floor+1, theme.hallZ+1), "sakura_bloom:bound_tatami");
-            test.assertBlockPresent(Blocks.AIR, origin.offset(11, theme.floor+1, theme.hallZ));
-            test.assertBlockPresent(Blocks.AIR, origin.offset(11, theme.floor+2, theme.hallZ));
-            int roofX = theme.wood.equals("shidare") || theme.wood.equals("yamazakura") ? 5 : 11;
-            assertBlock(test, origin.offset(roofX, theme.eaveY, theme.eaveZ), "sakura_bloom:" + theme.roof + "_roof_tile_stairs");
+            assertBlock(test, origin.offset(15, 2, 2), "minecraft:" + theme.paving);
+            assertBlock(test, origin.offset(11, 4, 4), theme.blockNamespace + ":" + theme.wood + "_log");
+            verifyWalk(test, absolute, theme.path);
+            assertBlock(test, origin.offset(theme.roofTile), "sakura_bloom:" + theme.roof + "_roof_tile_slab");
             assertBlock(test, origin.offset(theme.landmark), theme.landmarkBlock);
-            assertBlock(test, origin.offset(15, 3, 5), "minecraft:water_cauldron");
-            assertBlock(test, origin.offset(11, 8, 3), theme.blockNamespace + ":" + theme.wood + "_hanging_sign");
-            SignBlockEntity plaque = test.getBlockEntity(origin.offset(11, 8, 3));
-            test.assertTrue(plaque.getFrontText().getMessage(1, false).getString().equals(theme.plaque),
+            assertBlock(test, origin.offset(15, 8, 4), theme.blockNamespace + ":" + theme.wood + "_hanging_sign");
+            SignBlockEntity plaque = test.getBlockEntity(origin.offset(15, 8, 4));
+            test.assertTrue(plaque.getFrontText().getMessage(1, false).getString().equals(theme.plaque)
+                && plaque.getBackText().getMessage(1, false).getString().equals(theme.plaque),
                 "Wrong shrine name on the torii for " + theme.wood);
             // Jigsaw may turn the template. Check the supported hanging decor after a quarter-turn.
             var turn = new StructurePlaceSettings().setRotation(Rotation.CLOCKWISE_90)
-                .setRotationPivot(new BlockPos(11,0,11)).setKnownShape(true);
+                .setRotationPivot(new BlockPos(15,0,15)).setKnownShape(true);
             template.placeInWorld(level, absolute, absolute, turn, level.random, 18);
-            var lintel = net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate
-                .calculateRelativePosition(turn, new BlockPos(11, theme.floor+3, theme.hallZ));
+            var lintel = StructureTemplate.calculateRelativePosition(turn, theme.doorway);
             var curtain = test.getBlockState(origin.offset(lintel));
             test.assertTrue(curtain.hasProperty(net.minecraft.world.level.block.HorizontalDirectionalBlock.FACING)
                 && curtain.getValue(net.minecraft.world.level.block.HorizontalDirectionalBlock.FACING) == Direction.EAST
@@ -110,6 +147,24 @@ public final class ShrineGameTests {
 
         }
         test.succeed();
+    }
+
+    /** Sweep a player's standing volume along each leg, including every tread and turn. */
+    static void verifyWalk(GameTestHelper test, BlockPos origin, List<BlockPos> waypoints) {
+        var level = test.getLevel();
+        var step = waypoints.getFirst();
+        for (var end : waypoints) {
+            while (!step.equals(end)) {
+                step = step.offset(Integer.signum(end.getX()-step.getX()), Integer.signum(end.getY()-step.getY()),
+                    Integer.signum(end.getZ()-step.getZ()));
+                var pos = origin.offset(step);
+                var floor = level.getBlockState(pos);
+                test.assertTrue(!floor.getCollisionShape(level, pos).isEmpty(), "Missing floor on approach at " + step);
+                // Allow the surface of a tatami mat on top of the deck.
+                var standing = new AABB(.2, 1.065, .2, .8, 2.865, .8).move(pos);
+                test.assertTrue(level.noCollision(standing), "Obstruction on walking route at " + step);
+            }
+        }
     }
 
     private static void assertEntranceStep(GameTestHelper test, BlockPos pos, String stairs) {

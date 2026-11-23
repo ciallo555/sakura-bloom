@@ -14,7 +14,7 @@
     }
   ],
   "placement": {
-    "type": "minecraft:random_spread",
+    "type": "sakura_bloom:garden_spread",
     "salt": 71403123,
     "spacing": 22,
     "separation": 10,
@@ -22,6 +22,10 @@
     "exclusion_zone": {
       "other_set": "sakura_bloom:shrines",
       "chunk_count": 2
+    },
+    "additional_exclusion_zone": {
+      "other_set": "minecraft:ruined_portals",
+      "chunk_count": 3
     }
   }
 }

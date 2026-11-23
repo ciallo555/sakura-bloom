@@ -22,6 +22,10 @@
     "salt": 167092968,
     "spacing": 18,
     "separation": 8,
-    "frequency": 0.7
+    "frequency": 0.7,
+    "exclusion_zone": {
+      "other_set": "minecraft:ruined_portals",
+      "chunk_count": 3
+    }
   }
 }
