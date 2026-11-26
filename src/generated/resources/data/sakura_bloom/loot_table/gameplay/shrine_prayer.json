@@ -1,0 +1,78 @@
+{
+  "type": "minecraft:gift",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:honey_bottle",
+          "weight": 14
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:experience_bottle",
+          "weight": 12
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:amethyst_shard",
+          "weight": 14,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": 3
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:golden_carrot",
+          "weight": 10,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": 2
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:emerald",
+          "weight": 8,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": 2
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:golden_apple",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "sakura_bloom:shidare_wind_bell",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "sakura_bloom:yamazakura_ink_bracelet",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "sakura_bloom:yae_knot_charm",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "sakura_bloom:celadon_fish_pendant",
+          "weight": 1
+        }
+      ]
+    }
+  ]
+}

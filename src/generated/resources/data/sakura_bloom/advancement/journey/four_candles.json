@@ -1,0 +1,38 @@
+{
+  "display": {
+    "icon": {
+      "id": "sakura_bloom:moonlit_seal"
+    },
+    "title": {
+      "translate": "advancements.sakura_bloom.four_candles"
+    },
+    "description": {
+      "translate": "advancements.sakura_bloom.four_candles.desc"
+    },
+    "frame": "task",
+    "announce_to_chat": false
+  },
+  "criteria": {
+    "found": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "sakura_bloom:lantern_seal",
+              "sakura_bloom:moonlit_seal",
+              "sakura_bloom:vermilion_seal",
+              "sakura_bloom:ashen_seal"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "found"
+    ]
+  ],
+  "parent": "sakura_bloom:journey/beyond_the_veil"
+}

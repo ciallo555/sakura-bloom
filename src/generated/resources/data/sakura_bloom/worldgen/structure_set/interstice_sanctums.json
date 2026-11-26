@@ -1,0 +1,26 @@
+{
+  "structures": [
+    {
+      "structure": "sakura_bloom:lantern_sanctum",
+      "weight": 1
+    },
+    {
+      "structure": "sakura_bloom:moonlit_sanctum",
+      "weight": 1
+    },
+    {
+      "structure": "sakura_bloom:vermilion_sanctum",
+      "weight": 1
+    },
+    {
+      "structure": "sakura_bloom:ashen_sanctum",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 8,
+    "separation": 3,
+    "salt": 30691183
+  }
+}

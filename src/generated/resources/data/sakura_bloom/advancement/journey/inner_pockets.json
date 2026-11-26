@@ -1,0 +1,35 @@
+{
+  "display": {
+    "icon": {
+      "id": "sakura_bloom:knotwork_pouch"
+    },
+    "title": {
+      "translate": "advancements.sakura_bloom.inner_pockets"
+    },
+    "description": {
+      "translate": "advancements.sakura_bloom.inner_pockets.desc"
+    },
+    "frame": "task",
+    "announce_to_chat": false
+  },
+  "criteria": {
+    "found": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "sakura_bloom:knotwork_pouch"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "found"
+    ]
+  ],
+  "parent": "sakura_bloom:journey/night_watch"
+}

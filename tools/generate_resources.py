@@ -395,7 +395,7 @@ def tags_and_data_maps(jar):
     tag("minecraft", "block", "guarded_by_piglins", [f"{MOD}:{v}_chest" for v in VARIETIES])
     tag("minecraft", "block", "flower_pots", [f"{MOD}:potted_{v}_sapling" for v in VARIETIES])
     tag("minecraft", "block", "mineable/axe", [*axes, *(f"{MOD}:{v}_chest" for v in VARIETIES), *(f"{MOD}:{name}" for name in
-        ("hanami_lantern", "begonia_lattice", "silk_palace_lantern",
+        ("offering_box", "hanami_lantern", "begonia_lattice", "silk_palace_lantern",
          *(f"{wood}_shoji" for wood in WOODS), *(f"{wood}_lattice" for wood in WOODS),
          *(f"{pattern}_lattice" for pattern in LATTICES)))])
     roofs = [color + suffix for color in ROOF_GLAZES for suffix in ("_roof_tiles", "_roof_tile_stairs", "_roof_tile_slab")]
@@ -1085,6 +1085,23 @@ def travel_charms(zh, en):
         zh[f"structure.{MOD}.{name}"], en[f"structure.{MOD}.{name}"] = cn_name, en_name
 
 
+def adventure_resources(zh, en):
+    for locale, strings in (("zh_cn", zh), ("en_us", en)):
+        for fragment in sorted((PROJECT / "tools/adventure_lang").glob(f"*/{locale}.json")):
+            strings.update(json.loads(fragment.read_text(encoding="utf-8-sig")))
+    slots = {
+        "belt": ["shidare_wind_bell", "knotwork_pouch", "cloud_brocade_pouch"],
+        "charm": ["yae_knot_charm", "moon_mirror"],
+        "necklace": ["celadon_fish_pendant", "tide_pearl"],
+        "bracelet": ["yamazakura_ink_bracelet", "brocade_knot"],
+        "head": ["lantern_crown"],
+    }
+    for slot, names in slots.items():
+        tag("curios", "item", slot, [f"{MOD}:{name}" for name in names])
+    datum("curios/slots/head", {"size": 1})
+    datum("curios/entities/travel_charms", {"entities": ["minecraft:player"], "slots": list(slots)})
+
+
 def generate(client_jar):
     zh = {f"structure.{MOD}.cherry_shrine": "樱花神社"}
     en = {f"structure.{MOD}.cherry_shrine": "Cherry Shrine"}
@@ -1114,6 +1131,7 @@ def generate(client_jar):
         "features": [f"{MOD}:{v}_tree_in_cherry_grove" for v in VARIETIES],
         "step": "vegetal_decoration",
     })
+    adventure_resources(zh, en)
     asset("lang/zh_cn", zh)
     asset("lang/en_us", en)
 

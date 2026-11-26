@@ -1,0 +1,35 @@
+{
+  "display": {
+    "icon": {
+      "id": "sakura_bloom:kamikakushi"
+    },
+    "title": {
+      "translate": "advancements.sakura_bloom.beyond_the_veil"
+    },
+    "description": {
+      "translate": "advancements.sakura_bloom.beyond_the_veil.desc"
+    },
+    "frame": "task",
+    "announce_to_chat": false
+  },
+  "criteria": {
+    "found": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "sakura_bloom:kamikakushi"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "found"
+    ]
+  ],
+  "parent": "sakura_bloom:journey/night_watch"
+}

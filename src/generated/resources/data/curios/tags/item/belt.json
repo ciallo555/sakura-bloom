@@ -1,6 +1,8 @@
 {
   "replace": false,
   "values": [
-    "sakura_bloom:shidare_wind_bell"
+    "sakura_bloom:shidare_wind_bell",
+    "sakura_bloom:knotwork_pouch",
+    "sakura_bloom:cloud_brocade_pouch"
   ]
 }

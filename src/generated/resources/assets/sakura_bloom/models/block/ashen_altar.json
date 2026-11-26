@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "side": "sakura_bloom:block/ashen_altar_side",
+    "top": "sakura_bloom:block/ashen_altar_top",
+    "bottom": "minecraft:block/polished_deepslate"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "found_material": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "sakura_bloom:moonlit_core"
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "recipes": [
+      "sakura_bloom:tide_pearl"
+    ]
+  }
+}

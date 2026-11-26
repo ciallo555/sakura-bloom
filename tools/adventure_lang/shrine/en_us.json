@@ -1,0 +1,21 @@
+{
+  "item.sakura_bloom.sakura_talisman": "Blossom Scrip",
+  "block.sakura_bloom.offering_box": "Shrine Offering Box",
+  "entity.sakura_bloom.dusk_fox": "Dusk Fox",
+  "entity.sakura_bloom.ink_wolf": "Inkmane Wolf",
+  "entity.sakura_bloom.gloom_hare": "Gloam Hare",
+  "entity.sakura_bloom.shrine_maiden": "Cherry Shrine Maiden",
+  "shrine.sakura_bloom.task.paper": "Gather 12 paper for prayer slips",
+  "shrine.sakura_bloom.task.watch": "Defeat 3 dusk foxes, inkmane wolves or gloam hares",
+  "shrine.sakura_bloom.task.ink": "Gather 4 ink sacs to restore faded prayers",
+  "shrine.sakura_bloom.task.crystal": "Gather 3 amethyst shards to mend a shrine bell",
+  "shrine.sakura_bloom.offer": "The maiden asks, “%s. Will you help?” Speak again to accept. Sneak or hold Blossom Scrip to trade.",
+  "shrine.sakura_bloom.accept": "Commission accepted: %s. Report to any shrine maiden.",
+  "shrine.sakura_bloom.progress": "Commission: %s (%s/%s).",
+  "shrine.sakura_bloom.hunts": "Night watch: %s/%s",
+  "shrine.sakura_bloom.thanks": "The maiden gives you 4 Blossom Scrip. Commissions fulfilled: %s/%s.",
+  "shrine.sakura_bloom.fan": "“This maple fan is called Kamikakushi. Follow its wind into the Interstice.” You receive the fan and 4 Blossom Scrip.",
+  "shrine.sakura_bloom.pray": "Offering received. Use the box with an empty hand to pray.",
+  "shrine.sakura_bloom.deposit": "Offer one Blossom Scrip, then pray with an empty hand.",
+  "shrine.sakura_bloom.blessing": "A bell sounds. A shrine gift rests in your hand."
+}

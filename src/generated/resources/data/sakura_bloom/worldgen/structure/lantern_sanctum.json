@@ -1,0 +1,10 @@
+{
+  "type": "sakura_bloom:interstice_sanctum",
+  "template": "sakura_bloom:interstice/lantern_sanctum",
+  "biomes": [
+    "sakura_bloom:lantern_gallery"
+  ],
+  "step": "surface_structures",
+  "terrain_adaptation": "none",
+  "spawn_overrides": {}
+}

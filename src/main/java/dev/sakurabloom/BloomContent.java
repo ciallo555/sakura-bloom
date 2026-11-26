@@ -83,7 +83,16 @@ public final class BloomContent {
     static final DeferredItem<TravelCharmItem> FISH_PENDANT = ITEMS.register("celadon_fish_pendant", () -> new TravelCharmItem(4,
         TravelCharmItem.percent("carp_swim", NeoForgeMod.SWIM_SPEED, 0.30), TravelCharmItem.percent("carp_dive", Attributes.BLOCK_BREAK_SPEED, 0.30)));
     static final DeferredItem<TravelCharmItem> INK_BRACELET = ITEMS.register("yamazakura_ink_bracelet", () -> new TravelCharmItem(1));
-    static final List<DeferredItem<TravelCharmItem>> TRAVEL_CHARMS = List.of(WIND_BELL, KNOT_CHARM, FISH_PENDANT, INK_BRACELET);
+    static final DeferredItem<TravelCharmItem> LANTERN_CROWN = ITEMS.register("lantern_crown", () -> new TravelCharmItem(2,
+        TravelCharmItem.add("votive_armor", Attributes.ARMOR, 4), TravelCharmItem.add("votive_life", Attributes.MAX_HEALTH, 4)));
+    static final DeferredItem<TravelCharmItem> TIDE_PEARL = ITEMS.register("tide_pearl", () -> new TravelCharmItem(2,
+        TravelCharmItem.percent("pearl_swim", NeoForgeMod.SWIM_SPEED, .50), TravelCharmItem.add("pearl_reach", Attributes.BLOCK_INTERACTION_RANGE, 1.5)));
+    static final DeferredItem<TravelCharmItem> BROCADE_KNOT = ITEMS.register("brocade_knot", () -> new TravelCharmItem(2,
+        TravelCharmItem.add("brocade_power", Attributes.ATTACK_DAMAGE, 3), TravelCharmItem.percent("brocade_speed", Attributes.ATTACK_SPEED, .12)));
+    static final DeferredItem<TravelCharmItem> MOON_MIRROR = ITEMS.register("moon_mirror", () -> new TravelCharmItem(2,
+        TravelCharmItem.add("mirror_life", Attributes.MAX_HEALTH, 8), TravelCharmItem.add("mirror_ward", Attributes.KNOCKBACK_RESISTANCE, .25)));
+    static final List<DeferredItem<TravelCharmItem>> TRAVEL_CHARMS = List.of(WIND_BELL, KNOT_CHARM, FISH_PENDANT,
+        INK_BRACELET, LANTERN_CROWN, TIDE_PEARL, BROCADE_KNOT, MOON_MIRROR);
 
     static {
         TABS.register("sakura_bloom", () -> CreativeModeTab.builder()
@@ -94,6 +103,10 @@ public final class BloomContent {
                 output.accept(MORTAR_ITEM.get());
                 output.accept(LANTERN_ITEM.get());
                 CourtyardContent.addCreativeItems(output);
+                dev.sakurabloom.adventure.combat.SpiritCombat.display(output);
+                dev.sakurabloom.adventure.shrine.ShrineAdventure.display(output);
+                dev.sakurabloom.adventure.pouch.PouchContent.display(output);
+                output.accept(dev.sakurabloom.adventure.realm.Interstice.FAN.get());
                 TRAVEL_CHARMS.forEach(charm -> output.accept(charm.get()));
             })
             .build());

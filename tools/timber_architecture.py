@@ -98,9 +98,7 @@ def altar(b, t, cx, y, z):
 
 
 def offering_box(b, x, y, z):
-    for dx in (0, 1):
-        b.place(x+dx, y, z, "minecraft:stripped_spruce_log", axis="x")
-        b.place(x+dx, y+1, z, "minecraft:spruce_trapdoor", half="bottom", facing="east")
+    b.place(x, y, z, f"{MOD}:offering_box")
 
 
 def basin(b, x, z, *, length=1, rim="polished_andesite"):

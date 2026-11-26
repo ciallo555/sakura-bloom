@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    " S ",
+    "SCS",
+    " G "
+  ],
+  "key": {
+    "S": {
+      "item": "sakura_bloom:ashen_shard"
+    },
+    "C": {
+      "item": "sakura_bloom:ashen_core"
+    },
+    "G": {
+      "item": "minecraft:gold_ingot"
+    }
+  },
+  "result": {
+    "id": "sakura_bloom:moon_mirror"
+  }
+}

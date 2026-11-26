@@ -1,0 +1,76 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "sakura_bloom:item/kamikakushi"
+  },
+  "display": {
+    "firstperson_righthand": {
+      "rotation": [
+        0,
+        -90,
+        25
+      ],
+      "translation": [
+        1.2,
+        2.8,
+        0.9
+      ],
+      "scale": [
+        1.05,
+        1.05,
+        0.8
+      ]
+    },
+    "firstperson_lefthand": {
+      "rotation": [
+        0,
+        90,
+        -25
+      ],
+      "translation": [
+        1.2,
+        2.8,
+        0.9
+      ],
+      "scale": [
+        1.05,
+        1.05,
+        0.8
+      ]
+    },
+    "thirdperson_righthand": {
+      "rotation": [
+        0,
+        -90,
+        55
+      ],
+      "translation": [
+        0,
+        5,
+        1
+      ],
+      "scale": [
+        1.4,
+        1.4,
+        1
+      ]
+    },
+    "thirdperson_lefthand": {
+      "rotation": [
+        0,
+        90,
+        -55
+      ],
+      "translation": [
+        0,
+        5,
+        1
+      ],
+      "scale": [
+        1.4,
+        1.4,
+        1
+      ]
+    }
+  }
+}

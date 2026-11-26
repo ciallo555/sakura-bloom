@@ -1,0 +1,15 @@
+{
+  "item.sakura_bloom.kamikakushi": "神隐",
+  "item.sakura_bloom.kamikakushi.hint": "挥扇踏入隙间，再次挥扇返回来处。",
+  "message.sakura_bloom.fan_no_landing": "隙间的落脚处被挡住了。",
+  "dimension.sakura_bloom.interstice": "隙间",
+  "biome.sakura_bloom.lantern_gallery": "灯市花楼",
+  "biome.sakura_bloom.moonlit_harbor": "月泊船津",
+  "biome.sakura_bloom.vermilion_bridges": "朱桥回廊",
+  "biome.sakura_bloom.ashen_lofts": "灰烬重阁",
+  "structure.sakura_bloom.lantern_sanctum": "百灯奉花殿",
+  "structure.sakura_bloom.moonlit_sanctum": "泊月舷宫",
+  "structure.sakura_bloom.vermilion_sanctum": "朱桥鸣钟殿",
+  "structure.sakura_bloom.ashen_sanctum": "藏烬书阁",
+  "entity.sakura_bloom.lantern_wisp": "引灯灵"
+}

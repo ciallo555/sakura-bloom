@@ -1,0 +1,58 @@
+{
+  "display": {
+    "icon": {
+      "id": "sakura_bloom:ashen_core"
+    },
+    "title": {
+      "translate": "advancements.sakura_bloom.keeper_falls"
+    },
+    "description": {
+      "translate": "advancements.sakura_bloom.keeper_falls.desc"
+    },
+    "frame": "challenge",
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "lantern": {
+      "trigger": "minecraft:player_killed_entity",
+      "conditions": {
+        "entity": {
+          "type": "sakura_bloom:lantern_guardian"
+        }
+      }
+    },
+    "moonlit": {
+      "trigger": "minecraft:player_killed_entity",
+      "conditions": {
+        "entity": {
+          "type": "sakura_bloom:moonlit_guardian"
+        }
+      }
+    },
+    "vermilion": {
+      "trigger": "minecraft:player_killed_entity",
+      "conditions": {
+        "entity": {
+          "type": "sakura_bloom:vermilion_guardian"
+        }
+      }
+    },
+    "ashen": {
+      "trigger": "minecraft:player_killed_entity",
+      "conditions": {
+        "entity": {
+          "type": "sakura_bloom:ashen_guardian"
+        }
+      }
+    }
+  },
+  "requirements": [
+    [
+      "lantern",
+      "moonlit",
+      "vermilion",
+      "ashen"
+    ]
+  ],
+  "parent": "sakura_bloom:journey/four_candles"
+}

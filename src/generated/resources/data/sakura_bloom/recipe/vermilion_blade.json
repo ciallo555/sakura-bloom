@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:smithing_transform",
+  "template": {
+    "item": "sakura_bloom:vermilion_shard"
+  },
+  "base": {
+    "item": "minecraft:diamond_sword"
+  },
+  "addition": {
+    "item": "sakura_bloom:vermilion_core"
+  },
+  "result": {
+    "id": "sakura_bloom:vermilion_blade"
+  }
+}

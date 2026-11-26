@@ -1,0 +1,21 @@
+{
+  "item.sakura_bloom.sakura_talisman": "樱札",
+  "block.sakura_bloom.offering_box": "赛钱箱",
+  "entity.sakura_bloom.dusk_fox": "暮影狐",
+  "entity.sakura_bloom.ink_wolf": "墨鬃狼",
+  "entity.sakura_bloom.gloom_hare": "晦月兔",
+  "entity.sakura_bloom.shrine_maiden": "守樱巫女",
+  "shrine.sakura_bloom.task.paper": "收集 12 张纸，补齐神社的祈愿笺",
+  "shrine.sakura_bloom.task.watch": "击败 3 只暮影狐、墨鬃狼或晦月兔",
+  "shrine.sakura_bloom.task.ink": "收集 4 个墨囊，重写褪色的祈愿文",
+  "shrine.sakura_bloom.task.crystal": "收集 3 个紫水晶碎片，修好祭铃",
+  "shrine.sakura_bloom.offer": "巫女轻声说：「%s。愿意帮忙吗？」再交谈一次接取委托。手持樱札或潜行交谈可以交易。",
+  "shrine.sakura_bloom.accept": "已接取委托「%s」。完成后可向任意守樱巫女复命。",
+  "shrine.sakura_bloom.progress": "委托「%s」进度 %s/%s。",
+  "shrine.sakura_bloom.hunts": "巡夜除妖 %s/%s",
+  "shrine.sakura_bloom.thanks": "巫女赠予你 4 张樱札。本轮委托已完成 %s/%s。",
+  "shrine.sakura_bloom.fan": "「这柄红枫扇名为神隐。循着它的风，便能走入隙间。」你获得了神隐和 4 张樱札。",
+  "shrine.sakura_bloom.pray": "樱札已投入。空手右键赛钱箱祈祷。",
+  "shrine.sakura_bloom.deposit": "手持一张樱札右键投入，再空手祈祷。",
+  "shrine.sakura_bloom.blessing": "铃声响起，你收到了神社的回礼。"
+}

@@ -132,6 +132,7 @@ def water_pavilion(b, t):
     curtain(b, t, 14, 16, 7, 22)
     tatami(b, 11, 23, 19, 25, 4)
     altar(b, t, 15, 4, 27)
+    offering_box(b, 17, 4, 26)
     b.fill((9, 8, 25), (21, 8, 25), t.timber("stripped_log"), axis="x")
     b.place(12, 7, 25, f"{MOD}:silk_palace_lantern", hanging="true")
     roof(b, t, 6, 18, 24, 30, 9, style="hip", color="light_blue", edge="cyan")
@@ -264,6 +265,7 @@ def mountain_sanctuary(b, t):
     curtain(b, t, 10, 12, 12, 21)
     tatami(b, 8, 22, 14, 24, 10)
     altar(b, t, 11, 10, 25)
+    offering_box(b, 13, 10, 24)
     roof(b, t, 3, 16, 18, 28, 14, style="gable", ridge=8, color="green", edge="gray")
     close_eaves(b, t, 6, 21, 15, 26, 13)
     # Crossed chigi at the gables and three short katsuogi run across the main ridge.

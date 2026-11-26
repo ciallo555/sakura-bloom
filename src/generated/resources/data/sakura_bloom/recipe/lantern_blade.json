@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:smithing_transform",
+  "template": {
+    "item": "sakura_bloom:lantern_shard"
+  },
+  "base": {
+    "item": "minecraft:diamond_sword"
+  },
+  "addition": {
+    "item": "sakura_bloom:lantern_core"
+  },
+  "result": {
+    "id": "sakura_bloom:lantern_blade"
+  }
+}

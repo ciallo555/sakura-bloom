@@ -25,7 +25,7 @@ final class CuriosCharmTest {
         for (var entry : expected.entrySet()) {
             var equipped = entry.getValue();
             var slots = inventory.getStacksHandler(entry.getKey()).orElseThrow().getStacks();
-            for (var candidate : BloomContent.TRAVEL_CHARMS) {
+            for (var candidate : expected.values()) {
                 test.assertTrue(slots.isItemValid(0, candidate.toStack()) == (candidate == equipped),
                     "Incorrect Curios slot for " + candidate.getId() + " in " + entry.getKey());
             }

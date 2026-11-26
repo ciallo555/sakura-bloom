@@ -1,0 +1,15 @@
+{
+  "item.sakura_bloom.kamikakushi": "Kamikakushi",
+  "item.sakura_bloom.kamikakushi.hint": "Open the fan to enter the Interstice. Open it again to return.",
+  "message.sakura_bloom.fan_no_landing": "There is no safe landing at the Interstice crossing.",
+  "dimension.sakura_bloom.interstice": "The Interstice",
+  "biome.sakura_bloom.lantern_gallery": "Lantern Gallery",
+  "biome.sakura_bloom.moonlit_harbor": "Moonlit Harbor",
+  "biome.sakura_bloom.vermilion_bridges": "Vermilion Bridges",
+  "biome.sakura_bloom.ashen_lofts": "Ashen Lofts",
+  "structure.sakura_bloom.lantern_sanctum": "Hall of a Hundred Lanterns",
+  "structure.sakura_bloom.moonlit_sanctum": "Moonwake Sanctuary",
+  "structure.sakura_bloom.vermilion_sanctum": "Vermilion Belfry",
+  "structure.sakura_bloom.ashen_sanctum": "Ashen Scriptorium",
+  "entity.sakura_bloom.lantern_wisp": "Lantern Wisp"
+}

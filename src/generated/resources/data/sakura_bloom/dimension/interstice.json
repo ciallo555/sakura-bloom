@@ -1,0 +1,17 @@
+{
+  "type": "sakura_bloom:interstice",
+  "generator": {
+    "type": "minecraft:noise",
+    "settings": "sakura_bloom:interstice",
+    "biome_source": {
+      "type": "minecraft:checkerboard",
+      "scale": 3,
+      "biomes": [
+        "sakura_bloom:lantern_gallery",
+        "sakura_bloom:moonlit_harbor",
+        "sakura_bloom:vermilion_bridges",
+        "sakura_bloom:ashen_lofts"
+      ]
+    }
+  }
+}

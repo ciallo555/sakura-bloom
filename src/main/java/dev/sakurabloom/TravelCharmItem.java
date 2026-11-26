@@ -1,5 +1,6 @@
 package dev.sakurabloom;
 
+import dev.sakurabloom.adventure.pouch.PouchItem;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
@@ -28,6 +29,7 @@ import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.MobEffectEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -73,10 +75,10 @@ final class TravelCharmItem extends Item {
     }
 
     static void refreshBonuses(Player player) {
-        Set<Item> curios = CURIOS ? CuriosTravelCharms.equipped(player) : Set.of();
+        Set<Item> equipped = equippedCharms(player);
         for (var entry : BloomContent.TRAVEL_CHARMS) {
             var charm = entry.get();
-            boolean active = player.getOffhandItem().is(charm) || curios.contains(charm);
+            boolean active = equipped.contains(charm);
             if (charm == BloomContent.FISH_PENDANT.get()) {
                 active &= player.isInWater();
                 updateWornEffect(player, MobEffects.WATER_BREATHING, 0, active);
@@ -98,7 +100,16 @@ final class TravelCharmItem extends Item {
     }
 
     private static boolean worn(Player player, Item item) {
-        return player.getOffhandItem().is(item) || (CURIOS && CuriosTravelCharms.isEquipped(player, item));
+        return equippedCharms(player).contains(item);
+    }
+
+    private static Set<Item> equippedCharms(Player player) {
+        var result = new HashSet<Item>();
+        var offhand = player.getOffhandItem();
+        if (offhand.getItem() instanceof TravelCharmItem) result.add(offhand.getItem());
+        if (offhand.getItem() instanceof PouchItem) PouchItem.collect(offhand, result);
+        if (CURIOS) CuriosTravelCharms.collect(player, result, !(offhand.getItem() instanceof PouchItem));
+        return result;
     }
 
     private static void updateWornEffect(Player player, Holder<MobEffect> effect, int amplifier, boolean active) {

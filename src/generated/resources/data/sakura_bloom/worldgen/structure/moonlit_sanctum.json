@@ -1,0 +1,10 @@
+{
+  "type": "sakura_bloom:interstice_sanctum",
+  "template": "sakura_bloom:interstice/moonlit_sanctum",
+  "biomes": [
+    "sakura_bloom:moonlit_harbor"
+  ],
+  "step": "surface_structures",
+  "terrain_adaptation": "none",
+  "spawn_overrides": {}
+}

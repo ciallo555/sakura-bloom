@@ -1,0 +1,24 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "#sakura_bloom:yokai_groves",
+  "spawners": [
+    {
+      "type": "sakura_bloom:dusk_fox",
+      "weight": 25,
+      "minCount": 1,
+      "maxCount": 3
+    },
+    {
+      "type": "sakura_bloom:ink_wolf",
+      "weight": 14,
+      "minCount": 1,
+      "maxCount": 2
+    },
+    {
+      "type": "sakura_bloom:gloom_hare",
+      "weight": 21,
+      "minCount": 1,
+      "maxCount": 3
+    }
+  ]
+}

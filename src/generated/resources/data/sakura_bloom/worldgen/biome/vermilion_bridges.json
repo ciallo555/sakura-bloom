@@ -1,0 +1,48 @@
+{
+  "has_precipitation": false,
+  "temperature": 0.6,
+  "downfall": 0.0,
+  "effects": {
+    "fog_color": 4400689,
+    "sky_color": 1381161,
+    "water_color": 4546956,
+    "water_fog_color": 2237240,
+    "mood_sound": {
+      "sound": "minecraft:ambient.cave",
+      "tick_delay": 6400,
+      "block_search_extent": 8,
+      "offset": 2
+    }
+  },
+  "carvers": {},
+  "features": [
+    [
+      "sakura_bloom:interstice_quarter"
+    ]
+  ],
+  "spawners": {
+    "monster": [
+      {
+        "type": "sakura_bloom:ink_wolf",
+        "weight": 6,
+        "minCount": 1,
+        "maxCount": 1
+      },
+      {
+        "type": "sakura_bloom:dusk_fox",
+        "weight": 6,
+        "minCount": 1,
+        "maxCount": 1
+      }
+    ],
+    "creature": [
+      {
+        "type": "sakura_bloom:lantern_wisp",
+        "weight": 6,
+        "minCount": 1,
+        "maxCount": 1
+      }
+    ]
+  },
+  "spawn_costs": {}
+}

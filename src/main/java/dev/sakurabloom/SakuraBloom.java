@@ -23,6 +23,10 @@ public final class SakuraBloom {
 
     public SakuraBloom(IEventBus bus) {
         BloomContent.register(bus);
+        dev.sakurabloom.adventure.combat.SpiritCombat.register(bus);
+        dev.sakurabloom.adventure.shrine.ShrineAdventure.register(bus);
+        dev.sakurabloom.adventure.realm.Interstice.register(bus);
+        dev.sakurabloom.adventure.pouch.PouchContent.register(bus);
         GardenStructure.register(bus);
         GardenSpread.register(bus);
         bus.addListener(this::setup);

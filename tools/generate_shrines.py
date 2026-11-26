@@ -4,7 +4,7 @@ import gzip
 from dataclasses import dataclass
 from io import BytesIO
 
-from nbtlib import Compound, File, Int, List, String
+from nbtlib import Byte, Compound, Double, File, Float, Int, List, String
 
 from generate_resources import MOD, CORE_OUTPUT, VARIETIES, datum, tag
 from shrine_layouts import SHRINES, torii
@@ -47,6 +47,7 @@ THEMES = (
 class Blueprint:
     def __init__(self):
         self.blocks = {}
+        self.entities = []
 
     def place(self, x, y, z, block, *, data=None, **properties):
         self.blocks[x, y, z] = (block, tuple(sorted(properties.items())), data)
@@ -83,7 +84,7 @@ class Blueprint:
             "size": List[Int](size),
             "palette": List[Compound](states),
             "blocks": List[Compound](blocks),
-            "entities": List[Compound](),
+            "entities": List[Compound](self.entities),
         })
         path = CORE_OUTPUT / f"data/{MOD}/structure/{name}.nbt"
         path.parent.mkdir(parents=True, exist_ok=True)
@@ -131,6 +132,14 @@ def generate():
         layout, chest = SHRINES[theme.wood]
         layout(build, theme)
         torii(build, theme)
+        x, y, z = {"cherry": (15, 4, 25), "shidare": (15, 4, 26),
+                   "yae": (16, 5, 26), "yamazakura": (11, 10, 24)}[theme.wood]
+        # A single home position inside the hall. Jigsaw rotates the resident with the room.
+        build.entities.append(Compound({
+            "pos": List[Double]([x+0.5, y+0.125, z+0.5]), "blockPos": List[Int]([x, y, z]),
+            "nbt": Compound({"id": String(f"{MOD}:shrine_maiden"), "Rotation": List[Float]([0, 0]),
+                             "PersistenceRequired": Byte(1)}),
+        }))
         reward_chest(build, chest, theme.wood, "shrine_offerings")
         template = f"shrine/{theme.wood}"
         build.save(template)

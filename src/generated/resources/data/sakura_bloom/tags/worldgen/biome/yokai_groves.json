@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:cherry_grove",
+    "sakura_bloom:shidare_meadow",
+    "sakura_bloom:yae_grove",
+    "sakura_bloom:yamazakura_woodland"
+  ]
+}
