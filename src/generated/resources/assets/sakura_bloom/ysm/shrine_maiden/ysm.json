@@ -1,0 +1,38 @@
+{
+  "spec": 2,
+  "metadata": {
+    "name": "守樱巫女 · Shrine Keeper",
+    "authors": [
+      {
+        "name": "Sakura Bloom",
+        "role": "Model & art"
+      }
+    ],
+    "license": {
+      "type": "All Rights Reserved"
+    },
+    "tips": "樱枝簪、绯袴与组纽的神社守望者。"
+  },
+  "properties": {
+    "height_scale": 0.5,
+    "width_scale": 0.5,
+    "free": true,
+    "extra_animation": {
+      "extra0": "祈愿 · Prayer"
+    }
+  },
+  "files": {
+    "player": {
+      "model": {
+        "main": "models/main.json",
+        "arm": "models/arm.json"
+      },
+      "animation": {
+        "main": "animations/main.animation.json"
+      },
+      "texture": [
+        "textures/keeper.png"
+      ]
+    }
+  }
+}

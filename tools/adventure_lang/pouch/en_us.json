@@ -2,6 +2,6 @@
   "item.sakura_bloom.knotwork_pouch": "Knotwork Pouch",
   "item.sakura_bloom.cloud_brocade_pouch": "Cloud Brocade Pouch",
   "pouch.sakura_bloom.capacity": "%s×%s grid · %s charms stored",
-  "pouch.sakura_bloom.wear": "Equip in offhand or belt. Offhand pouch takes priority.",
+  "pouch.sakura_bloom.wear": "Wear in a Curios belt slot to activate the charms inside.",
   "pouch.sakura_bloom.controls": "Click to move · R or RMB to turn"
 }

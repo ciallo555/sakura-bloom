@@ -51,7 +51,16 @@ public final class GuardianRenderer extends MobRenderer<VeilGuardian, HumanoidMo
         } else {
             head.addOrReplaceChild("visor", CubeListBuilder.create().texOffs(2,35).addBox(-5,-7,-5,10,3,2), PartPose.ZERO);
         }
-        return LayerDefinition.create(mesh,64,64);
+        body.addOrReplaceChild("brocade_sash", CubeListBuilder.create().texOffs(64,0)
+            .addBox(-4.8F,7,-2.9F,10,3,6), PartPose.ZERO);
+        for (int side : new int[]{-1,1}) {
+            var arm = root.getChild(side == 1 ? "left_arm" : "right_arm");
+            arm.addOrReplaceChild("mantle",CubeListBuilder.create().texOffs(64,52)
+                .addBox(side == 1 ? -1.5F : -3.5F,-2.5F,-2.5F,5,5,5),PartPose.ZERO);
+            body.addOrReplaceChild("silk_tail"+side,CubeListBuilder.create().texOffs(64,28)
+                .addBox(-2,0,0,4,9,1),PartPose.offsetAndRotation(side*2.8F,9,2.2F,.12F,0,side*.14F));
+        }
+        return LayerDefinition.create(mesh,128,128);
     }
 
     @SubscribeEvent public static void layers(EntityRenderersEvent.RegisterLayerDefinitions event) {

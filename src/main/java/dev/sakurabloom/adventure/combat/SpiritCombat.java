@@ -66,6 +66,11 @@ public final class SpiritCombat {
             || !EntityType.getKey(entity.getType()).getNamespace().equals(SakuraBloom.ID)) return;
         var theme = Sanctum.at(level, entity.blockPosition());
         if (theme != null) {
+            // Foxes carry amber from the lantern market into neighbouring hunting grounds.
+            // Players can gather its seal material without harming friendly inhabitants.
+            if (theme != Sanctum.LANTERN && entity.getType() == dev.sakurabloom.adventure.shrine.ShrineAdventure.FOX.get())
+                event.getDrops().add(new net.minecraft.world.entity.item.ItemEntity(level,entity.getX(),entity.getY(),entity.getZ(),
+                    new ItemStack(Sanctum.LANTERN.shard.get())));
             var stack = new ItemStack(theme.shard.get(), entity instanceof VeilGuardian ? 2 : 1);
             event.getDrops().add(new net.minecraft.world.entity.item.ItemEntity(level, entity.getX(), entity.getY(), entity.getZ(), stack));
         }

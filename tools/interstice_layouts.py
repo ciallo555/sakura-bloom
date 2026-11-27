@@ -215,13 +215,45 @@ def hanging_archive(b,t,variant):
             b.place(x,10,z,MC+"soul_lantern",hanging="true")
 
 
+def broken_roof(t, theme):
+    """A torn-off corner of a lower hall, with exposed rafters and hanging bell."""
+    b = Blueprint()
+    for z in range(2,14):
+        span = 8 if z < 8 else 7 - (z - 8) // 2
+        for x in range(2,span+1):
+            floor(b,t,x,z,x,z,3)
+    for x,z in ((2,3),(7,3),(2,10)):
+        post(b,t,x,z,0,8)
+        b.place(x,0,z,MC+"polished_deepslate")
+    beam(b,t,1,3,9,3,8)
+    beam(b,t,2,2,2,12,8)
+    roof(b,t,0,1,10,13,9,axis="z",color=t.roof,edge="gray")
+    for x,y,z in list(b.blocks):
+        if y>=9 and x+z//2 > 10+(y%3):
+            del b.blocks[x,y,z]
+    # The broken eave exposes alternating joists. A bell and a short railing give it scale.
+    for z in (4,7,10):
+        beam(b,t,2,z,8,z,8)
+    b.place(4,7,4,MC+"bell",attachment="ceiling",facing="north")
+    beam(b,t,2,4,5,4,8)
+    b.fill((2,4,4),(2,4,8), t.timber("fence"))
+    b.place(3,4,8,M+t.vase,facing="west")
+    b.save(f"interstice/{theme}_fallen_eave", (12,20,16))
+
+
 def build_quarters():
     shapes = (lantern_house, sky_barge, vermilion_crossing, hanging_archive)
     for (theme,t), shape in zip(THEMES_BY_NAME.items(), shapes):
+        broken_roof(t,theme)
         for variant in range(2):
             b=Blueprint()
             streets(b,t)
             shape(b,t,variant)
+            if variant:
+                # Stow the cache against a timber backing inside the ordinary island building.
+                x,y,z = {"lantern":(9,5,12), "moonlit":(13,5,24), "vermilion":(22,5,10), "ashen":(9,5,19)}[theme]
+                floor(b,t,x,z+1,x,z+1,y)
+                reward_chest(b,(x,y,z),t.wood,theme+"_wayhouse")
             b.save(f"interstice/{theme}_quarter_{variant}", (32,24,32))
 
 
@@ -255,17 +287,16 @@ def build_sanctums():
         for x in (8,23):
             for z in (8,23):
                 post(b,t,x,z,17,31)
-        tatami(b,11,11,20,20,23)
+        tatami(b,11,11,20,20,24)
+        b.place(16,23,16,t.timber("stripped_log"),axis="y")
         b.place(16,24,16,M+theme+"_altar")
         for x,z in ((14,16),(18,16),(16,14),(16,18)):
-            b.place(x,24,z,MC+"red_candle",lit="false",candles="1")
+            b.place(x,23,z,t.timber("stripped_log"),axis="y")
+            b.place(x,24,z,M+"hanami_lantern",lit="false",powered="false")
         for x in (10,21):
             b.place(x,24,22,M+t.vase,facing="north")
             b.place(x,29,11,MC+"chain",axis="y")
             b.place(x,28,11,MC+"lantern",hanging="true")
-        # Treasury and its solid backing sit away from the ritual floor.
-        floor(b,t,12,21,12,21,24)
-        reward_chest(b,(12,24,20),t.wood,theme+"_sanctum")
         if theme=="lantern":
             roof(b,t,5,5,26,26,32,skirt=3,color="pink",edge="red")
             roof(b,t,9,9,22,22,36,style="hip",color="white",edge="pink")

@@ -40,11 +40,11 @@
   "block.sakura_bloom.ashen_altar": "Ashen Invocation Altar",
   "entity.sakura_bloom.ashen_guardian": "Ashwing Looking-Glass Lord",
   "entity.sakura_bloom.veil_sentinel": "Sanctum Sentinel",
-  "ritual.sakura_bloom.hint": "Light the four red candles two blocks from the matching sanctum altar, then use the seal on it.",
+  "ritual.sakura_bloom.hint": "With both hands empty, light the four Hanami Lanterns around the matching altar, then use the seal on it.",
   "ritual.sakura_bloom.location": "This seal answers only within its Interstice sanctum.",
   "ritual.sakura_bloom.peaceful": "The guardian sleeps on Peaceful difficulty.",
   "ritual.sakura_bloom.occupied": "A guardian is already present.",
-  "ritual.sakura_bloom.candles": "Light a red candle two blocks from the altar in each cardinal direction.",
+  "ritual.sakura_bloom.lamps": "Light all four Hanami Lanterns by hand.",
   "advancements.sakura_bloom.night_watch": "Grove Night Watch",
   "advancements.sakura_bloom.night_watch.desc": "Bring a sakura talisman to a shrine. Speak with the maiden or make an offering.",
   "advancements.sakura_bloom.inner_pockets": "Room for a Charm",
@@ -52,7 +52,7 @@
   "advancements.sakura_bloom.beyond_the_veil": "A Maple Leaf Opens the Way",
   "advancements.sakura_bloom.beyond_the_veil.desc": "Complete a maiden's commission cycle. Wave the maple fan to cross into the Interstice.",
   "advancements.sakura_bloom.four_candles": "The Four Vigil Lights",
-  "advancements.sakura_bloom.four_candles.desc": "Light the four red candles at a matching sanctum, then offer its seal at the central altar.",
+  "advancements.sakura_bloom.four_candles.desc": "Light the four Hanami Lanterns at a matching sanctum, then offer its seal at the central altar.",
   "advancements.sakura_bloom.keeper_falls": "Dawn at the Sanctum",
   "advancements.sakura_bloom.keeper_falls.desc": "Defeat a sanctum guardian. Use its heart to craft a relic or reforge a diamond sword."
 }

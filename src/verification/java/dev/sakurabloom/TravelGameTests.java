@@ -124,11 +124,28 @@ public final class TravelGameTests {
         test.succeed();
     }
 
+    private static boolean checkUnworn(GameTestHelper test, net.minecraft.world.entity.player.Player player, ItemStack charm) {
+        player.setItemInHand(InteractionHand.OFF_HAND, charm);
+        TravelCharmItem.refreshBonuses(player);
+        test.assertTrue(player.getMaxHealth() == 20 && player.getAttributeValue(Attributes.MOVEMENT_SPEED) < .11
+            && !player.hasEffect(MobEffects.DIG_SPEED) && !player.hasEffect(MobEffects.WATER_BREATHING), "Offhand granted a worn bonus");
+        NeoForge.EVENT_BUS.post(new LivingEntityUseItemEvent.Finish(player,new ItemStack(Items.BREAD),0,ItemStack.EMPTY));
+        test.assertFalse(player.hasEffect(MobEffects.REGENERATION), "Offhand omamori triggered after eating");
+        test.assertTrue(player.hurt(player.damageSources().fall(),1), "Offhand bell prevented fall damage");
+        player.invulnerableTime = 0;
+        player.setHealth(20);
+        player.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
+        if (ModList.get().isLoaded("curios")) return true;
+        test.succeed();
+        return false;
+    }
+
     @GameTest(template = "clearing")
     public static void bellPreventsFallDamageOnlyWhenEquipped(GameTestHelper test) {
         var player = test.makeMockPlayer(GameType.SURVIVAL);
         double speed = player.getAttributeValue(Attributes.MOVEMENT_SPEED);
-        player.setItemInHand(InteractionHand.OFF_HAND, BloomContent.WIND_BELL.toStack());
+        if (!checkUnworn(test,player,BloomContent.WIND_BELL.toStack())) return;
+        CuriosCharmTest.equip(player, "belt", BloomContent.WIND_BELL.toStack());
         TravelCharmItem.refreshBonuses(player);
         player.causeFallDamage(200, 1, player.damageSources().fall());
         player.hurt(player.damageSources().fall(), 80);
@@ -136,7 +153,7 @@ public final class TravelGameTests {
             "Even a lethal fall should be harmless while wearing the bell");
         test.assertTrue(player.hurt(player.damageSources().generic(), 2) && player.getHealth() < 20, "The bell blocked ordinary damage");
         player.invulnerableTime = 0;
-        player.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
+        CuriosCharmTest.equip(player, "belt", ItemStack.EMPTY);
         player.getInventory().add(BloomContent.WIND_BELL.toStack());
         TravelCharmItem.refreshBonuses(player);
         test.assertTrue(player.getAttributeValue(Attributes.MOVEMENT_SPEED) == speed && player.hurt(player.damageSources().fall(), 5),
@@ -148,7 +165,8 @@ public final class TravelGameTests {
     @GameTest(template = "clearing")
     public static void omamoriGrantsFiveSecondsAfterEveryMeal(GameTestHelper test) {
         var player = test.makeMockPlayer(GameType.SURVIVAL);
-        player.setItemInHand(InteractionHand.OFF_HAND, BloomContent.KNOT_CHARM.toStack());
+        if (!checkUnworn(test,player,BloomContent.KNOT_CHARM.toStack())) return;
+        CuriosCharmTest.equip(player, "charm", BloomContent.KNOT_CHARM.toStack());
         TravelCharmItem.refreshBonuses(player);
         test.assertTrue(player.getMaxHealth() == 24, "Expected four extra health points");
         player.setHealth(24);
@@ -165,7 +183,7 @@ public final class TravelGameTests {
         test.assertTrue(player.getHealth() == healed && player.getEffect(MobEffects.REGENERATION).getDuration() == 100,
             "A second meal should refresh Regeneration with no cooldown or instant heal");
         player.setHealth(24);
-        player.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
+        CuriosCharmTest.equip(player, "charm", ItemStack.EMPTY);
         TravelCharmItem.refreshBonuses(player);
         test.assertTrue(player.getHealth() == 20 && player.getMaxHealth() == 20, "Extra health survived unequipping the omamori");
         for (int tick = 0; tick < 100; tick++) player.baseTick();
@@ -180,7 +198,8 @@ public final class TravelGameTests {
         test.setBlock(wet, Blocks.WATER);
         test.setBlock(wet.above(), Blocks.WATER);
         player.setPos(Vec3.atBottomCenterOf(test.absolutePos(p(7,2,3))));
-        player.setItemInHand(InteractionHand.OFF_HAND, BloomContent.FISH_PENDANT.toStack());
+        if (!checkUnworn(test,player,BloomContent.FISH_PENDANT.toStack())) return;
+        CuriosCharmTest.equip(player, "necklace", BloomContent.FISH_PENDANT.toStack());
         TravelCharmItem.refreshBonuses(player);
         test.assertTrue(player.getAttributeValue(NeoForgeMod.SWIM_SPEED) == 1 && player.getAttributeValue(Attributes.BLOCK_BREAK_SPEED) == 1
             && !player.hasEffect(MobEffects.WATER_BREATHING), "The dry pendant gave underwater bonuses");
@@ -206,7 +225,7 @@ public final class TravelGameTests {
         player.baseTick();
         TravelCharmItem.refreshBonuses(player);
         player.addEffect(new MobEffectInstance(MobEffects.WATER_BREATHING, 600));
-        player.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
+        CuriosCharmTest.equip(player, "necklace", ItemStack.EMPTY);
         TravelCharmItem.refreshBonuses(player);
         test.assertTrue(player.getEffect(MobEffects.WATER_BREATHING).getDuration() == 600, "Unequipping consumed the breathing potion");
         test.succeed();
@@ -221,27 +240,28 @@ public final class TravelGameTests {
         mining.addTransientModifier(other);
         float baseline = player.getDestroySpeed(stone);
         double reach = player.getAttributeValue(Attributes.BLOCK_INTERACTION_RANGE);
-        player.setItemInHand(InteractionHand.OFF_HAND, BloomContent.INK_BRACELET.toStack());
+        if (!checkUnworn(test,player,BloomContent.INK_BRACELET.toStack())) return;
+        CuriosCharmTest.equip(player, "bracelet", BloomContent.INK_BRACELET.toStack());
         TravelCharmItem.refreshBonuses(player);
         test.assertTrue(player.getEffect(MobEffects.DIG_SPEED).getAmplifier() == 1 && Math.abs(player.getDestroySpeed(stone)-baseline*1.4)<1e-5
             && player.getAttributeValue(Attributes.BLOCK_INTERACTION_RANGE)==reach, "Bracelet should give vanilla Haste II only");
-        player.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
+        CuriosCharmTest.equip(player, "bracelet", ItemStack.EMPTY);
         TravelCharmItem.refreshBonuses(player);
         test.assertTrue(!player.hasEffect(MobEffects.DIG_SPEED) && mining.hasModifier(other.id()), "Unequipping the bracelet disturbed another modifier");
         player.addEffect(new MobEffectInstance(MobEffects.DIG_SPEED, 300, 0));
-        player.setItemInHand(InteractionHand.OFF_HAND, BloomContent.INK_BRACELET.toStack());
+        CuriosCharmTest.equip(player, "bracelet", BloomContent.INK_BRACELET.toStack());
         TravelCharmItem.refreshBonuses(player);
         test.assertTrue(player.getEffect(MobEffects.DIG_SPEED).getAmplifier()==1, "A weaker potion hid Haste II");
-        player.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
+        CuriosCharmTest.equip(player, "bracelet", ItemStack.EMPTY);
         for (int tick = 0; tick < 2; tick++) player.baseTick();
         var original = player.getEffect(MobEffects.DIG_SPEED);
         test.assertTrue(original != null && original.getAmplifier()==0 && original.getDuration()==298, "Lost the underlying Haste I potion");
         player.removeEffect(MobEffects.DIG_SPEED);
-        player.setItemInHand(InteractionHand.OFF_HAND, BloomContent.INK_BRACELET.toStack());
+        CuriosCharmTest.equip(player, "bracelet", BloomContent.INK_BRACELET.toStack());
         TravelCharmItem.refreshBonuses(player);
         player.addEffect(new MobEffectInstance(MobEffects.DIG_SPEED, 240, 2));
         TravelCharmItem.refreshBonuses(player);
-        player.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
+        CuriosCharmTest.equip(player, "bracelet", ItemStack.EMPTY);
         TravelCharmItem.refreshBonuses(player);
         test.assertTrue(player.getEffect(MobEffects.DIG_SPEED).getAmplifier()==2 && player.getEffect(MobEffects.DIG_SPEED).getDuration()==240,
             "The bracelet replaced another source of Haste III");

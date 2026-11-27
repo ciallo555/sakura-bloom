@@ -4,6 +4,7 @@ import dev.sakurabloom.SakuraBloom;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.player.Inventory;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -29,47 +30,42 @@ public final class PouchScreen extends AbstractContainerScreen<PouchMenu> {
 
     private PouchItem pouch() { return menu.bag().getItem() instanceof PouchItem pouch ? pouch : PouchContent.KNOTWORK.get(); }
     private int boardX() { return leftPos + (imageWidth - CELL * pouch().columns) / 2; }
-    private int boardY() { return topPos + GRID_Y; }
+    private int boardY() { return topPos + GRID_Y + (4 - pouch().rows) * 6; }
     private boolean onBoard(double x, double y) {
         return x >= boardX() && x < boardX() + CELL * pouch().columns && y >= boardY() && y < boardY() + CELL * pouch().rows;
     }
 
     @Override
     protected void renderBg(GuiGraphics gui, float partialTick, int mouseX, int mouseY) {
-        gui.blit(SakuraBloom.id("textures/gui/knotwork_pouch.png"), leftPos, topPos, 0, 0, imageWidth, imageHeight, imageWidth, imageHeight);
+        var lining = pouch().rows == 3 ? "knotwork_pouch" : "cloud_brocade_pouch";
+        gui.blit(SakuraBloom.id("textures/gui/" + lining + ".png"), leftPos, topPos, 0, 0,
+            imageWidth, imageHeight, imageWidth, imageHeight);
         int left = boardX(), top = boardY();
-        for (int y = 0; y < pouch().rows; y++) {
-            for (int x = 0; x < pouch().columns; x++) {
-                int px = left + x * CELL, py = top + y * CELL;
-                gui.fill(px, py, px + CELL, py + CELL, 0xff765952);
-                gui.fill(px+1, py+1, px+CELL-1, py+CELL-1, (x+y)%2 == 0 ? 0xffc1a28c : 0xffc8ad94);
-                gui.fill(px+3, py+3, px+4, py+4, 0xffdcc2a3);
-            }
-        }
         var layout = PouchItem.layout(menu.bag());
-        for (var p : layout.pieces()) {
-            var shape = CharmShape.of(p.stack());
-            if (shape == null) continue;
-            for (var cell : shape.cells(p.turn())) {
-                int px = left+(p.x()+cell.x())*CELL, py = top+(p.y()+cell.y())*CELL;
-                gui.fill(px+1, py+1, px+CELL-1, py+CELL-1, 0xff000000 | shape.color());
-                gui.fill(px+2, py+2, px+CELL-2, py+3, 0x5afff0d3);
-                gui.fill(px+2, py+CELL-3, px+CELL-2, py+CELL-2, 0x405c3945);
-            }
-            var first = shape.cells(p.turn()).getFirst();
-            gui.renderItem(p.stack(), left+(p.x()+first.x())*CELL+1, top+(p.y()+first.y())*CELL+1);
-        }
+        for (var piece : layout.pieces()) drawPatch(gui, piece);
         var carried = menu.getCarried();
-        var shape = CharmShape.of(carried);
-        if (shape != null && onBoard(mouseX, mouseY)) {
-            int gx = (mouseX-left)/CELL, gy = (mouseY-top)/CELL;
-            int color = layout.fits(new PouchLayout.Piece(carried, gx, gy, turn), pouch()) ? 0xa07fe0a7 : 0xa0e36a7b;
-            for (var cell : shape.cells(turn)) {
-                int px = left+(gx+cell.x())*CELL, py = top+(gy+cell.y())*CELL;
-                gui.fill(px+1, py+1, px+CELL-1, py+CELL-1, color);
-            }
+        if (CharmShape.of(carried) != null && onBoard(mouseX, mouseY)) {
+            var piece = new PouchLayout.Piece(carried, (mouseX-left)/CELL, (mouseY-top)/CELL, turn);
+            boolean fits = layout.fits(piece, pouch());
+            gui.enableScissor(left, top, left + pouch().columns * CELL, top + pouch().rows * CELL);
+            gui.setColor(fits ? .83F : 1F, fits ? 1F : .48F, fits ? .85F : .48F, .78F);
+            drawPatch(gui, piece);
+            gui.setColor(1,1,1,1);
+            gui.disableScissor();
         }
         gui.drawCenteredString(font, Component.translatable("pouch.sakura_bloom.controls"), leftPos+imageWidth/2, topPos+96, 0xfff8e7cf);
+    }
+
+    private void drawPatch(GuiGraphics gui, PouchLayout.Piece piece) {
+        var shape = CharmShape.of(piece.stack());
+        if (shape == null) return;
+        var patch = shape.patch(piece.turn());
+        var name = BuiltInRegistries.ITEM.getKey(piece.stack().getItem()).getPath();
+        int x = boardX() + piece.x()*CELL, y = boardY() + piece.y()*CELL;
+        int width = patch.width()*CELL, height = patch.height()*CELL;
+        gui.blit(SakuraBloom.id("textures/gui/patch/" + name + "_" + piece.turn() + ".png"),
+            x,y,0,0,width,height,width,height);
+        gui.renderItem(piece.stack(), x + patch.anchor().x()*CELL + 1, y + patch.anchor().y()*CELL + 1);
     }
 
     @Override

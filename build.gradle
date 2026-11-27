@@ -108,4 +108,11 @@ def cuisineJar = tasks.register('cuisineJar', Jar) {
     archiveBaseName = 'sakura_bloom_cuisine'
     from sourceSets.cuisine.output
 }
-tasks.named('assemble') { dependsOn cuisineJar }
+def shrineMaidenModel = tasks.register('shrineMaidenModel', Zip) {
+    archiveFileName = 'sakura-bloom-shrine-maiden-ysm.zip'
+    destinationDirectory = layout.buildDirectory.dir('libs')
+    from 'src/generated/resources/assets/sakura_bloom/ysm/shrine_maiden'
+    preserveFileTimestamps = false
+    reproducibleFileOrder = true
+}
+tasks.named('assemble') { dependsOn cuisineJar, shrineMaidenModel }

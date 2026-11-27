@@ -21,7 +21,7 @@ import net.minecraft.world.phys.shapes.*;
 
 public final class OfferingBox extends Block {
     private static final VoxelShape SHAPE = Block.box(0,0,1,16,13,15);
-    private static final ResourceKey<LootTable> REWARD = ResourceKey.create(Registries.LOOT_TABLE,SakuraBloom.id("gameplay/shrine_prayer"));
+    static final ResourceKey<LootTable> REWARD = ResourceKey.create(Registries.LOOT_TABLE,SakuraBloom.id("gameplay/shrine_prayer"));
     OfferingBox(Properties properties) { super(properties); }
     @Override protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) { return SHAPE; }
     @Override protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos,

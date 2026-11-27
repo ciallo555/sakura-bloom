@@ -88,29 +88,8 @@ def wisp_sprite():
 
 
 def fan_sprite():
-    # Pixel-cut seven lobes; each rib follows a leaf vein back to the single brass pin.
-    im=Image.new("RGBA",(32,32))
-    d=ImageDraw.Draw(im)
-    ink="#542139"
-    outline=[(3,29),(5,25),(9,22),(3,21),(6,19),(1,15),(7,15),(4,10),(10,12),(8,3),(13,8),
-             (14,2),(17,9),(23,0),(22,10),(30,5),(27,13),(31,12),(27,18),(29,19),(22,21),(24,24),
-             (17,24),(15,27),(10,25),(6,30)]
-    d.polygon(outline,fill="#ad3542",outline=ink)
-    piv=(10,23)
-    for i,(tip,shade,hilite) in enumerate([
-        ((3,16),"#d65042","#ff9e68"),((6,12),"#c24043","#f57d55"),((9,5),"#df5440","#ffa15e"),
-        ((14,4),"#e65f41","#ffaf66"),((22,3),"#ed6845","#ffbb70"),((28,8),"#cf4543","#ff9863"),
-        ((29,14),"#ce4342","#ff9e68"),((26,19),"#a93342","#e87256"),((21,22),"#bd4547","#f79065")]):
-        tx,ty=tip
-        d.polygon([piv,(tx-1,ty+2),tip,(tx+1,ty+2)],fill=shade)
-        d.line([piv,(tx,ty+1)],fill="#813042",width=1)
-        a,b=(10+tx)//2,(23+ty)//2
-        d.line([(a+1,b),(tx,ty+2)],fill=hilite)
-    d.line([(4,29),(10,23)],fill="#683839",width=3)
-    d.line([(4,28),(10,22)],fill="#cd8e57",width=1)
-    d.rectangle((9,22,11,24),fill="#9c653f")
-    d.point((10,22),fill="#ffe392")
-    d.line([(5,29),(6,31),(9,30)],fill="#bd4149")
+    from interstice_art import maple_fan
+    im=maple_fan()
     dest=CORE_OUTPUT/f"assets/{MOD}/textures/item/kamikakushi.png"
     dest.parent.mkdir(parents=True,exist_ok=True)
     im.save(dest)

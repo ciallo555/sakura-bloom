@@ -1,6 +1,5 @@
 package dev.sakurabloom;
 
-import dev.sakurabloom.adventure.pouch.PouchItem;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
@@ -104,11 +103,9 @@ final class TravelCharmItem extends Item {
     }
 
     private static Set<Item> equippedCharms(Player player) {
+        if (!CURIOS) return Set.of();
         var result = new HashSet<Item>();
-        var offhand = player.getOffhandItem();
-        if (offhand.getItem() instanceof TravelCharmItem) result.add(offhand.getItem());
-        if (offhand.getItem() instanceof PouchItem) PouchItem.collect(offhand, result);
-        if (CURIOS) CuriosTravelCharms.collect(player, result, !(offhand.getItem() instanceof PouchItem));
+        CuriosTravelCharms.collect(player, result);
         return result;
     }
 

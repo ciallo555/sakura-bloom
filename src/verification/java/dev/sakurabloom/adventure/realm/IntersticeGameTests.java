@@ -22,7 +22,7 @@ import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
 @PrefixGameTestTemplate(false)
 public final class IntersticeGameTests {
     @GameTest(template = "clearing", timeoutTicks = 400)
-    public static void midnightDistrictsHaveContinuousStreetsAndDistinctResidents(GameTestHelper test) {
+    public static void midnightDistrictsHaveBrokenCourtsAndDistinctResidents(GameTestHelper test) {
         var realm = test.getLevel().getServer().getLevel(Interstice.LEVEL);
         test.assertTrue(realm != null && realm.dimensionType().fixedTime().orElse(-1) == 18000, "Interstice is fixed at midnight");
         String[] districts = {"lantern_gallery", "moonlit_harbor", "vermilion_bridges", "ashen_lofts"};
@@ -36,22 +36,30 @@ public final class IntersticeGameTests {
             var mobs = biome.value().getMobSettings();
             test.assertTrue(mobs.getMobs(MobCategory.MONSTER).isEmpty() == (i == 0), "Unexpected hostile spawn list in "+districts[i]);
             test.assertTrue(mobs.getMobs(MobCategory.CREATURE).isEmpty() == (i == 3), "Unexpected friendly spawn list in "+districts[i]);
-            for (int offset = -17; offset <= 17; offset++) {
-                boolean eastWest = false, northSouth = false;
-                for (int lane = -1; lane <= 2; lane++) {
-                    eastWest |= walkable(realm, pos.offset(offset, 0, lane));
-                    northSouth |= walkable(realm, pos.offset(lane, 0, offset));
+        }
+        var heights = new java.util.HashSet<Integer>();
+        int intact = 0, broken = 0;
+        for (int cx = -1; cx <= 1; cx++) for (int cz = -1; cz <= 1; cz++) {
+            var ward = FloatingWard.at(realm.getSeed(),cx,cz);
+            heights.add(ward.center().getY());
+            for (var dir : new net.minecraft.core.Direction[]{net.minecraft.core.Direction.EAST, net.minecraft.core.Direction.SOUTH}) {
+                var path = ward.spanTo(ward.neighbor(realm.getSeed(),dir),dir);
+                if (ward.road(realm.getSeed(),dir)) {
+                    intact++;
+                    for (int step=1; step<path.size()-1; step++) {
+                        var tile=path.get(step);
+                        test.assertTrue(!realm.getBlockState(tile).isAir(), "Missing bridge plank at "+tile);
+                        test.assertTrue(realm.getBlockState(tile.above(2)).isAir(), "Insufficient bridge headroom at "+tile);
+                        test.assertTrue(Math.abs(tile.getY()-path.get(step-1).getY())<=1, "Bridge step too steep");
+                    }
+                } else {
+                    broken++;
+                    test.assertTrue(realm.getBlockState(path.get(path.size()/2)).isAir(), "Broken span filled in");
                 }
-                test.assertTrue(eastWest && northSouth, "No open lane at " + pos + " offset " + offset);
             }
         }
+        test.assertTrue(heights.size()>=4 && intact>0 && broken>0, "Missing elevation or broken passages");
         test.succeed();
-    }
-
-    private static boolean walkable(net.minecraft.server.level.ServerLevel realm, BlockPos feet) {
-        return !realm.getBlockState(feet.below()).isAir()
-            && realm.getBlockState(feet).getCollisionShape(realm, feet).isEmpty()
-            && realm.getBlockState(feet.above()).getCollisionShape(realm, feet.above()).isEmpty();
     }
 
     @GameTest(template = "clearing", timeoutTicks = 400)

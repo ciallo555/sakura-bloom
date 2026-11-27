@@ -25,7 +25,7 @@ import java.util.List;
 
 final class MapleFan extends Item {
     private static final String RETURN = "sakura_bloom:fan_return";
-    private static final BlockPos ENTRANCE = new BlockPos(47, QuarterFeature.FLOOR_Y + 5, 47);
+    private static final BlockPos LEGACY_ENTRANCE = new BlockPos(47, 57, 47);
 
     MapleFan(Properties properties) { super(properties); }
 
@@ -43,7 +43,8 @@ final class MapleFan extends Item {
             target = departure(traveller);
         } else {
             var realm = traveller.server.getLevel(Interstice.LEVEL);
-            var feet = realm == null ? null : safePosition(realm, ENTRANCE);
+            var feet = realm == null ? null : safePosition(realm, FloatingWard.at(realm.getSeed(),0,0).center().above());
+            if (feet == null && realm != null) feet = safePosition(realm, LEGACY_ENTRANCE);
             if (feet == null) {
                 player.displayClientMessage(Component.translatable("message.sakura_bloom.fan_no_landing"), true);
                 return InteractionResultHolder.fail(stack);

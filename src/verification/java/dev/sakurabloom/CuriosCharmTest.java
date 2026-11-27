@@ -17,6 +17,11 @@ import top.theillusivec4.curios.api.CuriosApi;
 import java.util.Map;
 
 final class CuriosCharmTest {
+    static void equip(net.minecraft.world.entity.player.Player player, String slot, ItemStack stack) {
+        var inventory = CuriosApi.getCuriosInventory(player).orElseThrow();
+        inventory.getStacksHandler(slot).orElseThrow().getStacks().setStackInSlot(0,stack);
+    }
+
     static void check(GameTestHelper test) {
         var wearer = test.makeMockPlayer(GameType.SURVIVAL);
         var inventory = CuriosApi.getCuriosInventory(wearer).orElseThrow();
@@ -51,7 +56,7 @@ final class CuriosCharmTest {
         var belt = inventory.getStacksHandler("belt").orElseThrow().getStacks();
         belt.extractItem(0, 1, false);
         TravelCharmItem.refreshBonuses(wearer);
-        test.assertTrue(wearer.getAttributeValue(Attributes.MOVEMENT_SPEED) == speed, "Removing the belt disabled the offhand bell");
+        test.assertTrue(wearer.getAttributeValue(Attributes.MOVEMENT_SPEED) < speed, "The offhand bell retained its bonus after removing the belt");
         wearer.setItemInHand(InteractionHand.OFF_HAND, ItemStack.EMPTY);
         TravelCharmItem.refreshBonuses(wearer);
         test.assertTrue(wearer.getAttributeValue(Attributes.MOVEMENT_SPEED) < speed, "Last bell removal left its bonus");

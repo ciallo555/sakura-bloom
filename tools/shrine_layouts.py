@@ -2,7 +2,7 @@
 
 from generate_resources import MOD
 from timber_architecture import (altar, basin, bed, boulder, close_eaves, curtain, deck, gallery, ground, hanging_cloth,
-                                 offering_box, pave, pine, pond, rail, roof, stone_light, tatami, wall, AIR)
+                                 pave, pine, pond, rail, roof, stone_light, tatami, wall, AIR)
 
 
 def torii(b, t):
@@ -85,7 +85,6 @@ def cherry_court(b, t):
         b.fill((x, 4, 17), (x, 6, 17), t.timber("log"), axis="y")
     b.fill((12, 7, 17), (18, 7, 17), t.timber("stripped_log"), axis="x")
     b.place(13, 6, 17, "minecraft:bell", attachment="ceiling", facing="north")
-    offering_box(b, 12, 4, 20)
     for x in (10, 20):
         hanging_cloth(b, x, 7, 18, "white", (("stripe_bottom","pink"),("flower","pink")))
     roof(b, t, 11, 16, 19, 20, 8, axis="z", style="gable", color="pink")
@@ -132,7 +131,6 @@ def water_pavilion(b, t):
     curtain(b, t, 14, 16, 7, 22)
     tatami(b, 11, 23, 19, 25, 4)
     altar(b, t, 15, 4, 27)
-    offering_box(b, 17, 4, 26)
     b.fill((9, 8, 25), (21, 8, 25), t.timber("stripped_log"), axis="x")
     b.place(12, 7, 25, f"{MOD}:silk_palace_lantern", hanging="true")
     roof(b, t, 6, 18, 24, 30, 9, style="hip", color="light_blue", edge="cyan")
@@ -183,7 +181,6 @@ def lantern_hall(b, t):
         b.place(x+(-1 if x<15 else 1), 8, 19, f"{MOD}:silk_palace_lantern", hanging="true")
     tatami(b, 10, 22, 21, 26, 5)
     altar(b, t, 16, 5, 27)
-    offering_box(b, 18, 5, 20)
     for x in (10, 20):
         hanging_cloth(b, x, 8, 18, "red", (("border","orange"),("flower","white")))
     roof(b, t, 4, 17, 26, 30, 10, style="hip", color="red", edge="black", skirt=3)
@@ -265,7 +262,6 @@ def mountain_sanctuary(b, t):
     curtain(b, t, 10, 12, 12, 21)
     tatami(b, 8, 22, 14, 24, 10)
     altar(b, t, 11, 10, 25)
-    offering_box(b, 13, 10, 24)
     roof(b, t, 3, 16, 18, 28, 14, style="gable", ridge=8, color="green", edge="gray")
     close_eaves(b, t, 6, 21, 15, 26, 13)
     # Crossed chigi at the gables and three short katsuogi run across the main ridge.

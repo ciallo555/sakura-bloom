@@ -15,8 +15,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.CandleBlock;
+import dev.sakurabloom.BloomContent;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.AABB;
 import java.util.List;
 
@@ -44,7 +44,7 @@ final class RitualSeal extends Item {
         else if (!server.getEntitiesOfClass(VeilGuardian.class, new AABB(pos).inflate(32), g -> g.theme != null && g.isAlive()).isEmpty()) failure = "occupied";
         else for (Direction dir : Direction.Plane.HORIZONTAL) {
             var state = level.getBlockState(pos.relative(dir, 2));
-            if (!state.is(Blocks.RED_CANDLE) || !state.getValue(CandleBlock.LIT)) { failure = "candles"; break; }
+            if (!state.is(BloomContent.LANTERN.get()) || !state.getValue(BlockStateProperties.LIT)) { failure = "lamps"; break; }
         }
         if (failure != null) {
             if (ctx.getPlayer() != null) ctx.getPlayer().displayClientMessage(Component.translatable("ritual.sakura_bloom." + failure), true);
@@ -58,8 +58,8 @@ final class RitualSeal extends Item {
         boss.setTarget(ctx.getPlayer());
         ctx.getItemInHand().consume(1, ctx.getPlayer());
         for (Direction dir : Direction.Plane.HORIZONTAL) {
-            var candle = pos.relative(dir, 2);
-            CandleBlock.extinguish(null, server.getBlockState(candle), server, candle);
+            var lamp = pos.relative(dir, 2);
+            server.setBlockAndUpdate(lamp, server.getBlockState(lamp).setValue(BlockStateProperties.LIT,false));
         }
         server.sendParticles(ParticleTypes.CHERRY_LEAVES, boss.getX(), boss.getY()+2, boss.getZ(), 45, 1, 1.1, 1, 0.07);
         server.playSound(null, pos, SoundEvents.BELL_RESONATE, SoundSource.HOSTILE, 1.2F, 0.75F);

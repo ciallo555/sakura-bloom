@@ -5,6 +5,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.TagKey;
+import net.minecraft.core.Direction;
+import net.minecraft.world.Difficulty;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.*;
@@ -39,9 +41,23 @@ public final class Yokai extends Monster {
         var level = access.getLevel();
         if (level.dimension() != Level.OVERWORLD)
             return Monster.checkAnyLightMonsterSpawnRules(type,access,reason,pos,rng);
-        return ShrineAdventure.isNight(level) && access.getBiome(pos).is(GROVES)
-            && pos.getY() >= access.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,pos.getX(),pos.getZ())-1
-            && Monster.checkMonsterSpawnRules(type,access,reason,pos,rng) && !nearShrine(level,pos);
+        // Patrol the forest floor under the canopy as well as open meadows. A horizontal cherry branch
+        // can be several blocks above valid grass, so a heightmap test alone would reject that ground.
+        if (!ShrineAdventure.isNight(level) || level.getDifficulty() == Difficulty.PEACEFUL ||
+            !access.getBiome(pos).is(GROVES) || access.getBrightness(LightLayer.BLOCK, pos) > 7 ||
+            !Mob.checkMobSpawnRules(type,access,reason,pos,rng)) return false;
+        int surface = access.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,pos.getX(),pos.getZ());
+        if (pos.getY() < surface - 1) {
+            if (surface - pos.getY() > 16) return false;
+            var cursor = pos.mutable();
+            while (cursor.getY() < surface) {
+                var above = access.getBlockState(cursor);
+                if (!above.isAir() && !above.is(net.minecraft.tags.BlockTags.LOGS) &&
+                    !above.is(net.minecraft.tags.BlockTags.LEAVES) && !above.getCollisionShape(access,cursor).isEmpty()) return false;
+                cursor.move(Direction.UP);
+            }
+        }
+        return !nearShrine(level,pos);
     }
 
     // A referenced chunk intersects the shrine footprint. Only consult chunks already loaded

@@ -10,11 +10,12 @@ import java.util.Set;
 final class CuriosTravelCharms {
     private CuriosTravelCharms() {}
 
-    static void collect(Player player, Set<Item> equipped, boolean allowPouch) {
+    static void collect(Player player, Set<Item> equipped) {
         var inventory = CuriosApi.getCuriosInventory(player);
         if (inventory.isEmpty()) return;
         var matches = inventory.get().findCurios(stack ->
             stack.getItem() instanceof TravelCharmItem || stack.getItem() instanceof PouchItem);
+        boolean allowPouch = true;
         for (var match : matches) {
             var stack = match.stack();
             if (stack.getItem() instanceof TravelCharmItem) equipped.add(stack.getItem());

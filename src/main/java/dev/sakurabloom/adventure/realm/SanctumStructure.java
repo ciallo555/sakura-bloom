@@ -26,9 +26,9 @@ final class SanctumStructure extends Structure {
 
     @Override
     protected Optional<GenerationStub> findGenerationPoint(GenerationContext ctx) {
-        int x = Math.floorDiv(ctx.chunkPos().x, 2) * 32;
-        int z = Math.floorDiv(ctx.chunkPos().z, 2) * 32;
-        var corner = new BlockPos(x, QuarterFeature.FLOOR_Y, z);
+        var chunk = ctx.chunkPos();
+        var ward = FloatingWard.containing(ctx.seed(), chunk.getMinBlockX(), chunk.getMinBlockZ());
+        var corner = ward.corner();
         var manager = ctx.structureTemplateManager();
         var element = StructurePoolElement.single(template.toString()).apply(StructureTemplatePool.Projection.RIGID);
         var rotation = Rotation.NONE;

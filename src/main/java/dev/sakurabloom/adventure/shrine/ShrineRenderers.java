@@ -19,37 +19,18 @@ import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 public final class ShrineRenderers {
     private static final ModelLayerLocation MAIDEN = new ModelLayerLocation(SakuraBloom.id("shrine_maiden"),"main");
     @SubscribeEvent public static void layers(EntityRenderersEvent.RegisterLayerDefinitions event) {
-        event.registerLayerDefinition(MAIDEN, () -> {
-            var mesh = HumanoidModel.createMesh(CubeDeformation.NONE,0);
-            var body = mesh.getRoot().getChild("body");
-            body.addOrReplaceChild("hakama",CubeListBuilder.create().texOffs(0,32).addBox(-4.5F,9,-2.5F,9,10,5),PartPose.ZERO);
-            mesh.getRoot().getChild("head").addOrReplaceChild("ribbon",CubeListBuilder.create().texOffs(32,32)
-                .addBox(-4,-5,4,8,3,1).texOffs(32,37).addBox(-2,-3,4,4,7,1),PartPose.ZERO);
-            return LayerDefinition.create(mesh,64,64);
-        });
+        event.registerLayerDefinition(MAIDEN, MaidenModel::layer);
     }
     @SubscribeEvent public static void renderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(ShrineAdventure.FOX.get(),ctx -> new BeastRenderer(ctx,ModelLayers.FOX,"dusk_fox",.35F));
         event.registerEntityRenderer(ShrineAdventure.WOLF.get(),ctx -> new BeastRenderer(ctx,ModelLayers.WOLF,"ink_wolf",.4F));
         event.registerEntityRenderer(ShrineAdventure.HARE.get(),ctx -> new BeastRenderer(ctx,ModelLayers.RABBIT,"gloom_hare",.23F));
         event.registerEntityRenderer(ShrineAdventure.MAIDEN.get(),ctx -> new MobRenderer<ShrineMaiden,MaidenModel>(ctx,new MaidenModel(ctx.bakeLayer(MAIDEN)),.45F) {
-            @Override public ResourceLocation getTextureLocation(ShrineMaiden entity) { return texture("shrine_maiden"); }
+            @Override protected void scale(ShrineMaiden entity, PoseStack pose, float frame) { pose.scale(.5F,.5F,.5F); }
+            @Override public ResourceLocation getTextureLocation(ShrineMaiden entity) { return MaidenModel.SKIN; }
         });
     }
     private static ResourceLocation texture(String name) { return SakuraBloom.id("textures/entity/"+name+".png"); }
-    private static final class MaidenModel extends HumanoidModel<ShrineMaiden> {
-        MaidenModel(ModelPart root) { super(root); }
-        @Override public void setupAnim(ShrineMaiden e,float step,float stride,float age,float yaw,float pitch) {
-            super.setupAnim(e,step,stride,age,yaw,pitch);
-            if (e.isShiftKeyDown()) {
-                head.xRot=.34F;
-                hat.copyFrom(head);
-                leftArm.xRot=rightArm.xRot=-1.16F;
-                leftArm.yRot=-.52F;
-                rightArm.yRot=.52F;
-            }
-        }
-    }
     private static final class BeastRenderer extends MobRenderer<Yokai,BeastModel> {
         private final ResourceLocation fur;
         private final boolean hare;

@@ -17,5 +17,13 @@
   "shrine.sakura_bloom.fan": "「这柄红枫扇名为神隐。循着它的风，便能走入隙间。」你获得了神隐和 4 张樱札。",
   "shrine.sakura_bloom.pray": "樱札已投入。空手右键赛钱箱祈祷。",
   "shrine.sakura_bloom.deposit": "手持一张樱札右键投入，再空手祈祷。",
-  "shrine.sakura_bloom.blessing": "铃声响起，你收到了神社的回礼。"
+  "shrine.sakura_bloom.blessing": "铃声响起，你收到了神社的回礼。",
+  "item.sakura_bloom.dusk_fox_spawn_egg": "暮影狐刷怪蛋",
+  "item.sakura_bloom.ink_wolf_spawn_egg": "墨鬃狼刷怪蛋",
+  "item.sakura_bloom.gloom_hare_spawn_egg": "晦月兔刷怪蛋",
+  "item.sakura_bloom.shrine_maiden_spawn_egg": "守樱巫女刷怪蛋",
+  "item.sakura_bloom.lantern_wisp_spawn_egg": "引灯灵刷怪蛋",
+  "item.sakura_bloom.veil_sentinel_spawn_egg": "巡殿傀刷怪蛋",
+  "jei.sakura_bloom.shrine_prayer": "赛钱祈愿",
+  "jei.sakura_bloom.prayer_odds": "祈愿概率 %s"
 }

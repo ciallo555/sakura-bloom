@@ -92,13 +92,9 @@ def tatami(b, x0, z0, x1, z1, y):
 
 def altar(b, t, cx, y, z):
     b.fill((cx-2, y, z), (cx+2, y, z), t.timber("stripped_log"), axis="x")
-    b.place(cx, y+1, z, f"{MOD}:{t.vase}", facing="north")
+    b.place(cx, y+1, z, f"{MOD}:offering_box")
     for x in (cx-2, cx+2):
         b.place(x, y+1, z, f"{MOD}:hanami_lantern", lit="true")
-
-
-def offering_box(b, x, y, z):
-    b.place(x, y, z, f"{MOD}:offering_box")
 
 
 def basin(b, x, z, *, length=1, rim="polished_andesite"):

@@ -19,7 +19,13 @@ import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
 import net.neoforged.neoforge.registries.DeferredRegister;
+import java.util.List;
 import java.util.function.Supplier;
+import dev.sakurabloom.adventure.combat.SpiritCombat;
+import dev.sakurabloom.adventure.realm.Interstice;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.item.CreativeModeTab;
+import net.neoforged.neoforge.common.DeferredSpawnEggItem;
 
 public final class ShrineAdventure {
     private static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(Registries.ENTITY_TYPE, SakuraBloom.ID);
@@ -38,18 +44,33 @@ public final class ShrineAdventure {
         return ENTITIES.register(name, () -> EntityType.Builder.of(Yokai::new, MobCategory.MONSTER)
             .sized(width,height).clientTrackingRange(8).build("sakura_bloom:"+name));
     }
+    static final List<Supplier<DeferredSpawnEggItem>> EGGS = List.of(
+        egg("dusk_fox", FOX, 0x512D44, 0xEE9B59),
+        egg("ink_wolf", WOLF, 0x393544, 0xA7B0D4),
+        egg("gloom_hare", HARE, 0x514156, 0xE6A7B9),
+        egg("shrine_maiden", MAIDEN, 0xEFDDCA, 0xB54651),
+        egg("lantern_wisp", Interstice.WISP, 0xEDB16B, 0x984A51),
+        egg("veil_sentinel", SpiritCombat.SENTINEL, 0x494050, 0xB79071));
+
+    private static Supplier<DeferredSpawnEggItem> egg(String id, Supplier<? extends EntityType<? extends Mob>> type, int shell, int flecks) {
+        return ITEMS.register(id + "_spawn_egg", () -> new DeferredSpawnEggItem(type, shell, flecks, new Item.Properties()));
+    }
+
     public static void register(IEventBus bus) {
         ENTITIES.register(bus);
         BLOCKS.register(bus);
         ITEMS.register(bus);
+        bus.addListener(PrayerRewards::register);
+        NeoForge.EVENT_BUS.addListener(PrayerRewards::sync);
         bus.addListener(ShrineAdventure::attributes);
         bus.addListener(ShrineAdventure::placements);
         bus.addListener(ShrineAdventure::creative);
         NeoForge.EVENT_BUS.addListener(Commissions::onDeath);
     }
-    public static void display(net.minecraft.world.item.CreativeModeTab.Output output) {
+    public static void display(CreativeModeTab.Output output) {
         output.accept(TALISMAN.get());
         output.accept(BOX_ITEM.get());
+        EGGS.forEach(egg -> output.accept(egg.get()));
     }
     static boolean isNight(net.minecraft.world.level.Level level) {
         long clock = Math.floorMod(level.dimensionType().fixedTime().orElse(level.getDayTime()), 24000L);
@@ -69,6 +90,7 @@ public final class ShrineAdventure {
                 Yokai::canSpawn, RegisterSpawnPlacementsEvent.Operation.REPLACE);
     }
     private static void creative(BuildCreativeModeTabContentsEvent event) {
+        if (event.getTabKey() == CreativeModeTabs.SPAWN_EGGS) EGGS.forEach(egg -> event.accept(egg.get()));
         if (event.getTabKey() == CreativeModeTabs.INGREDIENTS) event.accept(TALISMAN.get());
         if (event.getTabKey() == CreativeModeTabs.FUNCTIONAL_BLOCKS) event.accept(BOX_ITEM.get());
     }

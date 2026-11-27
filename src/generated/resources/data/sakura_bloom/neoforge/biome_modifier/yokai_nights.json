@@ -4,21 +4,21 @@
   "spawners": [
     {
       "type": "sakura_bloom:dusk_fox",
-      "weight": 25,
+      "weight": 55,
       "minCount": 1,
-      "maxCount": 3
+      "maxCount": 2
     },
     {
       "type": "sakura_bloom:ink_wolf",
-      "weight": 14,
+      "weight": 55,
       "minCount": 1,
       "maxCount": 2
     },
     {
       "type": "sakura_bloom:gloom_hare",
-      "weight": 21,
+      "weight": 55,
       "minCount": 1,
-      "maxCount": 3
+      "maxCount": 2
     }
   ]
 }

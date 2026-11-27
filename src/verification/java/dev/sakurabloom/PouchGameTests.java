@@ -24,7 +24,7 @@ public final class PouchGameTests {
         player.setItemInHand(InteractionHand.OFF_HAND, pouch);
         var menu = new PouchMenu(1, player.getInventory(), Inventory.SLOT_OFFHAND);
         var bell = BloomContent.WIND_BELL.toStack();
-        bell.set(DataComponents.CUSTOM_NAME, Component.literal("玉响"));
+        bell.set(DataComponents.CUSTOM_NAME, Component.literal("鐜夊搷"));
         menu.setCarried(bell.copy());
         test.assertFalse(menu.clickMenuButton(player, 3+20), "Horizontal bell crosses right border");
         test.assertTrue(menu.clickMenuButton(player, 1+20), "Three-cell bell fits after rotation");
@@ -38,9 +38,16 @@ public final class PouchGameTests {
         test.assertFalse(menu.clickMenuButton(player, 2), "Nested pouch accepted");
         menu.setCarried(ItemStack.EMPTY);
         TravelCharmItem.refreshBonuses(player);
-        test.assertTrue(player.getMaxHealth() == 24 && player.getAttributeValue(Attributes.MOVEMENT_SPEED) > 0.11,
-            "Packed charms did not both activate from offhand");
+        test.assertTrue(player.getMaxHealth() == 20 && player.getAttributeValue(Attributes.MOVEMENT_SPEED) < 0.11,
+            "An offhand pouch activated its contents");
 
+        if (net.neoforged.fml.ModList.get().isLoaded("curios")) {
+            CuriosCharmTest.equip(player,"belt",pouch.copy());
+            TravelCharmItem.refreshBonuses(player);
+            test.assertTrue(player.getMaxHealth()==24 && player.getAttributeValue(Attributes.MOVEMENT_SPEED)>.11, "Worn belt pouch did not activate both charms");
+            CuriosCharmTest.equip(player,"belt",ItemStack.EMPTY);
+            TravelCharmItem.refreshBonuses(player);
+        }
         var restored = ItemStack.parseOptional(test.getLevel().registryAccess(), (net.minecraft.nbt.CompoundTag)pouch.save(test.getLevel().registryAccess()));
         player.setItemInHand(InteractionHand.OFF_HAND, restored);
         test.assertFalse(menu.clickMenuButton(player, 3), "Stale menu accessed replacement bag");
@@ -48,7 +55,7 @@ public final class PouchGameTests {
         test.assertTrue(reopened.clickMenuButton(player, 3), "Could not pick up by non-anchor cell");
         test.assertTrue(ItemStack.matches(bell, reopened.getCarried()), "Charm stack did not survive packing and serialization");
         TravelCharmItem.refreshBonuses(player);
-        test.assertTrue(player.getMaxHealth() == 24 && player.getAttributeValue(Attributes.MOVEMENT_SPEED) < 0.11, "Removed charm still active");
+        test.assertTrue(player.getMaxHealth() == 20 && player.getAttributeValue(Attributes.MOVEMENT_SPEED) < 0.11, "Removed charm still active");
         test.succeed();
     }
 

@@ -15,7 +15,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.CandleBlock;
+import dev.sakurabloom.BloomContent;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
@@ -37,7 +38,7 @@ public final class SpiritJourneyTest {
         var loot = level.getServer().reloadableRegistries();
         var largeBag = BuiltInRegistries.ITEM.get(SakuraBloom.id("cloud_brocade_pouch"));
         for (var theme : Sanctum.values()) {
-            var chest = loot.getLootTable(ResourceKey.create(Registries.LOOT_TABLE, SakuraBloom.id("chests/"+theme.id+"_sanctum")));
+            var chest = loot.getLootTable(ResourceKey.create(Registries.LOOT_TABLE, SakuraBloom.id("chests/"+theme.id+"_wayhouse")));
             var bossLoot = loot.getLootTable(ResourceKey.create(Registries.LOOT_TABLE, SakuraBloom.id("entities/"+theme.id+"_guardian")));
             var guaranteed = bossLoot.getRandomItems(params, 21);
             test.assertTrue(guaranteed.stream().anyMatch(s -> s.is(theme.core.get())), "Boss core missing: "+theme);
@@ -46,13 +47,28 @@ public final class SpiritJourneyTest {
             boolean bag = false, relic = false;
             for (int seed = 1; seed < 65; seed++) {
                 var result = chest.getRandomItems(params, seed);
-                test.assertTrue(result.stream().anyMatch(s -> s.is(theme.shard.get()) && s.getCount() >= 4), "Missing ritual material");
+                test.assertFalse(result.stream().anyMatch(s -> s.is(theme.shard.get())), "Caches should not supply ritual material");
                 bag |= result.stream().anyMatch(s -> s.is(largeBag));
                 relic |= result.stream().anyMatch(s -> s.getItem().getClass().getSimpleName().equals("TravelCharmItem"));
             }
             test.assertTrue(bag && relic, "Unreachable pouch or relic reward: "+theme);
             test.assertTrue(level.getRecipeManager().byKey(theme.seal.getId()).isPresent(), "Missing seal recipe");
         }
+        test.succeed();
+    }
+
+    @GameTest(template = "clearing")
+    public static void huntMaterialsInRealm(GameTestHelper test) {
+        var level = test.getLevel().getServer().getLevel(SpiritCombat.REALM);
+        var hunter = FakePlayerFactory.getMinecraft(level);
+        var fox = dev.sakurabloom.adventure.shrine.ShrineAdventure.FOX.get().create(level);
+        var drops = new java.util.ArrayList<net.minecraft.world.entity.item.ItemEntity>();
+        // The harbor is mixed; its local shard and the fox's lantern amber must both be obtainable.
+        fox.setPos(175,57,47);
+        net.neoforged.neoforge.common.NeoForge.EVENT_BUS.post(new net.neoforged.neoforge.event.entity.living.LivingDropsEvent(
+            fox,level.damageSources().playerAttack(hunter),drops,true));
+        for (var theme : new Sanctum[]{Sanctum.MOONLIT,Sanctum.LANTERN})
+            test.assertTrue(drops.stream().anyMatch(e -> e.getItem().is(theme.shard.get())), "Unobtainable hunting material: "+theme);
         test.succeed();
     }
 
@@ -84,8 +100,11 @@ public final class SpiritJourneyTest {
                     new net.minecraft.world.level.levelgen.structure.BoundingBox(cx*16,0,cz*16,cx*16+15,127,cz*16+15), chunk.getPos());
             }
         }
-        var pos = new BlockPos(chunkPos.getMinBlockX()+16,76,chunkPos.getMinBlockZ()+16);
+        var pos = new BlockPos(bounds.minX()+16,bounds.minY()+24,bounds.minZ()+16);
         test.assertTrue(level.getBlockState(pos).is(theme.altar.get()), "Missing natural altar at "+pos);
+        test.assertTrue(level.getBlockState(pos.below()).isFaceSturdy(level,pos.below(),Direction.UP),"Floating central altar");
+        test.assertFalse(level.getBlockEntity(pos.offset(-4,0,4)) instanceof net.minecraft.world.level.block.entity.ChestBlockEntity,
+            "Unexpected chest inside boss room");
         var player = FakePlayerFactory.getMinecraft(level);
         player.setGameMode(GameType.SURVIVAL);
         player.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(theme.seal.get(),2));
@@ -94,15 +113,16 @@ public final class SpiritJourneyTest {
         try {
             server.setDifficulty(Difficulty.NORMAL, true);
             for (var dir : Direction.Plane.HORIZONTAL) {
-                var candle = pos.relative(dir,2);
-                test.assertTrue(level.getBlockState(candle).is(Blocks.RED_CANDLE),"Natural ritual candle is missing");
-                level.setBlockAndUpdate(candle,Blocks.RED_CANDLE.defaultBlockState());
+                var lamp = pos.relative(dir,2);
+                test.assertTrue(level.getBlockState(lamp).is(BloomContent.LANTERN.get()),"Natural ritual lamp is missing");
+                test.assertTrue(level.getBlockState(lamp.below()).isFaceSturdy(level,lamp.below(),Direction.UP),"Floating lantern");
+                level.setBlockAndUpdate(lamp,BloomContent.LANTERN.get().defaultBlockState());
             }
             test.assertFalse(theme.seal.get().useOn(ctx).consumesAction(), "Unlit altar summoned boss");
             test.assertTrue(ctx.getItemInHand().getCount()==2,"Refused ritual consumed seal");
             for (var dir : Direction.Plane.HORIZONTAL)
-                level.setBlockAndUpdate(pos.relative(dir,2), Blocks.RED_CANDLE.defaultBlockState().setValue(CandleBlock.LIT,true));
-            test.assertTrue(theme.seal.get().useOn(ctx).consumesAction(),"Four lit candles failed to summon at "+pos);
+                level.setBlockAndUpdate(pos.relative(dir,2), BloomContent.LANTERN.get().defaultBlockState().setValue(BlockStateProperties.LIT,true));
+            test.assertTrue(theme.seal.get().useOn(ctx).consumesAction(),"Four lit lanterns failed to summon at "+pos);
             var guardians = level.getEntitiesOfClass(VeilGuardian.class, new AABB(pos).inflate(6),e->e.theme==theme);
             test.assertTrue(guardians.size()==1 && ctx.getItemInHand().getCount()==1, "Summon must cost one seal for one boss");
             test.assertFalse(theme.seal.get().useOn(ctx).consumesAction(),"Duplicate guardian");

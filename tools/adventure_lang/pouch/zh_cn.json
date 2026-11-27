@@ -2,6 +2,6 @@
   "item.sakura_bloom.knotwork_pouch": "百结锦囊",
   "item.sakura_bloom.cloud_brocade_pouch": "云锦百结囊",
   "pouch.sakura_bloom.capacity": "锦格 %s×%s · 收存 %s 件饰品",
-  "pouch.sakura_bloom.wear": "副手或腰带佩戴生效，副手锦囊优先",
+  "pouch.sakura_bloom.wear": "佩戴在 Curios 腰带上可激活囊中旅饰",
   "pouch.sakura_bloom.controls": "左键取放 · 右键或 R 旋转"
 }

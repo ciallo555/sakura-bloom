@@ -1,5 +1,9 @@
 package dev.sakurabloom;
 
+import dev.sakurabloom.adventure.shrine.PrayerPreviewClient;
+import dev.sakurabloom.adventure.shrine.ShrineAdventure;
+import mezz.jei.api.runtime.IJeiRuntime;
+import java.util.List;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
@@ -19,6 +23,8 @@ public final class BloomJeiPlugin implements IModPlugin {
     private static final RecipeType<RecipeHolder<MortarRecipe>> GRINDING =
         RecipeType.createRecipeHolderType(SakuraBloom.id("grinding"));
 
+    private List<PrayerCategory.Preview> visiblePrayers = List.of();
+
     @Override
     public ResourceLocation getPluginUid() {
         return SakuraBloom.id("jei");
@@ -26,7 +32,8 @@ public final class BloomJeiPlugin implements IModPlugin {
 
     @Override
     public void registerCategories(IRecipeCategoryRegistration registration) {
-        registration.addRecipeCategories(new GrindingCategory(registration.getJeiHelpers().getGuiHelper()));
+        registration.addRecipeCategories(new GrindingCategory(registration.getJeiHelpers().getGuiHelper()),
+            new PrayerCategory(registration.getJeiHelpers().getGuiHelper()));
     }
 
     @Override
@@ -35,14 +42,35 @@ public final class BloomJeiPlugin implements IModPlugin {
         if (level != null) {
             registration.addRecipes(GRINDING, level.getRecipeManager().getAllRecipesFor(BloomContent.GRINDING.get()));
         }
+        visiblePrayers = PrayerCategory.previews(PrayerPreviewClient.current());
+        registration.addRecipes(PrayerCategory.TYPE,visiblePrayers);
         registration.addIngredientInfo(BloomContent.MORTAR_ITEM.get(),
             Component.translatable("block.sakura_bloom.flower_mortar.hint"));
     }
 
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
+        registration.addRecipeCatalysts(PrayerCategory.TYPE,ShrineAdventure.BOX_ITEM.get());
         registration.addRecipeCatalysts(GRINDING, BloomContent.MORTAR_ITEM.get());
     }
+
+    @Override
+    public void onRuntimeAvailable(IJeiRuntime runtime) {
+        var manager = runtime.getRecipeManager();
+        java.util.function.Consumer<List<dev.sakurabloom.adventure.shrine.PrayerRewards.Prize>> update = prizes -> {
+            var fresh = PrayerCategory.previews(prizes);
+            if (fresh.equals(visiblePrayers)) return;
+            manager.hideRecipes(PrayerCategory.TYPE,visiblePrayers);
+            manager.addRecipes(PrayerCategory.TYPE,fresh);
+            manager.unhideRecipes(PrayerCategory.TYPE,fresh);
+            visiblePrayers = fresh;
+        };
+        PrayerPreviewClient.setListener(update);
+        update.accept(PrayerPreviewClient.current());
+    }
+
+    @Override
+    public void onRuntimeUnavailable() { PrayerPreviewClient.setListener(null); }
 
     private static final class GrindingCategory extends StationCategory<RecipeHolder<MortarRecipe>> {
         GrindingCategory(IGuiHelper gui) {

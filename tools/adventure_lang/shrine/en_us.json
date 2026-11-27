@@ -17,5 +17,13 @@
   "shrine.sakura_bloom.fan": "“This maple fan is called Kamikakushi. Follow its wind into the Interstice.” You receive the fan and 4 Blossom Scrip.",
   "shrine.sakura_bloom.pray": "Offering received. Use the box with an empty hand to pray.",
   "shrine.sakura_bloom.deposit": "Offer one Blossom Scrip, then pray with an empty hand.",
-  "shrine.sakura_bloom.blessing": "A bell sounds. A shrine gift rests in your hand."
+  "shrine.sakura_bloom.blessing": "A bell sounds. A shrine gift rests in your hand.",
+  "item.sakura_bloom.dusk_fox_spawn_egg": "Dusk Fox Spawn Egg",
+  "item.sakura_bloom.ink_wolf_spawn_egg": "Inkmane Wolf Spawn Egg",
+  "item.sakura_bloom.gloom_hare_spawn_egg": "Gloam Hare Spawn Egg",
+  "item.sakura_bloom.shrine_maiden_spawn_egg": "Cherry Shrine Maiden Spawn Egg",
+  "item.sakura_bloom.lantern_wisp_spawn_egg": "Lantern Wisp Spawn Egg",
+  "item.sakura_bloom.veil_sentinel_spawn_egg": "Sanctum Sentinel Spawn Egg",
+  "jei.sakura_bloom.shrine_prayer": "Shrine Prayer",
+  "jei.sakura_bloom.prayer_odds": "Chance per prayer  %s"
 }
